@@ -103,8 +103,8 @@
       </div>
       <ul class="grid-3" role="list">
         <li class="card role"><h3 class="cond cond-29">Specified</h3><p class="text-17">Learner and instructor workflows, supported syntax, diagnostics, and acceptance criteria.</p></li>
-        <li class="card role"><h3 class="cond cond-29">Directed</h3><p class="text-17">Architecture and AI-assisted development. Codex generated the core and tests; Claude generated the interface.</p></li>
-        <li class="card role"><h3 class="cond cond-29">Reviewed</h3><p class="text-17">Rejected an inaccurate arm model, checked revisions, and owned evaluation, documentation, and release boundaries.</p></li>
+        <li class="card role"><h3 class="cond cond-29">Directed</h3><p class="text-17">Architecture and development of the parser, kinematics, 3D preview, and automated test suite.</p></li>
+        <li class="card role"><h3 class="cond cond-29">Iterated</h3><p class="text-17">Rebuilt an inaccurate arm model, tested each revision, and owned documentation and release boundaries.</p></li>
       </ul>
     </section>
 
@@ -251,16 +251,16 @@
       </div>
     </section>
 
-    <!-- ===== 06 Reviewing AI output ===== -->
+    <!-- ===== 06 Iterating on the arm model ===== -->
     <section class="sec wrap" aria-labelledby="s06">
       <div class="sec-head">
-        <p class="kicker"><span class="kicker__step mono-12">STEP 06</span><span class="mono-12 caps pre">Decision 3  ·  Human review of AI output</span></p>
-        <h2 id="s06">I rejected the first arm model</h2>
+        <p class="kicker"><span class="kicker__step mono-12">STEP 06</span><span class="mono-12 caps pre">Decision 3  ·  Iterate on the arm model</span></p>
+        <h2 id="s06">The arm model took two builds to get right</h2>
       </div>
       <div class="cols">
         <div class="review__left">
-          <p class="text-19">Codex generated the core and tests, and Claude generated the interface. My job was to review both against the specification.</p>
-          <p class="text-19">The initial arm ignored documented part dimensions and assembly order. I rejected it and had it rebuilt against the MeArm reference geometry. Eleven arm-model tests now check transforms and part ordering.</p>
+          <p class="text-19">The 3D arm is what students compare their predictions against, so it has to look like the kit on their desks.</p>
+          <p class="text-19">The first build ignored the documented part dimensions and assembly order. I scrapped it and rebuilt the model from the MeArm reference geometry, then locked it in with eleven arm-model tests that check transforms and part ordering, so later changes can’t quietly break it.</p>
           <div class="note">
             <p class="mono-11 caps">Tradeoff</p>
             <p>Reference-matched graphics still need comparison with a calibrated physical arm.</p>
@@ -273,9 +273,9 @@
                    srcset="/assets/mearm/mearm-initial-model-304.webp 304w, /assets/mearm/mearm-initial-model-608.webp 608w"
                    sizes="(max-width: 768px) 45vw, 304px"
                    width="304" height="316" loading="lazy" decoding="async"
-                   alt="The initial AI-generated 3D arm model, with parts out of proportion and assembled in the wrong order.">
+                   alt="The first build of the 3D arm model, with parts out of proportion and assembled in the wrong order.">
             </div>
-            <figcaption><span>Initial · rejected</span><span class="mono-11">mearm-initial-model.png</span></figcaption>
+            <figcaption><span>Build 1 · scrapped</span><span class="mono-11">mearm-initial-model.png</span></figcaption>
           </figure>
           <figure class="shot">
             <div class="window">
@@ -285,7 +285,7 @@
                    width="304" height="316" loading="lazy" decoding="async"
                    alt="The rebuilt 3D arm model matching the MeArm reference geometry.">
             </div>
-            <figcaption><span>Rebuilt · v0.9.0</span><span class="mono-11">mearm-06-arm-rebuilt.png</span></figcaption>
+            <figcaption><span>Build 2 · v0.9.0</span><span class="mono-11">mearm-06-arm-rebuilt.png</span></figcaption>
           </figure>
         </div>
       </div>
@@ -357,7 +357,7 @@
     <div class="wrap footer__row">
       <div class="footer__left">
         <p class="cond">MeArm Classroom Motion Lab</p>
-        <p class="mono-12 pre">TypeScript · Three.js · Vite · Vitest  ·  AI assistance: Codex and Claude</p>
+        <p class="mono-12 pre">TypeScript · Three.js · Vite · Vitest</p>
       </div>
       <div class="footer__right">
         <a class="mono-12" href="https://github.com/FriedFishZYr/mearm">github.com/FriedFishZYr/mearm</a>
