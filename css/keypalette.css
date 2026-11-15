@@ -69,8 +69,7 @@ a:hover {
   font-weight: 700;
   font-size: 14px;
   line-height: normal;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .muted {
@@ -83,12 +82,13 @@ a:hover {
 .title-32 {
   font-weight: 700;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
 }
-.title-24 { font-size: 24px; line-height: 24px; }
-.title-26 { font-size: 26px; line-height: 26px; }
-.title-28 { font-size: 28px; line-height: 28px; }
-.title-32 { font-size: 32px; line-height: 32px; }
+/* Subtitles are sentence case (only section titles are caps), so line
+   heights leave room for descenders. */
+.title-24 { font-size: 24px; line-height: 27px; }
+.title-26 { font-size: 26px; line-height: 29px; }
+.title-28 { font-size: 28px; line-height: 31px; }
+.title-32 { font-size: 32px; line-height: 35px; }
 
 .body-15 { font-size: 15px; line-height: 24px; color: var(--muted); }
 .body-16 { font-size: 16px; line-height: 25px; color: var(--muted); }
@@ -431,9 +431,8 @@ a:hover {
   flex: 0 0 380px;
   font-weight: 700;
   font-size: 32px;
-  line-height: 32px;
+  line-height: 35px;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
 }
 
 .principle__text {
@@ -759,7 +758,7 @@ a:hover {
   .principle__title {
     flex-basis: 260px;
     font-size: 28px;
-    line-height: 28px;
+    line-height: 31px;
   }
   .releases {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -837,7 +836,7 @@ a:hover {
   }
   .principle__title {
     font-size: 26px;
-    line-height: 26px;
+    line-height: 29px;
   }
   .decision {
     flex-direction: column;

@@ -224,12 +224,25 @@ a:hover {
   font-weight: 600;
   font-size: 15px;
   line-height: 20px;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
 }
 
+/* Hover picks up the page's hard gold shadow; pressing pushes the
+   button into it. */
 .button-link:hover {
   background: var(--ink);
   color: var(--kraft);
   text-decoration: none;
+  box-shadow: 3px 3px 0 0 var(--gold);
+}
+
+.button-link:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 var(--gold);
 }
 
 /* ---------- Body rhythm ---------- */
