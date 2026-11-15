@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MuFIN case study — Yinran Zhu</title>
+  <meta name="description" content="A randomized study of two feedback designs for online calculus, then a closer look at what each learner did right after answering the feedback’s own question.">
+  <link rel="canonical" href="https://friedfishzyr.github.io/work/mufin/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Yinran Zhu">
+  <meta property="og:title" content="How learners use AI feedback to fix their own mistakes — MuFIN case study">
+  <meta property="og:description" content="A randomized study of two feedback designs for online calculus, then a closer look at what each learner did right after answering the feedback’s own question.">
+  <meta property="og:url" content="https://friedfishzyr.github.io/work/mufin/">
+  <meta property="og:image" content="https://friedfishzyr.github.io/assets/og/mufin.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="AI feedback interface for a calculus limits problem, with a graph diagnosing the learner’s error.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/mufin.css">
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav__bar">
+      <a class="nav__name" href="/">Yinran Zhu</a>
+      <nav aria-label="Main">
+        <ul class="nav__links" role="list">
+          <li><a class="is-current" href="/#work">Work</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="https://drive.google.com/file/d/1gkcjEiH1-XC1gn6kAeQXWxprg3A8apSt/view?usp=sharing">Resume</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Hero ===== -->
+    <section class="hero" aria-labelledby="mufin-title">
+      <div class="wrap">
+        <p class="label">Case study: UX and learning science research</p>
+        <h1 id="mufin-title" class="hero__title">How learners use AI feedback to fix their own mistakes</h1>
+        <p class="hero__lede">A randomized study of two feedback designs for online calculus, then a closer look at what each learner did right after answering the feedback’s own question.</p>
+
+        <div class="hero__visual">
+          <div class="browser">
+            <div class="browser__bar" aria-hidden="true">
+              <span class="browser__dot"></span><span class="browser__dot"></span><span class="browser__dot"></span>
+              <span class="browser__url">learnvia.app / calculus / limits · feedback</span>
+              <span class="browser__spacer"></span>
+            </div>
+            <div class="browser__content">
+              <img src="/assets/mufin/hero-interface.svg" width="688" height="379" fetchpriority="high"
+                   alt="MuFIN feedback, Section 1, visual error diagnosis: a graph of f(x) = x² shows the learner’s denominator x + 2 anchored at −2 instead of x − 2 anchored at 2, beside narrated text and audio controls.">
+            </div>
+          </div>
+
+          <div class="pull">
+            <p class="pull__label">Fixed the original problem on the next try</p>
+            <div class="pull__numbers">
+              <div class="pull__col">
+                <p class="pull__num">55%</p>
+                <p class="pull__sub">after an incorrect<br>embedded answer</p>
+              </div>
+              <p class="pull__arrow" aria-hidden="true">→</p>
+              <div class="pull__col">
+                <p class="pull__num pull__num--accent">85%</p>
+                <p class="pull__sub">after a full-credit<br>embedded answer</p>
+              </div>
+            </div>
+            <p class="pull__note">Adjusted probabilities across 492 feedback episodes from a randomized study of two feedback designs with 138 learners. An association, not a causal effect; intervals in section 04.</p>
+          </div>
+        </div>
+
+        <dl class="strip">
+          <div class="meta"><dt>My role</dt><dd>Sole analyst on the pathway analysis</dd></div>
+          <div class="meta"><dt>Team study</dt><dd>MuFIN research group, Carnegie Mellon</dd></div>
+          <div class="meta"><dt>Timeline</dt><dd>August 2026 to present</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===== In short ===== -->
+    <section class="band band--grey" aria-labelledby="in-short">
+      <div class="wrap">
+        <h2 id="in-short" class="serif-40">In short</h2>
+        <ul class="stats" role="list">
+          <li class="stat"><p class="stat__num">138</p><p class="stat__text">learners randomly assigned to two feedback designs (team study)</p></li>
+          <li class="stat"><p class="stat__num">492</p><p class="stat__text">feedback episodes I rebuilt from raw interaction logs</p></li>
+          <li class="stat"><p class="stat__num stat__num--accent">+30.5</p><p class="stat__text">percentage points more likely to fix the problem after a full-credit embedded answer</p></li>
+          <li class="stat"><p class="stat__num">32</p><p class="stat__text">edge cases I reviewed one by one</p></li>
+        </ul>
+        <ul class="topics" role="list">
+          <li class="topic"><h3 class="serif-22">More activity was not more learning.</h3><p>The try-again-first design produced more submissions and lower uptake, with no detectable learning difference.</p></li>
+          <li class="topic"><h3 class="serif-22">The answer inside the feedback is a strong signal.</h3><p>A full-credit embedded answer went with a 30-point higher chance of fixing the original problem, and it held across every robustness check.</p></li>
+          <li class="topic"><h3 class="serif-22">That signal has blind spots worth designing for.</h3><p>About 1 in 8 full-credit answers still failed. Case review traced several to a concept-versus-calculation gap and inconsistent scoring.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== Intro and scope ===== -->
+    <section class="band" aria-label="Research question and project scope">
+      <div class="wrap">
+        <div class="scope">
+          <div class="scope__q">
+            <h2 class="label">Research question</h2>
+            <p class="scope__question">When should AI feedback ask a learner to try again, and when should it explain more?</p>
+          </div>
+          <div class="scope__list">
+            <h2>Project scope</h2>
+            <dl class="scope__list">
+              <div class="meta"><dt>Project</dt><dd>MuFIN research group, Carnegie Mellon University</dd></div>
+              <div class="meta"><dt>Timeline</dt><dd>August 2026 to present</dd></div>
+              <div class="meta"><dt>My role</dt><dd>Research assistant through an independent study. Sole analyst on the pathway analysis.</dd></div>
+              <div class="meta"><dt>Team</dt><dd>MuFIN research team: feedback design and the randomized study</dd></div>
+              <div class="meta"><dt>Methods</dt><dd>Randomized experiment, log analysis, Bayesian multilevel modeling, robustness checks, qualitative case review</dd></div>
+              <div class="meta"><dt>Tools</dt><dd>Python (PyMC, nutpie, ArviZ), LearnVia, Prolific</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Project overview ===== -->
+    <section class="band band--grey" aria-labelledby="overview">
+      <div class="wrap">
+        <h2 id="overview" class="serif-40">Project overview</h2>
+        <div class="topics">
+          <div class="topic">
+            <h3 class="serif-22">Context</h3>
+            <p>Online calculus learners often know an answer is wrong without knowing why. MuFIN’s LLM-generated feedback narrates a visual diagnosis of the error, asks a short question about it, and offers an explanation.</p>
+          </div>
+          <div class="topic">
+            <h3 class="serif-22">Objectives</h3>
+            <ul class="bullets" role="list">
+              <li>Compare two ways of timing the explanation (team study)</li>
+              <li>Find out whether a good answer inside the feedback carries over to the original problem</li>
+              <li>Turn the evidence into design changes and a testable next study</li>
+            </ul>
+          </div>
+          <div class="topic">
+            <h3 class="serif-22">Notes</h3>
+            <p>The MuFIN team designed and ran the randomized study. I joined in August 2026 and led the pathway analysis as an independent study. Design recommendations are proposed, not yet implemented.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Methodology ===== -->
+    <section class="band" aria-labelledby="method">
+      <div class="wrap">
+        <h2 id="method" class="serif-40">Methodology</h2>
+        <p class="lead-19" style="max-width: 760px">The team ran the experiment. I picked up the question it left open and took it through six steps, each built on the last.</p>
+        <ol class="steps steps--process" role="list">
+          <li class="step step--team"><p class="step__num">1</p><p class="step__title">Team study</p><p class="step__text">Randomized comparison, 138 learners</p></li>
+          <li class="step"><p class="step__num">2</p><p class="step__title">Open question</p><p class="step__text">Does a good embedded answer carry over?</p></li>
+          <li class="step"><p class="step__num">3</p><p class="step__title">Episode rebuild</p><p class="step__text">492 episodes from raw logs</p></li>
+          <li class="step"><p class="step__num">4</p><p class="step__title">Bayesian model</p><p class="step__text">Learner and problem effects, pre-test</p></li>
+          <li class="step"><p class="step__num">5</p><p class="step__title">Stress tests</p><p class="step__text">8 specifications, 67 refits</p></li>
+          <li class="step"><p class="step__num">6</p><p class="step__title">Case review</p><p class="step__text">All 32 mismatch cases</p></li>
+          <li class="step"><p class="step__num">7</p><p class="step__title">Design and next study</p><p class="step__text">5 recommendations, 1 experiment</p></li>
+        </ol>
+        <ul class="legend" role="list">
+          <li class="is-team">Team</li>
+          <li>My work</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 01 Team study ===== -->
+    <section class="band band--grey" aria-labelledby="s01">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head__left">
+            <p class="sec-head__num">01</p>
+            <p class="sec-head__kicker">The team study</p>
+          </div>
+          <div class="sec-head__right">
+            <h2 id="s01">Two answers to the assistance dilemma</h2>
+            <p class="lead-19">Too much help too early can cut learning short; too little can leave learners stuck (Koedinger and Aleven, 2007). The team tested two versions of the same feedback that differ only in when the full explanation appears.</p>
+          </div>
+        </div>
+
+        <div class="conditions">
+          <div class="condition">
+            <div class="condition__label">
+              <h3 class="serif-26" style="line-height: 31px">Non-layered</h3>
+              <p class="condition__mode">Explain early</p>
+              <p>74 learners</p>
+            </div>
+            <div class="condition__flow">
+              <img src="/assets/mufin/flow-non-layered.svg" width="680" height="40" loading="lazy" decoding="async"
+                   alt="Non-layered flow: Diagnosis, then Concept + example, then Embedded question, then Explanation.">
+              <p class="body-17">The full explanation is available after every wrong attempt. It helps learners with less prior knowledge, but may cut short their own work on the error.</p>
+            </div>
+          </div>
+          <div class="condition">
+            <div class="condition__label">
+              <h3 class="serif-26" style="line-height: 31px">Layered</h3>
+              <p class="condition__mode">Try again first</p>
+              <p>64 learners</p>
+            </div>
+            <div class="condition__flow">
+              <img src="/assets/mufin/flow-layered.svg" width="680" height="76" loading="lazy" decoding="async"
+                   alt="Layered flow: Diagnosis, then Embedded question, then Retry problem, repeating until correct; the Explanation comes later, if still incorrect.">
+              <p class="body-17">The explanation waits while learners retry, much like tiered hints in tutoring systems. Short answers unlock it after the third attempt.</p>
+            </div>
+          </div>
+        </div>
+
+        <figure class="panel-fig fig">
+          <div class="scroll-x" style="--min: 720px" tabindex="0" role="region" aria-label="Layered feedback interface, scrolls sideways on small screens">
+            <img src="/assets/mufin/layered-feedback-interface.svg" width="1056" height="292" loading="lazy" decoding="async"
+                 alt="Two feedback panels. Section 1, visual error diagnosis: a graph and narration explain the learner’s denominator error. Section 2, error-based question: “Try again.” with a question asking which denominator should be under x squared minus four, a response box and a Check response button.">
+          </div>
+          <figcaption class="caption">MuFIN’s layered feedback, recreated from the project manuscript’s Figure 4. A narrated visual diagnosis explains the error (left); an embedded question asks the learner to act on it (right). Both conditions share this content and differ only in when the full explanation appears.</figcaption>
+        </figure>
+
+        <h3 class="label">One session, about 75 minutes plus screening</h3>
+        <div class="fig scroll-x" style="--min: 720px" tabindex="0" role="region" aria-label="Session timeline, scrolls sideways on small screens">
+          <img src="/assets/mufin/session-timeline.svg" width="1120" height="64" loading="lazy" decoding="async"
+               alt="Session timeline: pre-test and survey, 13 minutes; practice with assigned feedback, about 45 minutes, the only part that differs; post-test and transfer, then survey, 12 minutes plus 5 minutes.">
+        </div>
+        <p class="lead-18"><strong>Measured:</strong> learning (pre/post test and two transfer items), behavior logs, the quality of embedded answers, and an experience survey.</p>
+
+        <div class="fig-block" style="gap: 20px">
+          <h3 class="serif-28">What the team found</h3>
+          <ul class="topics topics--4" role="list">
+            <li class="topic"><h4 class="serif-22">Learning</h4><p>No detectable difference in post-test or transfer scores.</p></li>
+            <li class="topic"><h4 class="serif-22">Behavior</h4><p>Layered learners submitted more (median 17 vs. 12) but corrected fewer errors (uptake 70.9% vs. 80.5%).</p></li>
+            <li class="topic"><h4 class="serif-22">Response quality</h4><p>In both groups, better embedded answers went with better post-test and transfer scores.</p></li>
+            <li class="topic"><h4 class="serif-22">Experience</h4><p>No differences in engagement, cognitive load, or perceived feedback.</p></li>
+          </ul>
+          <p class="footnote">Adjusted for pre-test: post-test +0.33 of 6 (95% CI −0.19 to 0.85); transfer −0.08 of 2 (−0.33 to 0.18). Uptake is the share of a learner’s errors corrected on the next observed attempt. Source: project manuscript, sections 3–5 and Tables 1–3.</p>
+        </div>
+
+        <div class="open-q">
+          <p class="label">The question this left open</p>
+          <p class="open-q__text">Averaged per learner, response quality predicted learning. But the moment that matters for design is smaller: right after a learner answers the feedback’s question, can they fix the original problem?</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 02 Unit of analysis ===== -->
+    <section class="band" aria-labelledby="s02">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head__left">
+            <p class="sec-head__num">02</p>
+            <p class="sec-head__kicker">Pathway analysis: method</p>
+          </div>
+          <div class="sec-head__right">
+            <h2 id="s02">I changed the unit of analysis from learner to episode</h2>
+            <p class="lead-19">The team study compared people. I zoomed in on moments: every time a learner got a problem wrong, how they answered the feedback question, and what they did next on the same problem. The approach builds on research into how learners process hints (Goldin, Koedinger and Aleven, 2012).</p>
+          </div>
+        </div>
+
+        <ol class="steps" role="list">
+          <li class="step"><p class="step__num">1</p><p class="step__title">Initial error</p><p class="step__text">First attempt on a problem, kept only if wrong</p></li>
+          <li class="step"><p class="step__num">2</p><p class="step__title">Feedback</p><p class="step__text">Linked display and embedded question</p></li>
+          <li class="step"><p class="step__num">3</p><p class="step__title">Embedded answer</p><p class="step__text">Last recorded score: 0, 1, or 2</p></li>
+          <li class="step"><p class="step__num">4</p><p class="step__title">Next attempt</p><p class="step__text">Next submission on the same problem</p></li>
+        </ol>
+        <p class="caption">Scope: the layered group, where learners retry before the full explanation appears. Observational, not a second experiment.</p>
+
+        <figure class="fig-block fig-block--16 fig">
+          <div class="scroll-x" style="--min: 760px" tabindex="0" role="region" aria-label="Episode pathways diagram, scrolls sideways on small screens">
+            <img src="/assets/mufin/episode-pathways.svg" width="1120" height="410" loading="lazy" decoding="async"
+                 alt="Episode pathways: an incorrect original response leads to feedback (visual diagnosis and embedded question), then to a last embedded score of full credit or partial/incorrect, then to the next attempt on the same problem: correct, incorrect, or no observed reattempt. Six paths are labeled A to F; path B, full credit then incorrect, is highlighted.">
+          </div>
+          <ul class="path-legend" role="list">
+            <li><b>A</b><span>Correct → correct</span></li>
+            <li class="is-accent"><b>B</b><span>Correct → incorrect (32 cases, section 05)</span></li>
+            <li><b>C</b><span>Correct → no reattempt</span></li>
+            <li><b>D</b><span>Partial/incorrect → correct</span></li>
+            <li><b>E</b><span>Partial/incorrect → incorrect</span></li>
+            <li><b>F</b><span>Partial/incorrect → no reattempt</span></li>
+          </ul>
+          <figcaption class="caption">How I defined an episode before touching the data: one incorrect response, the feedback with its embedded question, the final embedded score (0, 1 or 2), and the next attempt on the same problem. Six observed pathways, A to F; path B is the 32 cases read one by one in section 05. The per-student extension was scoped out of this round.</figcaption>
+        </figure>
+
+        <h3 class="serif-26">Judgment calls that shaped the data</h3>
+        <ul class="topics" role="list">
+          <li class="topic"><h4 class="serif-22">Write the plan before fitting.</h4><p>I saved the analysis specification before seeing any model result.</p></li>
+          <li class="topic"><h4 class="serif-22">Count first errors only.</h4><p>One episode per learner and problem, so repeated failures on a hard item can’t dominate.</p></li>
+          <li class="topic"><h4 class="serif-22">Use the last score, not the best.</h4><p>An earlier lucky answer shouldn’t get credit for where the learner ended up.</p></li>
+        </ul>
+        <ul class="topics" role="list">
+          <li class="topic"><h4 class="serif-22">A missing retry is not a failure.</h4><p>131 episodes without a retry are described, but kept out of the correctness model.</p></li>
+          <li class="topic"><h4 class="serif-22">Rebuild, then re-check.</h4><p>An independent rebuild matched the episode table row by row.</p></li>
+          <li class="topic"><h4 class="serif-22">Name what a score can’t show.</h4><p>A score is performance with support, not independent mastery.</p></li>
+        </ul>
+
+        <h3 class="serif-26">From raw logs to the analysis sample</h3>
+        <div class="fig scroll-x" style="--min: 680px" tabindex="0" role="region" aria-label="Sample funnel, scrolls sideways on small screens">
+          <img src="/assets/mufin/sample-funnel.svg" width="1120" height="136" loading="lazy" decoding="async"
+               alt="Sample funnel: 510 initial-error episodes (first attempt on a problem was wrong); 492 with a known embedded score (63 learners; 18 episodes lacked a usable score); 361 with an observed, scored retry (56 learners; 131 without a retry are described, not counted as failures).">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 03 Course corrections ===== -->
+    <section class="band band--grey" aria-labelledby="s03">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head__left">
+            <p class="sec-head__num">03</p>
+            <p class="sec-head__kicker">Course corrections</p>
+          </div>
+          <div class="sec-head__right">
+            <h2 id="s03">What I got wrong, and how I fixed it</h2>
+            <p class="lead-19">Four checks changed the analysis after the first pass. None of them overturned the main result, but each changed how much weight it can bear.</p>
+          </div>
+        </div>
+
+        <ul class="rows" role="list">
+          <li class="row">
+            <div class="row__left">
+              <h3>Two-option questions could be solved by switching</h3>
+              <p class="body-17">My first model included three questions with only two answer choices, where changing a known wrong option is enough to succeed.</p>
+            </div>
+            <div class="row__right">
+              <p class="row__label">What changed</p>
+              <p class="body-17">I refit without them: 309 retries from 52 learners. The full-credit signal held at <strong>+33.3 points</strong> (21.1 to 46.2).</p>
+            </div>
+          </li>
+          <li class="row">
+            <div class="row__left">
+              <h3>An inherited claim did not reproduce</h3>
+              <p class="body-17">A planning memo said 3 of the 32 mismatch cases repeated the original wrong answer, and it mixed up the two-option items with the all-correct items.</p>
+            </div>
+            <div class="row__right">
+              <p class="row__label">What changed</p>
+              <p class="body-17">The raw logs show <strong>2 of 32</strong> (1 of 25 multiple-choice). I tested the memo’s numbers against the raw logs instead of building on them.</p>
+            </div>
+          </li>
+          <li class="row">
+            <div class="row__left">
+              <h3>My own first report overstated a limitation</h3>
+              <p class="body-17">It said the embedded prompts were missing from the data export.</p>
+            </div>
+            <div class="row__right">
+              <p class="row__label">What changed</p>
+              <p class="body-17">The follow-up recovered source-linked prompts for <strong>all 92</strong> short-answer episodes in the layered group, and I corrected the claim in writing.</p>
+            </div>
+          </li>
+          <li class="row">
+            <div class="row__left">
+              <h3>One item’s answer key disagreed with the logs</h3>
+              <p class="body-17">For one multiple-choice item, the question bank’s answer key disagreed with <strong>207</strong> logged attempts.</p>
+            </div>
+            <div class="row__right">
+              <p class="row__label">What changed</p>
+              <p class="body-17">I withheld misconception labels for its two cases rather than guess.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 04 Findings ===== -->
+    <section class="band" aria-labelledby="s04">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head__left">
+            <p class="sec-head__num">04</p>
+            <p class="sec-head__kicker">Pathway analysis: results</p>
+          </div>
+          <div class="sec-head__right">
+            <h2 id="s04">A full-credit answer is a strong signal</h2>
+            <p class="lead-19">Across 492 episodes, what a learner did inside the feedback predicted what they did next, even after accounting for prior knowledge, learner differences, and problem difficulty.</p>
+          </div>
+        </div>
+
+        <figure class="fig-block fig">
+          <h3 class="serif-28">Where 492 feedback episodes led</h3>
+          <div class="scroll-x" style="--min: 760px" tabindex="0" role="region" aria-label="Sankey chart of episode pathways, scrolls sideways on small screens">
+            <img src="/assets/mufin/sankey-episode-pathways.svg" width="1120" height="470" loading="lazy" decoding="async"
+                 alt="Sankey chart from last embedded score to next attempt on the original problem. Full credit (score 2, 332 episodes), partial credit (score 1, 32) and incorrect (score 0, 128) flow to correct (278 episodes), wrong again (83) and no retry observed (131). A highlighted band shows 32 full-credit episodes that ended wrong again.">
+          </div>
+          <p class="lead-18"><strong>In plain terms:</strong> most full-credit answers led to a fix on the next try. 32 did not, and those are the cases I read one by one in section 05.</p>
+          <figcaption class="caption">Each band is a set of episodes, from the learner’s last embedded score (left) to their next attempt on the same problem (right). 63 learners, 18 scored problems. A missing retry is shown, not counted as a failure.</figcaption>
+        </figure>
+
+        <div class="fig-block">
+          <h3 class="serif-28">Full credit made a fix about 30 points more likely</h3>
+          <div class="probs">
+            <ul class="probs__nums" role="list">
+              <li class="prob"><p class="prob__num">55%</p><p class="prob__text">next-attempt success after an incorrect embedded answer (43 to 65)</p></li>
+              <li class="prob"><p class="prob__num">74%</p><p class="prob__text">after partial credit (54 to 87, uncertain)</p></li>
+              <li class="prob"><p class="prob__num">85%</p><p class="prob__text">after full credit (81 to 89)</p></li>
+            </ul>
+            <div class="probs__aside">
+              <p class="probs__headline">Full credit vs. incorrect: <strong>+30.5 points</strong> (95% credible interval 18.7 to 43.0). An association, not a causal effect.</p>
+              <p class="probs__why"><strong>Why this model.</strong> Episodes from one learner are related, problems differ in difficulty, and partial-credit cells are small (22 retries). A Bayesian multilevel logistic model with crossed learner and problem effects, adjusted for pre-test, handles all three and reports uncertainty directly.</p>
+            </div>
+          </div>
+          <p class="caption">Adjusted probability that the next attempt on the same problem is correct, among 361 observed retries. Ranges are 95% credible intervals.</p>
+        </div>
+
+        <figure class="fig-block fig">
+          <h3 class="serif-28">Does the result survive different analysis choices?</h3>
+          <div class="scroll-x" style="--min: 760px" tabindex="0" role="region" aria-label="Robustness forest plot, scrolls sideways on small screens">
+            <img src="/assets/mufin/forest-plot-robustness.svg" width="1120" height="316" loading="lazy" decoding="async"
+                 alt="Forest plot of the difference versus incorrect, in percentage points with 95% credible intervals, under eight specifications: primary model +30.5 (361 retries), wider priors +31.8 (361), score 2 vs. pooled 0 and 1 +26.7 (361), all eligible retries +25.9 (450), exclude delayed returns +30.7 (358), regularized item effects +26.8 (361), learner score-mix adjustment +30.1 (361), drop two-option questions +33.3 (309). Every interval stays above zero.">
+          </div>
+          <p class="lead-18"><strong>In plain terms:</strong> however I cut the data, full credit stayed a strong signal.</p>
+          <figcaption class="caption">Score 2 vs. 0 difference in adjusted probability under eight specifications, with 95% credible intervals; the number column is retries. Every interval stays above zero. A further 67 leave-one-out refits, each dropping one learner or one problem, kept the odds ratio between 5.8 and 8.7, and no interval included 1.</figcaption>
+          <p class="footnote">Comparing designs: the signal looked stronger in layered feedback (odds ratio 6.28 vs. 2.40), but the gap turned inconclusive once item difficulty could vary by condition, so I treat it as a lead to test, not a finding.</p>
+        </figure>
+
+        <div class="topics topics--2">
+          <div class="topic"><h3 class="serif-22">What it supports</h3><p>Embedded-answer quality is a usable, in-the-moment signal of readiness to retry: the kind an adaptive system could act on, once the scorer is checked.</p></div>
+          <div class="topic"><h3 class="serif-22">What it doesn’t</h3><p>Raising a score is not shown to cause success, and full credit is not independent mastery. Partial credit stayed too uncertain to act on.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05 Case review ===== -->
+    <section class="band band--grey" aria-labelledby="s05">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head__left">
+            <p class="sec-head__num">05</p>
+            <p class="sec-head__kicker">Case review</p>
+          </div>
+          <div class="sec-head__right">
+            <h2 id="s05">Where the signal failed</h2>
+            <p class="lead-19">In 32 of 262 retries after a full-credit embedded answer (12.2%), the next attempt was still wrong. Averages can’t say why, so I read every case against the logged prompt, the learner’s answers, and the LearnVia question bank and its skill map.</p>
+          </div>
+        </div>
+
+        <div class="why">
+          <figure class="why__fig fig">
+            <img src="/assets/mufin/one-label-two-patterns.svg" width="640" height="524" loading="lazy" decoding="async"
+                 alt="Hypothetical example, “One label, two different stories”: for f(x) = x², find f′(2) with the limit definition. The first attempt divides by 2 + h instead of h; the embedded question about Δx gets full credit. Pattern A fixes the target error but drops the 4h term (next support: an algebra-expansion hint). Pattern B expands correctly but keeps 2 + h in the denominator (next support: link Δx = h to the denominator). Both get the same label: embedded correct, original incorrect.">
+          </figure>
+          <div class="why__text">
+            <h3 class="serif-26">Why averages weren’t enough</h3>
+            <p class="body-17">Two learners can share one label, right inside the feedback and wrong on the next try, for different reasons. One fixes the targeted error and slips elsewhere; the other keeps the error.</p>
+            <p class="body-17">I made this example before the review to define what to look for. It also showed the limit: a final answer alone often can’t tell the two patterns apart.</p>
+            <p class="why__note">Hypothetical example, not study data.</p>
+          </div>
+        </div>
+
+        <figure class="fig-block fig-block--14 fig">
+          <figcaption class="label" style="line-height: normal">The 32 cases, one square each, grouped by what the logs show</figcaption>
+          <img src="/assets/mufin/32-cases.svg" width="1120" height="28" loading="lazy" decoding="async"
+               alt="32 squares colored by group: 24 picked a different wrong option, 4 named the right concept then gave a wrong number, 2 accepted in feedback but rejected on the problem, 1 typed “HELP” and got full credit, 1 repeated the same wrong option.">
+          <ul class="cases" role="list">
+            <li class="case"><span class="case__swatch" style="--sw: #46515c" aria-hidden="true"></span><p class="case__count">24</p><h3 class="case__title">Picked a different wrong option</h3><p class="case__text body-17">Learners rarely re-picked the same option, but the logs can’t show whether the original misconception remained.</p></li>
+            <li class="case"><span class="case__swatch" style="--sw: #c41230" aria-hidden="true"></span><p class="case__count">4</p><h3 class="case__title">Named the right concept, then gave a wrong number</h3><p class="case__text body-17">The feedback question asked for a concept; the original task asked for a number. Getting the idea is not the same as using it.</p></li>
+            <li class="case"><span class="case__swatch" style="--sw: #e0727f" aria-hidden="true"></span><p class="case__count">2</p><h3 class="case__title">Accepted in feedback, rejected on the problem</h3><p class="case__text body-17">Answers like 6.001 passed the embedded check, then failed the original. Two scorers, two tolerance rules.</p></li>
+            <li class="case"><span class="case__swatch" style="--sw: #f2b8c0" aria-hidden="true"></span><p class="case__count">1</p><h3 class="case__title">Typed “HELP” and got full credit</h3><p class="case__text body-17">A non-answer earned credit. The automated scorer needs a targeted audit.</p></li>
+            <li class="case"><span class="case__swatch" style="--sw: #b9bec4" aria-hidden="true"></span><p class="case__count">1</p><h3 class="case__title">Repeated the same wrong option</h3><p class="case__text body-17">The targeted error may have persisted.</p></li>
+          </ul>
+        </figure>
+        <p class="footnote">25 multiple-choice and 7 short-answer cases, from 24 learners and 13 problems. Mechanisms stay labeled as indeterminate where the logs cannot show the learner’s reasoning.</p>
+
+        <div class="fig-block">
+          <h3 class="serif-28">One case, up close</h3>
+          <ol class="case-steps" role="list">
+            <li class="case-step"><p class="case-step__label">1 Original problem</p><p class="case-step__text">The slope of the tangent line to f at x = 1 is ___.</p><p class="chip">First answer: 3</p></li>
+            <li class="case-step"><p class="case-step__label">2 Feedback question</p><p class="case-step__text">At x equals one, name the approaching quantity that determines the tangent slope.</p></li>
+            <li class="case-step"><p class="case-step__label">3 Learner’s answer</p><p class="case-step__text">“slope of the secant line”</p><p class="chip chip--neutral">Scored full credit</p></li>
+            <li class="case-step"><p class="case-step__label">4 Next attempt</p><p class="case-step__text">Same problem, second try.</p><p class="chip">Answer: 4, still wrong</p></li>
+          </ol>
+          <p class="lead-18"><strong>What it shows.</strong> The learner named the right idea, and the scorer credited it. Nothing asked them to use that idea on the graph, and the number stayed wrong (the answer is 2). Three other learners followed the same path.</p>
+          <p class="caption">Real responses from the case-audit table, anonymized. Prompt text is as logged; which prompt version was on screen is still being verified.</p>
+        </div>
+
+        <div class="stall">
+          <div class="stall__stat">
+            <p class="stat__num">2 of 15</p>
+            <p>short-answer retries correct after an incorrect embedded answer</p>
+          </div>
+          <p class="stall__text lead-18"><strong>Where learners stall.</strong> In layered feedback, 23 of 38 short-answer episodes that ended with an incorrect embedded answer had no retry at all. The samples are small and descriptive, but they point to where waiting to explain may cost the most.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 06 Design implications ===== -->
+    <section class="band" aria-labelledby="s06">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head__left">
+            <p class="sec-head__num">06</p>
+            <p class="sec-head__kicker">Design implications</p>
+          </div>
+          <div class="sec-head__right">
+            <h2 id="s06">Five changes the evidence supports</h2>
+            <p class="lead-19">These are proposed, not implemented. Each one is tied to a specific piece of evidence, so the team can weigh it on its own.</p>
+          </div>
+        </div>
+
+        <ol class="rows" role="list">
+          <li class="row">
+            <div class="row__left"><h3>Explain sooner after a weak embedded answer</h3><p class="body-17">Especially on short-answer problems.</p></div>
+            <div class="row__right"><p class="row__label">Evidence</p><p class="body-17">Adjusted next-attempt success: 55% after an incorrect embedded answer vs. 85% after full credit; the short-answer stall in section 05.</p></div>
+          </li>
+          <li class="row">
+            <div class="row__left"><h3>Bridge from concept to action</h3><p class="body-17">After a conceptual question, prompt the learner to apply it to the original task.</p></div>
+            <div class="row__right"><p class="row__label">Evidence</p><p class="body-17">Four learners named the right concept but missed the number.</p></div>
+          </li>
+          <li class="row">
+            <div class="row__left"><h3>One grading rule per flow</h3><p class="body-17">Share tolerance rules across both scorers, and reject non-answers.</p></div>
+            <div class="row__right"><p class="row__label">Evidence</p><p class="body-17">6.001 was accepted, then rejected; “HELP” scored full credit.</p></div>
+          </li>
+          <li class="row">
+            <div class="row__left"><h3>Judge feedback by quality, not clicks</h3><p class="body-17">Report response quality and next-attempt correction next to activity.</p></div>
+            <div class="row__right"><p class="row__label">Evidence</p><p class="body-17">More submissions in layered feedback came with lower uptake.</p></div>
+          </li>
+          <li class="row">
+            <div class="row__left"><h3>Log what the next study needs</h3><p class="body-17">Prompt versions, option order, answer-reveal events, and retry availability.</p></div>
+            <div class="row__right"><p class="row__label">Evidence</p><p class="body-17">One item’s answer key disagreed with 207 logged attempts; answer-reveal logs were mostly blank.</p></div>
+          </li>
+        </ol>
+
+        <div class="sketches">
+          <h3 class="serif-28">Two of these, sketched</h3>
+          <p class="caption">Concepts for the next study to test. Not built or validated.</p>
+          <div class="concepts">
+            <div class="concept">
+              <div class="concept__text">
+                <p class="concept__label">Concept 1</p>
+                <h4 class="serif-22">Bridge from concept to action</h4>
+                <p>After a full-credit conceptual answer, ask for one application step before sending the learner back to the problem.</p>
+              </div>
+              <div class="mock" role="img" aria-label="Sketch of the embedded question with a new bridge step. Your response: At x equals one, name the approaching quantity that determines the tangent slope. Answer: slope of the secant line. Correct. That quantity sets the tangent slope. New step, use it: On this graph, what number do the secant slopes approach at x = 1? Put it in the original blank. Check response.">
+                <p class="mock__eyebrow">Your response</p>
+                <p class="mock__q">At x equals one, name the approaching quantity that determines the tangent slope.</p>
+                <p class="mock__field">slope of the secant line</p>
+                <p class="mock__ok">Correct. That quantity sets the tangent slope.</p>
+                <div class="mock__bridge">
+                  <p class="mock__eyebrow">New step: use it</p>
+                  <p>On this graph, what number do the secant slopes approach at x = 1? Put it in the original blank.</p>
+                </div>
+                <p class="mock__button">Check response</p>
+              </div>
+            </div>
+            <div class="concept">
+              <div class="concept__text">
+                <p class="concept__label">Concept 2</p>
+                <h4 class="serif-22">Explain sooner after a weak answer</h4>
+                <p>The adaptive rule the next study would test against the current layered rule, with independent problem solving after a delay as the main outcome.</p>
+              </div>
+              <div class="concept__flow">
+                <img src="/assets/mufin/adaptive-rule-flow.svg" width="635" height="320" loading="lazy" decoding="async"
+                     alt="Adaptive explanation rule: incorrect first attempt, then embedded question and retry. If the embedded answer is weak (score 0 or 1) and the retry is still wrong, offer the full explanation; if not, keep the try-again loop.">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 07 Next study ===== -->
+    <section class="band band--grey" aria-labelledby="s07">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head__left">
+            <p class="sec-head__num">07</p>
+            <p class="sec-head__kicker">Next study</p>
+          </div>
+          <div class="sec-head__right">
+            <h2 id="s07">Turn the signal into a testable design decision</h2>
+            <p class="lead-19">The evidence suggests a rule: offer a fuller explanation when the embedded answer is weak and the retry fails. That is a hypothesis, not a result. This is the study I would run to test it.</p>
+          </div>
+        </div>
+
+        <div class="arms">
+          <div class="arm"><p class="arm__label">Control</p><h3 class="serif-26">Current layered rule</h3><p class="body-17">The explanation waits while learners keep retrying.</p></div>
+          <div class="arm arm--treatment"><p class="arm__label">Treatment</p><h3 class="serif-26">Adaptive rule</h3><p class="body-17">Offer the explanation after a weak embedded answer and a failed retry.</p></div>
+        </div>
+        <p class="center-note">Same problems, same feedback content, same logging. Only the timing of the explanation changes.</p>
+
+        <div class="topics topics--2">
+          <div class="topic"><h3 class="serif-22">Primary outcome</h3><p>Independent problem solving after a delay: learning, not in-the-moment correction.</p></div>
+          <div class="topic"><h3 class="serif-22">Secondary outcomes</h3><p>Next-attempt correction, response quality, time, extraneous cognitive load, perceived effort, and drop-off.</p></div>
+        </div>
+
+        <h3 class="serif-28">Before launch</h3>
+        <ol class="steps steps--3" role="list">
+          <li class="step"><p class="step__num">1</p><p class="step__title">Calibrate the scorer</p><p class="step__text">Human-code a sample of embedded answers</p></li>
+          <li class="step"><p class="step__num">2</p><p class="step__title">Run a think-aloud pilot</p><p class="step__text">Check whether learners understand when and why help appears</p></li>
+          <li class="step"><p class="step__num">3</p><p class="step__title">Size the study</p><p class="step__text">Plan around the smallest learning difference worth acting on</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 08 Limits and reflection ===== -->
+    <section class="band" aria-labelledby="s08">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head__left">
+            <p class="sec-head__num">08</p>
+            <p class="sec-head__kicker">Limits and reflection</p>
+          </div>
+          <div class="sec-head__right">
+            <h2 id="s08">What the evidence still can’t tell us</h2>
+            <p class="lead-19">Every finding here is an association inside one remote session. These are the limits worth holding onto before acting on it.</p>
+          </div>
+        </div>
+
+        <ul class="topics" role="list">
+          <li class="topic"><h3 class="serif-22">Causality</h3><p>Learners were randomized to a design, not to answer quality. Ability and the help received may explain part of the link.</p></li>
+          <li class="topic"><h3 class="serif-22">Measurement</h3><p>Scores are not human-validated. Prompt versions across retries and answer-reveal timing remain unverified.</p></li>
+          <li class="topic"><h3 class="serif-22">Scope</h3><p>One remote session and two transfer items can’t show lasting learning. A missing retry doesn’t prove disengagement.</p></li>
+        </ul>
+
+        <div class="reflection">
+          <h3 class="serif-28">Reflection</h3>
+          <p><strong>Audit the items before the first model.</strong> The two-option questions surfaced after the core model and changed the sample, and an answer-key mismatch limited the case coding. Next time, the item audit comes first.</p>
+          <p><strong>A log records what the interface allowed.</strong> The same click count means different things under different designs. Reading behavior against the design that produced it was the most useful habit this project built.</p>
+        </div>
+
+        <div class="delivered">
+          <h3 class="serif-28">What I delivered</h3>
+          <ul class="gallery" role="list">
+            <li class="artifact">
+              <img class="artifact__thumb" src="/assets/mufin/thumb-analysis-plan.svg" width="256" height="192" loading="lazy" decoding="async"
+                   alt="Recreated first page of the analysis plan document.">
+              <h4>Analysis plan</h4>
+              <p>Written and saved before any model was fit.</p>
+            </li>
+            <li class="artifact">
+              <img class="artifact__thumb" src="/assets/mufin/thumb-follow-up-report.svg" width="256" height="192" loading="lazy" decoding="async"
+                   alt="Recreated first page of the follow-up report.">
+              <h4>Two reports</h4>
+              <p>Core results, then a follow-up with robustness and influence checks.</p>
+            </li>
+            <li class="artifact">
+              <img class="artifact__thumb" src="/assets/mufin/thumb-case-audit.svg" width="256" height="192" loading="lazy" decoding="async"
+                   alt="Recreated excerpt of the case-audit table.">
+              <h4>Case-audit tables</h4>
+              <p>All 32 mismatch cases, item mapping, and scorer flags.</p>
+            </li>
+            <li class="artifact">
+              <img class="artifact__thumb" src="/assets/mufin/thumb-fit-models.svg" width="256" height="192" loading="lazy" decoding="async"
+                   alt="Recreated excerpt of fit_models.py with model diagnostics.">
+              <h4>Python pipeline</h4>
+              <p>Episode rebuild and PyMC models, with seeds and diagnostics saved.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Sources ===== -->
+    <section class="sources" aria-labelledby="sources">
+      <div class="wrap">
+        <h2 id="sources" class="label">Sources</h2>
+        <ul role="list">
+          <li>[1] MuFIN project manuscript. How Feedback Structure Shapes Interaction Pathways in LLM-Generated Interactive Multimodal Feedback. Sections 3–5, Tables 1–3, Figures 4 and 7.</li>
+          <li>[2] Zhu, Y. Core Analysis Report: Final embedded scores and next original-problem correctness. October 23, 2026.</li>
+          <li>[3] Zhu, Y. Embedded Pathway Follow-up Analysis, with item and case audit. October 25, 2026.</li>
+          <li>[4] Koedinger, K. R., and Aleven, V. (2007). Exploring the assistance dilemma in experiments with Cognitive Tutors. Educational Psychology Review, 19(3), 239–264.</li>
+          <li>[5] Goldin, I. M., Koedinger, K. R., and Aleven, V. (2012). Learner differences in hint processing. Proceedings of the 5th International Conference on Educational Data Mining, 73–80.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__bar">
+      <div class="footer__id">
+        <p class="footer__name">Yinran Zhu</p>
+        <p class="footer__sub">MS in Learning Engineering, Human-Computer Interaction Institute, Carnegie Mellon University</p>
+      </div>
+      <div class="footer__contact">
+        <p class="footer__email"><span class="footer__label">Jobs</span> <a href="mailto:zhuyinran1231@gmail.com">zhuyinran1231@gmail.com</a></p>
+        <p class="footer__email"><span class="footer__label">School</span> <a href="mailto:yinranz@andrew.cmu.edu">yinranz@andrew.cmu.edu</a></p>
+        <a class="footer__top" href="#top">Back to top</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KeyPalette case study — Yinran Zhu</title>
+  <meta name="description" content="KeyPalette is a free, browser-only planner for mechanical keyboard enthusiasts. Pick a layout, paint keys by zone, pull a palette from a photo, and share the result as a link. No account, no install, nothing uploaded.">
+  <link rel="canonical" href="https://friedfishzyr.github.io/work/keypalette/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Yinran Zhu">
+  <meta property="og:title" content="Design a keycap colorway before you buy it — KeyPalette case study">
+  <meta property="og:description" content="KeyPalette is a free, browser-only planner for mechanical keyboard enthusiasts. Pick a layout, paint keys by zone, and share the result as a link.">
+  <meta property="og:url" content="https://friedfishzyr.github.io/work/keypalette/">
+  <meta property="og:image" content="https://friedfishzyr.github.io/assets/og/keypalette.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A tenkeyless keyboard in the Nord colorway under a row of keycap color swatches.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/keypalette.css">
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar wrap">
+    <div class="topbar__row">
+      <div class="topbar__left">
+        <a href="/">← All work</a>
+        <p class="pre">Case study  ·  KeyPalette</p>
+      </div>
+      <p class="topbar__right pre">2026  ·  Product design + engineering</p>
+    </div>
+    <hr class="rule rule--8">
+  </header>
+
+  <main id="main">
+    <!-- ===== 00 Cover ===== -->
+    <section class="cover wrap" aria-labelledby="kp-title">
+      <div class="keycap-row" aria-hidden="true">
+        <span class="kc kc--64 kc--nord">K</span>
+        <span class="kc kc--64 kc--snow">E</span>
+        <span class="kc kc--64 kc--orange">Y</span>
+        <span class="kc kc--64 kc--lilac">P</span>
+        <span class="kc kc--64 kc--ochre">A</span>
+        <span class="kc kc--64 kc--moss">L</span>
+        <span class="kc kc--64 kc--pink">E</span>
+        <span class="kc kc--64 kc--steel">T</span>
+        <span class="kc kc--64 kc--cyan">T</span>
+        <span class="kc kc--64 kc--black">E</span>
+      </div>
+
+      <h1 id="kp-title" class="cover__title">Design a keycap colorway before you buy it.</h1>
+      <p class="cover__lede">KeyPalette is a free, browser-only planner for mechanical keyboard enthusiasts. Pick a layout, paint keys by zone, pull a palette from a photo, and share the result as a link. No account, no install, nothing uploaded.</p>
+
+      <dl class="cover__meta">
+        <div><dt>Role</dt><dd>Solo — design, engineering, copy</dd></div>
+        <div><dt>Timeline</dt><dd>April → October 2026, three releases</dd></div>
+        <div><dt>Stack</dt><dd>React 19 · Vite · inline SVG · no backend</dd></div>
+        <div><dt>Status</dt><dd>Live at <a class="inline-link" href="https://friedfishzyr.github.io/KeyPalette/">friedfishzyr.github.io/KeyPalette</a></dd></div>
+      </dl>
+
+      <figure class="cover__figure">
+        <img src="/assets/keypalette/hero-export-example-1248.webp"
+             srcset="/assets/keypalette/hero-export-example-1248.webp 1248w, /assets/keypalette/hero-export-example-2126.webp 2126w"
+             sizes="(max-width: 1440px) calc(100vw - 48px), 1248px"
+             width="1248" height="1072" fetchpriority="high"
+             alt="KeyPalette PNG export: a tenkeyless keyboard with pale grey alphas and blue-grey modifiers, above a legend listing each zone and its hex color.">
+        <figcaption class="cover__caption">
+          <span class="pre">Fig. 01  —  A TKL in the Nord preset, exported straight from the app with its color legend</span>
+          <span>PNG · 2× · legend painted on canvas</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ===== 01 Overview ===== -->
+    <section class="sec wrap" aria-labelledby="s01">
+      <div class="sec__head">
+        <p class="tag"><span class="tag__num">01</span><span>Overview</span></p>
+        <div class="sec__row">
+          <p class="sec__num" aria-hidden="true">01</p>
+          <div class="sec__heading">
+            <h2 id="s01">One job, and no account standing between you and it.</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div class="col">
+          <h3 class="label-14">The brief</h3>
+          <p class="body-18">Keycap sets are bought months before they ship, from renders. Enthusiasts plan colorways in spreadsheets, Reddit threads and vendor-locked 3D configurators. There was no simple, layout-agnostic canvas where you could try a palette on your own board in thirty seconds.</p>
+        </div>
+        <div class="col">
+          <h3 class="label-14">What shipped</h3>
+          <p class="body-18">An interactive SVG keyboard with 13 layouts, zone and same-color selection, palette extraction from photos, simulated keycap profiles, undo history, five local designs, side-by-side comparison, and PNG, SVG, JSON and share-link exports. Everything lives in the browser; the share link is the whole design.</p>
+        </div>
+      </div>
+
+      <ul class="stats" role="list">
+        <li class="box stat">
+          <p class="stat__num">13</p>
+          <p class="label-11">layouts</p>
+          <p class="stat__desc">ANSI + ISO, HHKB, 96%, Planck</p>
+        </li>
+        <li class="box stat">
+          <p class="stat__num">16</p>
+          <p class="label-11">presets</p>
+          <p class="stat__desc">zone-based, apply to any layout</p>
+        </li>
+        <li class="box stat">
+          <p class="stat__num">0</p>
+          <p class="label-11">bytes uploaded</p>
+          <p class="stat__desc">no server, no analytics, no cookies</p>
+        </li>
+        <li class="box stat">
+          <p class="stat__num">300 KB</p>
+          <p class="label-11">bundle</p>
+          <p class="stat__desc">down from 473 KB after dropping html2canvas</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== 02 The problem ===== -->
+    <section class="sec sec--ruled wrap" aria-labelledby="s02">
+      <div class="sec__head">
+        <p class="tag"><span class="tag__num">02</span><span>The problem</span></p>
+        <div class="sec__row">
+          <p class="sec__num" aria-hidden="true">02</p>
+          <div class="sec__heading">
+            <h2 id="s02">Existing tools were built for vendors, not for the person holding a photo.</h2>
+            <p class="sec__lede">Keyboard enthusiasts plan colorways from renders, months before a set ships. The planning itself happened in spreadsheets, Reddit threads and whatever the vendor offered.</p>
+          </div>
+        </div>
+      </div>
+
+      <ul class="problems" role="list">
+        <li class="box problem">
+          <span class="kc kc--40 kc--orange" aria-hidden="true"></span>
+          <h3 class="title-26">Too complex</h3>
+          <p class="body-16">Full 3D configurators are tied to one vendor’s product line, need an account to save, and take minutes to load for a thirty-second question.</p>
+        </li>
+        <li class="box problem">
+          <span class="kc kc--40 kc--nord" aria-hidden="true"></span>
+          <h3 class="title-26">Too limited</h3>
+          <p class="body-16">Static swatch grids show colors, not a board. No layout, no zones, no sense of how an accent set reads next to the alphas.</p>
+        </li>
+        <li class="box problem">
+          <span class="kc kc--40 kc--lilac" aria-hidden="true"></span>
+          <h3 class="title-26">Missing entirely</h3>
+          <p class="body-16">“I saw this palette on Reddit. How would it look on my 65%?” had no answer that did not involve Photoshop.</p>
+        </li>
+      </ul>
+
+      <div class="audience">
+        <h3 class="label-11 muted">Who it is for</h3>
+        <ul class="chips" role="list">
+          <li>Hobbyists planning a custom keycap set</li>
+          <li>Designers exploring colorway ideas</li>
+          <li>Buyers previewing before ordering from KBDfans, NovelKeys or Drop</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 03 Principles ===== -->
+    <section class="sec sec--ruled wrap" aria-labelledby="s03">
+      <div class="sec__head">
+        <p class="tag"><span class="tag__num">03</span><span>Principles</span></p>
+        <div class="sec__row">
+          <p class="sec__num" aria-hidden="true">03</p>
+          <div class="sec__heading">
+            <h2 id="s03">Four rules that settled most of the arguments.</h2>
+          </div>
+        </div>
+      </div>
+
+      <ol class="principles" role="list">
+        <li class="principle">
+          <p class="principle__num"><span class="kc kc--36 kc--nord" aria-hidden="true"></span>01</p>
+          <h3 class="principle__title">The keyboard is the canvas.</h3>
+          <p class="principle__text">Every control steps back. The board stays centered and scales to fit the viewport; the toolbar scrolls on its own so the thing you are designing never leaves the screen.</p>
+        </li>
+        <li class="principle">
+          <p class="principle__num"><span class="kc kc--36 kc--orange" aria-hidden="true"></span>02</p>
+          <h3 class="principle__title">Nothing leaves the browser.</h3>
+          <p class="principle__text">Designs live in localStorage. A share link carries the whole design in the URL hash, deflated to about 600 characters for a TKL. There is no server to trust, so there is no privacy policy to read.</p>
+        </li>
+        <li class="principle">
+          <p class="principle__num"><span class="kc kc--36 kc--ochre" aria-hidden="true"></span>03</p>
+          <h3 class="principle__title">Think in zones, not keys.</h3>
+          <p class="principle__text">Alphas, modifiers, arrows, navigation, numpad. Presets and selections work per zone, which is why one preset applies cleanly to all 13 layouts and why Alt-click can grab every key sharing a color.</p>
+        </li>
+        <li class="principle">
+          <p class="principle__num"><span class="kc kc--36 kc--moss" aria-hidden="true"></span>04</p>
+          <h3 class="principle__title">Depth is opt-in.</h3>
+          <p class="principle__text">Flat is the default render: clean, fast, honest. SA, OEM, Cherry and DSA shading are one click away for people who want to see how a sculpted set catches light, but nobody is forced through it.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===== 04 Process ===== -->
+    <section class="sec sec--ruled wrap" aria-labelledby="s04">
+      <div class="sec__head">
+        <p class="tag"><span class="tag__num">04</span><span>Process</span></p>
+        <div class="sec__row">
+          <p class="sec__num" aria-hidden="true">04</p>
+          <div class="sec__heading">
+            <h2 id="s04">Three releases, each one shippable on its own.</h2>
+            <p class="sec__lede">Scope was cut by tier, not by feature list. V1 had to be a complete product; V2 and V3 layered depth on top without rewriting the state shape.</p>
+          </div>
+        </div>
+      </div>
+
+      <ol class="releases" role="list">
+        <li class="release">
+          <div class="release__marker"><span class="kc kc--56 kc--black">V1</span><span class="release__line"></span></div>
+          <p class="label-11 muted">April 2026</p>
+          <h3 class="title-26">MVP</h3>
+          <p class="body-15">Layout selector, interactive SVG board, per-key and zone color, case color and finish, localStorage with five named slots, light and dark workspace.</p>
+        </li>
+        <li class="release">
+          <div class="release__marker"><span class="kc kc--56 kc--nord">V2</span><span class="release__line"></span></div>
+          <p class="label-11 muted">May 2026</p>
+          <h3 class="title-26">Enhanced UX</h3>
+          <p class="body-15">Palette extraction from a photo, eight presets, PNG export with a color legend, JSON import and export, color history strip, click-to-copy hex badge.</p>
+        </li>
+        <li class="release">
+          <div class="release__marker"><span class="kc kc--56 kc--lilac">V3</span><span class="release__line"></span></div>
+          <p class="label-11 muted">June 2026</p>
+          <h3 class="title-26">Visual fidelity</h3>
+          <p class="body-15">Keycap profile shading, auto-contrast legends, comparison mode, scale-to-fit app shell, frame-ring selection, sixteen presets.</p>
+        </li>
+        <li class="release">
+          <div class="release__marker"><span class="kc kc--56 kc--orange">3.1</span><span class="release__line"></span></div>
+          <p class="label-11 muted">Sep – Oct 2026</p>
+          <h3 class="title-26">Launch readiness</h3>
+          <p class="body-15">Share links, ISO, HHKB, 96% and Planck layouts, undo and redo, SVG export, keyboard navigation, storage safety, 46 tests, CI, GitHub Pages, mobile UI.</p>
+        </li>
+      </ol>
+
+      <p class="note"><span class="note__arrow" aria-hidden="true">→</span><span>The commit log is the honest version of this timeline: the V3 step for keycap realism was pushed with the message “looks bad though”. Three months later the renderer was rewritten so walls are always darker than the top, the front face is lit separately, and every cap casts a contact shadow.</span></p>
+    </section>
+
+    <!-- ===== 05 Interface ===== -->
+    <section class="sec sec--ruled wrap" aria-labelledby="s05">
+      <div class="sec__head">
+        <p class="tag"><span class="tag__num">05</span><span>Interface</span></p>
+        <div class="sec__row">
+          <p class="sec__num" aria-hidden="true">05</p>
+          <div class="sec__heading">
+            <h2 id="s05">The board in the middle, everything else in the margins.</h2>
+            <p class="sec__lede">A fixed-height shell. The toolbar scrolls on its own; the keyboard stays centered and shrinks to fit, never enlarged past 1×. On narrow screens the editor becomes a sheet under the board.</p>
+          </div>
+        </div>
+      </div>
+
+      <figure class="fig">
+        <img src="/assets/keypalette/03-editor-nord-modifiers-1248.webp"
+             srcset="/assets/keypalette/03-editor-nord-modifiers-1248.webp 1248w, /assets/keypalette/03-editor-nord-modifiers-2496.webp 2496w"
+             sizes="(max-width: 1440px) calc(100vw - 48px), 1248px"
+             width="1248" height="780" loading="lazy" decoding="async"
+             alt="KeyPalette editor: toolbar on the left, a keyboard in the Nord preset in the center with the modifier keys outlined as selected.">
+        <figcaption><span class="fig__label">Fig. 02</span><span>Zone selection. Fourteen modifiers selected in the Nord preset; the picker reads back their shared color, and every selected key wears a 2px frame ring instead of a tint.</span></figcaption>
+      </figure>
+
+      <div class="fig-row">
+        <figure class="fig">
+          <img src="/assets/keypalette/02-presets-dialog-612.webp"
+               srcset="/assets/keypalette/02-presets-dialog-612.webp 612w, /assets/keypalette/02-presets-dialog-1224.webp 1224w"
+               sizes="(max-width: 768px) calc(100vw - 40px), (max-width: 1440px) calc(50vw - 36px), 612px"
+               width="612" height="382" loading="lazy" decoding="async"
+               alt="Presets dialog showing a grid of preset cards, each with a miniature keyboard preview.">
+          <figcaption><span class="fig__label">Fig. 03</span><span>Sixteen zone-based presets, each with a mini board preview. Applying one is a single undoable step.</span></figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="/assets/keypalette/06-compare-612.webp"
+               srcset="/assets/keypalette/06-compare-612.webp 612w, /assets/keypalette/06-compare-1224.webp 1224w"
+               sizes="(max-width: 768px) calc(100vw - 40px), (max-width: 1440px) calc(50vw - 36px), 612px"
+               width="612" height="382" loading="lazy" decoding="async"
+               alt="Comparison mode with two keyboards stacked, labeled A and B.">
+          <figcaption><span class="fig__label">Fig. 04</span><span>Comparison mode. A is the live design; B is a snapshot, a preset or a saved design, read-only.</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="fig-row">
+        <figure class="fig">
+          <img src="/assets/keypalette/04-profile-sa-612.webp"
+               srcset="/assets/keypalette/04-profile-sa-612.webp 612w, /assets/keypalette/04-profile-sa-1224.webp 1224w"
+               sizes="(max-width: 768px) calc(100vw - 40px), (max-width: 1440px) calc(50vw - 36px), 612px"
+               width="612" height="382" loading="lazy" decoding="async"
+               alt="Keyboard rendered with SA profile shading on a light workspace.">
+          <figcaption><span class="fig__label">Fig. 05</span><span>SA profile shading on the light workspace: shaded sidewalls, inset top, dish gradient, per-row sculpt.</span></figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="/assets/keypalette/05-dark-cherry-612.webp"
+               srcset="/assets/keypalette/05-dark-cherry-612.webp 612w, /assets/keypalette/05-dark-cherry-1224.webp 1224w"
+               sizes="(max-width: 768px) calc(100vw - 40px), (max-width: 1440px) calc(50vw - 36px), 612px"
+               width="612" height="382" loading="lazy" decoding="async"
+               alt="Keyboard rendered with Cherry profile shading on a dark workspace, with legends in contrasting colors.">
+          <figcaption><span class="fig__label">Fig. 06</span><span>Cherry profile on the dark workspace. Legends auto-contrast per key, so lettering never disappears on dark caps.</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="fig-row">
+        <figure class="fig">
+          <img src="/assets/keypalette/09-layout-full-iso-612.webp"
+               srcset="/assets/keypalette/09-layout-full-iso-612.webp 612w, /assets/keypalette/09-layout-full-iso-1224.webp 1224w"
+               sizes="(max-width: 768px) calc(100vw - 40px), (max-width: 1440px) calc(50vw - 36px), 612px"
+               width="612" height="382" loading="lazy" decoding="async"
+               alt="Full-size ISO keyboard layout with a numpad, colored in the same design.">
+          <figcaption><span class="fig__label">Fig. 07</span><span>Full-size ISO. Key ids are shared across layouts, so a colorway survives switching boards.</span></figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="/assets/keypalette/10-layout-planck-612.webp"
+               srcset="/assets/keypalette/10-layout-planck-612.webp 612w, /assets/keypalette/10-layout-planck-1224.webp 1224w"
+               sizes="(max-width: 768px) calc(100vw - 40px), (max-width: 1440px) calc(50vw - 36px), 612px"
+               width="612" height="382" loading="lazy" decoding="async"
+               alt="Compact Planck ortholinear keyboard with a grid of square keys in the same colors.">
+          <figcaption><span class="fig__label">Fig. 08</span><span>Planck 40% ortholinear with the same design applied. Zones map even when the physical keys do not.</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="fig-row">
+        <figure class="fig">
+          <img src="/assets/keypalette/07-share-dialog-612.webp"
+               srcset="/assets/keypalette/07-share-dialog-612.webp 612w, /assets/keypalette/07-share-dialog-1224.webp 1224w"
+               sizes="(max-width: 768px) calc(100vw - 40px), (max-width: 1440px) calc(50vw - 36px), 612px"
+               width="612" height="382" loading="lazy" decoding="async"
+               alt="Share dialog with a copyable link and download buttons for PNG, SVG and JSON.">
+          <figcaption><span class="fig__label">Fig. 09</span><span>Share or download. The link encodes the whole design; PNG, SVG and editable JSON are one click each.</span></figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="/assets/keypalette/08-image-modal-612.webp"
+               srcset="/assets/keypalette/08-image-modal-612.webp 612w, /assets/keypalette/08-image-modal-1224.webp 1224w"
+               sizes="(max-width: 768px) calc(100vw - 40px), (max-width: 1440px) calc(50vw - 36px), 612px"
+               width="612" height="382" loading="lazy" decoding="async"
+               alt="Dialog for adding colors from an uploaded photo, showing the extracted color swatches.">
+          <figcaption><span class="fig__label">Fig. 10</span><span>Add colors from an image. The photo is a color source, never a layout detector.</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="mobile-row">
+        <div class="mobile-row__text">
+          <p class="label-11">Narrow screens</p>
+          <h3 class="title-32">Board first, controls second.</h3>
+          <p class="body-16">On phones the toolbar becomes a bottom sheet with a drag handle, the header actions collapse into a menu, and the board keeps a tappable minimum size with a Zoom control. The design flow stays identical: pick a group, pick a color, share.</p>
+        </div>
+        <div class="mobile-row__figs">
+          <figure class="fig fig--phone">
+            <img src="/assets/keypalette/15-mobile-280.webp"
+                 srcset="/assets/keypalette/15-mobile-280.webp 280w, /assets/keypalette/15-mobile-560.webp 560w"
+                 sizes="280px" width="280" height="606" loading="lazy" decoding="async"
+                 alt="KeyPalette on a phone: the keyboard at the top and the editor as a bottom sheet with a drag handle.">
+            <figcaption><span class="fig__label">Fig. 11</span><span>Editor on a 390px viewport.</span></figcaption>
+          </figure>
+          <figure class="fig fig--phone">
+            <img src="/assets/keypalette/16-mobile-sheet-280.webp"
+                 srcset="/assets/keypalette/16-mobile-sheet-280.webp 280w, /assets/keypalette/16-mobile-sheet-560.webp 560w"
+                 sizes="280px" width="280" height="606" loading="lazy" decoding="async"
+                 alt="KeyPalette on a phone with the header actions opened as a menu.">
+            <figcaption><span class="fig__label">Fig. 12</span><span>Header actions as a menu.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 06 Decisions ===== -->
+    <section class="sec sec--ruled wrap" aria-labelledby="s06">
+      <div class="sec__head">
+        <p class="tag"><span class="tag__num">06</span><span>Decisions</span></p>
+        <div class="sec__row">
+          <p class="sec__num" aria-hidden="true">06</p>
+          <div class="sec__heading">
+            <h2 id="s06">Six calls worth explaining.</h2>
+            <p class="sec__lede">Most of these reversed something the original spec asked for. Each one is logged in the changelog with the reason.</p>
+          </div>
+        </div>
+      </div>
+
+      <ol class="decisions" role="list">
+        <li class="box decision">
+          <div class="decision__left">
+            <span class="kc kc--48 kc--nord">01</span>
+            <h3 class="title-28">Selection is a frame, not a fill.</h3>
+          </div>
+          <div class="decision__right">
+            <p class="body-17">V1 and V2 tinted selected keys with a white overlay, so a key never showed its true color while you were editing it. V3 decoupled feedback from fill: a 2px accent ring with a contrasting halo, a faint ring on hover, a geometric press. The fill only ever shows the real color.</p>
+            <p class="tradeoff"><span class="label-11">Trade-off</span><span>Costs a little subtlety on very light caps; worth it for honesty.</span></p>
+          </div>
+        </li>
+        <li class="box decision">
+          <div class="decision__left">
+            <span class="kc kc--48 kc--pink">02</span>
+            <h3 class="title-28">A palette, not an eyedropper.</h3>
+          </div>
+          <div class="decision__right">
+            <p class="body-17">The roadmap called for a point-sample cursor over an uploaded photo. Extracting six to eight dominant colors as swatches was simpler to build and more useful in practice: people want the photo’s palette, not one pixel of it.</p>
+            <p class="tradeoff"><span class="label-11">Trade-off</span><span>The point-sample cursor stays on the list for people who do want one pixel.</span></p>
+          </div>
+        </li>
+        <li class="box decision">
+          <div class="decision__left">
+            <span class="kc kc--48 kc--ochre">03</span>
+            <h3 class="title-28">Flat by default.</h3>
+          </div>
+          <div class="decision__right">
+            <p class="body-17">The V3 spec said the Cherry profile should ship as the default. Flat won: it reads faster, it has no shading artifacts on black caps, and the sculpted look is one click away for anyone who wants it.</p>
+            <p class="tradeoff"><span class="label-11">Trade-off</span><span>Screenshots look less “real” at first glance. The export is the truth anyway.</span></p>
+          </div>
+        </li>
+        <li class="box decision">
+          <div class="decision__left">
+            <span class="kc kc--48 kc--orange">04</span>
+            <h3 class="title-28">The share link is the database.</h3>
+          </div>
+          <div class="decision__right">
+            <p class="body-17">Instead of a backend, the design is serialized, deflated and written into the URL hash: about 600 characters for a TKL. Opening a link adds a new saved design, or replaces the current one undoably when all five slots are full.</p>
+            <p class="tradeoff"><span class="label-11">Trade-off</span><span>Long URLs. Designs on a new domain do not follow you, so the About dialog offers a backup download.</span></p>
+          </div>
+        </li>
+        <li class="box decision">
+          <div class="decision__left">
+            <span class="kc kc--48 kc--moss">05</span>
+            <h3 class="title-28">Drop html2canvas.</h3>
+          </div>
+          <div class="decision__right">
+            <p class="body-17">DOM capture was roughly 200 KB of unmaintained code and produced soft output. The board is already an SVG, so the exporter rasterizes it at 2× and paints the legend onto a canvas. The production bundle went from 473 KB to 300 KB.</p>
+            <p class="tradeoff"><span class="label-11">Trade-off</span><span>Legend layout had to be reimplemented by hand, and is now covered by tests.</span></p>
+          </div>
+        </li>
+        <li class="box decision">
+          <div class="decision__left">
+            <span class="kc kc--48 kc--lilac">06</span>
+            <h3 class="title-28">Never destroy data you cannot read.</h3>
+          </div>
+          <div class="decision__right">
+            <p class="body-17">Unreadable saved data is moved to a timestamped backup key and offered for download instead of being overwritten; invalid fields are repaired one at a time. The error boundary and every error screen offer the same backup.</p>
+            <p class="tradeoff"><span class="label-11">Trade-off</span><span>More code paths to test. The alternative was silently losing someone’s five designs.</span></p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===== 07 Craft ===== -->
+    <section class="sec sec--ruled wrap" aria-labelledby="s07">
+      <div class="sec__head">
+        <p class="tag"><span class="tag__num">07</span><span>Craft</span></p>
+        <div class="sec__row">
+          <p class="sec__num" aria-hidden="true">07</p>
+          <div class="sec__heading">
+            <h2 id="s07">Details that took longer than the features.</h2>
+          </div>
+        </div>
+      </div>
+
+      <ul class="craft" role="list">
+        <li class="craft__card craft__card--thin">
+          <h3 class="title-24">Keycap rendering</h3>
+          <p class="body-15">Walls are always darker than the top. The front face is lit separately, the top is lifted slightly so black caps still show depth, sculpted profiles show more front face toward the back rows, each cap has a contact shadow, and a darker plate shows between keys.</p>
+        </li>
+        <li class="craft__card">
+          <h3 class="title-24">Legends that stay readable</h3>
+          <p class="body-15">Legend color is computed per key from the cap’s luminance: white on dark, black on light. A fixed custom color and top or front placement are optional. Legends moved out of CSS into SVG attributes so the export matches the screen.</p>
+        </li>
+        <li class="craft__card">
+          <h3 class="title-24">Keyboard first</h3>
+          <p class="body-15">One tab stop for the whole board. Arrow keys move between keys, Home and End jump to row ends, Enter or Space selects, Shift adds. Dialogs are native &lt;dialog&gt; elements with focus return and Escape handling even where browsers skip the cancel event.</p>
+        </li>
+        <li class="craft__card">
+          <h3 class="title-24">Layouts that share ids</h3>
+          <p class="body-15">ISO boards are derived from their ANSI counterparts by a function, not copied. HHKB, 96% and Planck are hand-built. A test validates every layout for overlapping keys and consistent ids, so a JSON file made on one board opens on another.</p>
+        </li>
+      </ul>
+
+      <figure class="fig">
+        <div class="board-slot">
+          <img src="/assets/keypalette/board-nord-flat.svg" width="1152" height="417" loading="lazy" decoding="async"
+               alt="Vector tenkeyless keyboard, 87 keys: pale grey alphas and numbers, blue-grey modifiers, function row, navigation cluster and arrows.">
+        </div>
+        <figcaption><span class="fig__label">Fig. 13</span><span>The board exactly as the app draws it: 87 keys, one inline SVG, exported with a transparent background and imported here as editable vectors.</span></figcaption>
+      </figure>
+    </section>
+
+    <!-- ===== 08 Outcomes ===== -->
+    <section class="sec sec--ruled wrap" aria-labelledby="s08">
+      <div class="sec__head">
+        <p class="tag"><span class="tag__num">08</span><span>Outcomes</span></p>
+        <div class="sec__row">
+          <p class="sec__num" aria-hidden="true">08</p>
+          <div class="sec__heading">
+            <h2 id="s08">Live, tested, and still a side project.</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div class="col col--list">
+          <h3 class="label-14">Where it stands</h3>
+          <ul class="checklist" role="list">
+            <li>Public at <a class="inline-link" href="https://friedfishzyr.github.io/KeyPalette/">friedfishzyr.github.io/KeyPalette</a> since 24 October 2026</li>
+            <li>Every push to main runs lint, 46 tests and the build before deploying</li>
+            <li>300 KB production bundle, three runtime dependencies, MIT license</li>
+            <li>Works offline after first load; nothing is sent anywhere, ever</li>
+          </ul>
+        </div>
+        <div class="col col--list">
+          <h3 class="label-14">What is next</h3>
+          <ul class="checklist" role="list">
+            <li>KLE import for arbitrary boards and rotated layouts such as Alice</li>
+            <li>Per-key and per-zone legend colors for double-shot simulation</li>
+            <li>A community gallery and vendor color matching, both of which need a backend</li>
+            <li>Analytics, deliberately left out of the launch</li>
+          </ul>
+        </div>
+      </div>
+
+      <figure class="closing">
+        <blockquote><p>“The keyboard is the hero. Everything else steps back.”</p></blockquote>
+        <figcaption>From the original proposal, April 2026. Still the only line in it that never changed.</figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="kp-footer wrap">
+    <hr class="rule rule--8">
+    <div class="kp-footer__row">
+      <div class="kp-footer__left">
+        <div class="keycap-row keycap-row--mini" aria-hidden="true">
+          <span class="kc kc--22 kc--nord"></span><span class="kc kc--22 kc--snow"></span><span class="kc kc--22 kc--orange"></span><span class="kc kc--22 kc--lilac"></span><span class="kc kc--22 kc--ochre"></span><span class="kc kc--22 kc--moss"></span><span class="kc kc--22 kc--pink"></span><span class="kc kc--22 kc--steel"></span><span class="kc kc--22 kc--cyan"></span><span class="kc kc--22 kc--black"></span>
+        </div>
+        <a href="/">← All work</a>
+      </div>
+      <p class="kp-footer__links"><a href="https://friedfishzyr.github.io/KeyPalette/">friedfishzyr.github.io/KeyPalette</a><span class="pre" aria-hidden="true">   ·   </span><a href="https://github.com/FriedFishZYr/KeyPalette">github.com/FriedFishZYr/KeyPalette</a></p>
+    </div>
+  </footer>
+</body>
+</html>

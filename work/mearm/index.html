@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MeArm Classroom Motion Lab case study — Yinran Zhu</title>
+  <meta name="description" content="MeArm Classroom Motion Lab links beginner Arduino commands to a 3D motion preview, so students can predict, explain, and revise before testing on hardware.">
+  <link rel="canonical" href="https://friedfishzyr.github.io/work/mearm/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Yinran Zhu">
+  <meta property="og:title" content="Making robot code visible to beginners — MeArm case study">
+  <meta property="og:description" content="MeArm Classroom Motion Lab links beginner Arduino commands to a 3D motion preview, so students can predict, explain, and revise before testing on hardware.">
+  <meta property="og:url" content="https://friedfishzyr.github.io/work/mearm/">
+  <meta property="og:image" content="https://friedfishzyr.github.io/assets/og/mearm.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The MeArm Classroom Motion Lab workspace: an Arduino sketch, a 3D preview of the robot arm, and an inspector.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600&family=Fragment+Mono&family=Inter:wght@400&display=swap">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/mearm.css">
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="wrap topbar__row">
+      <div class="brand">
+        <span class="brand__logo" aria-hidden="true">M</span>
+        <p class="brand__name"><span class="mono-11">MeArm</span><span class="cond">Classroom Motion Lab</span></p>
+      </div>
+      <div class="topbar__right">
+        <p class="mono-12 pre">Case study  ·  2026</p>
+        <a class="button-link" href="/">← All work</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="body">
+    <!-- ===== 00 Hero ===== -->
+    <section class="hero wrap" aria-labelledby="mearm-title">
+      <div class="hero__title-block">
+        <p class="hero__kicker mono-12 caps pre">Boston University RASTIC  ·  Learning product case study</p>
+        <h1 id="mearm-title">Making robot code visible to beginners</h1>
+        <p class="hero__lede">MeArm Classroom Motion Lab links beginner Arduino commands to a 3D motion preview, so students can predict, explain, and revise before testing on hardware.</p>
+      </div>
+
+      <img class="hero__motif" src="/assets/mearm/cut-sheet-motif.svg" width="1200" height="132" alt="" role="presentation">
+
+      <dl class="meta">
+        <div><dt class="mono-11 caps">Role</dt><dd>Product author, with the RASTIC instructor team</dd></div>
+        <div><dt class="mono-11 caps">Context</dt><dd>High-school robotics program</dd></div>
+        <div><dt class="mono-11 caps">Build</dt><dd>July 10–21, 2026</dd></div>
+        <div><dt class="mono-11 caps">Status</dt><dd>v0.9.0 release candidate</dd></div>
+      </dl>
+
+      <figure class="shot">
+        <div class="window window--shadow">
+          <img src="/assets/mearm/mearm-01-workspace-1200.webp"
+               srcset="/assets/mearm/mearm-01-workspace-1200.webp 1200w, /assets/mearm/mearm-01-workspace-2400.webp 2400w"
+               sizes="(max-width: 1440px) calc(100vw - 40px), 1200px"
+               width="1200" height="750" fetchpriority="high"
+               alt="MeArm Classroom Motion Lab workspace: an Arduino sketch on the left, a 3D preview of the robot arm in the middle, and an inspector with coordinates on the right.">
+        </div>
+        <figcaption><span class="pre">Fig. 01  The workspace: sketch, 3D preview and inspector. Instructor dance, command 1 of 29.</span><span class="mono-11">mearm-01-workspace.png</span></figcaption>
+      </figure>
+    </section>
+
+    <!-- ===== 01 Problem ===== -->
+    <section class="sec wrap" aria-labelledby="s01">
+      <div class="sec-head">
+        <p class="kicker"><span class="kicker__step mono-12">STEP 01</span><span class="mono-12 caps">Classroom problem</span></p>
+        <h2 id="s01">A code change had no visible payoff</h2>
+      </div>
+      <div class="cols">
+        <p class="cols__lead text-19">Students could move the arm by hand, but struggled to see why writing code mattered. Small coordinate changes were hard to observe, and the coordinate system was unfamiliar. The team’s first simulator attempt could not compile the MeArm library.</p>
+        <div class="question">
+          <p class="mono-11 caps">Design question</p>
+          <p>How can beginners see what a command will do, connect it to motion, and understand why a coordinate fails?</p>
+        </div>
+      </div>
+      <ul class="grid-3" role="list">
+        <li class="card fact"><p class="fact__num cond">6</p><p class="text-16" style="line-height: 23px">learners in the cohort that used the preview</p></li>
+        <li class="card fact"><p class="fact__num cond">4</p><p class="text-16" style="line-height: 23px">robot kits shared within the cohort</p></li>
+        <li class="card fact"><p class="fact__num cond">2 weeks</p><p class="text-16" style="line-height: 23px">focused build inside a 3-week program</p></li>
+      </ul>
+    </section>
+
+    <!-- ===== 02 My role ===== -->
+    <section class="sec wrap" aria-labelledby="s02">
+      <div class="sec-head">
+        <p class="kicker"><span class="kicker__step mono-12">STEP 02</span><span class="mono-12 caps">My contribution</span></p>
+        <h2 id="s02">From learner needs to a working tool</h2>
+      </div>
+      <ul class="grid-3" role="list">
+        <li class="card role"><h3 class="cond cond-29">Specified</h3><p class="text-17">Learner and instructor workflows, supported syntax, diagnostics, and acceptance criteria.</p></li>
+        <li class="card role"><h3 class="cond cond-29">Directed</h3><p class="text-17">Architecture and AI-assisted development. Codex generated the core and tests; Claude generated the interface.</p></li>
+        <li class="card role"><h3 class="cond cond-29">Reviewed</h3><p class="text-17">Rejected an inaccurate arm model, checked revisions, and owned evaluation, documentation, and release boundaries.</p></li>
+      </ul>
+    </section>
+
+    <!-- ===== 03 Scope decision ===== -->
+    <section class="sec wrap" aria-labelledby="s03">
+      <div class="sec-head">
+        <p class="kicker"><span class="kicker__step mono-12">STEP 03</span><span class="mono-12 caps pre">Decision 1  ·  Scope as a scaffold</span></p>
+        <h2 id="s03">Support the first coding lesson only</h2>
+      </div>
+      <div class="cols">
+        <div class="scope__left">
+          <p class="text-19">I scoped the two-week build to the lesson’s sequential motion, claw, and delay calls. Pasted code is parsed, never executed.</p>
+          <div class="in-out">
+            <div class="in-out__col">
+              <p class="mono-11 caps">In scope</p>
+              <ul class="in-out__items" role="list">
+              <li>begin, moveToXYZ, snapToXYZ</li>
+              <li>openClaw and closeClaw</li>
+              <li>delay</li>
+              <li>Comments and pin declarations</li>
+            </ul>
+            </div>
+            <div class="in-out__col in-out__col--out">
+              <p class="mono-11 caps">Left out</p>
+              <ul class="in-out__items" role="list">
+              <li>Loops and conditionals</li>
+              <li>Variables in movement calls</li>
+              <li>Custom functions</li>
+              <li>Arbitrary Arduino APIs</li>
+            </ul>
+            </div>
+          </div>
+          <div class="note">
+            <p class="mono-11 caps">Tradeoff</p>
+            <p>No loops, variables, or custom functions. Students eventually outgrow the subset.</p>
+          </div>
+        </div>
+        <figure class="code card">
+          <figcaption class="code__head"><p class="mono-11 caps">Arduino sketch</p><p>the whole supported shape</p></figcaption>
+<pre><code><span class="ln">1</span>MeArm arm;
+<span class="ln">2</span>
+<span class="ln">3</span>void setup() {
+<span class="ln">4</span>  arm.begin(11, 10, 9, 6);
+<span class="ln">5</span>}
+<span class="ln">6</span>
+<span class="ln">7</span>void loop() {
+<span class="ln">8</span><span class="hl">  arm.moveToXYZ(0, 100, 50);</span>
+<span class="ln">9</span>  delay(500);
+<span class="ln">10</span>  arm.openClaw();
+<span class="ln">11</span>}</code></pre>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== 04 The workspace ===== -->
+    <section class="sec wrap" aria-labelledby="s04">
+      <div class="sec-head">
+        <p class="kicker"><span class="kicker__step mono-12">STEP 04</span><span class="mono-12 caps pre">The product  ·  v0.9.0</span></p>
+        <h2 id="s04">A workspace to predict, explain, and revise</h2>
+      </div>
+      <ol class="loop" role="list">
+        <li class="loop__step"><span class="loop__no">1</span>Predict</li>
+        <li class="loop__arrow" aria-hidden="true">→</li>
+        <li class="loop__step"><span class="loop__no">2</span>Preview and explain</li>
+        <li class="loop__arrow" aria-hidden="true">→</li>
+        <li class="loop__step"><span class="loop__no">3</span>Revise</li>
+        <li class="loop__arrow" aria-hidden="true">→</li>
+        <li class="loop__step"><span class="loop__no">4</span>Test on hardware</li>
+      </ol>
+      <p class="text-17 max-820">The intended lesson loop. Starter prompts support prediction; source-linked commands and stepping support explanation. These are design intentions, not measured learning gains.</p>
+      <figure class="shot">
+        <div class="window window--shadow">
+          <img src="/assets/mearm/mearm-02-step-through-1200.webp"
+               srcset="/assets/mearm/mearm-02-step-through-1200.webp 1200w, /assets/mearm/mearm-02-step-through-2400.webp 2400w"
+               sizes="(max-width: 1440px) calc(100vw - 40px), 1200px"
+               width="1200" height="750" loading="lazy" decoding="async"
+               alt="The workspace paused on command 7 of 29: the active line is highlighted in the sketch, the 3D arm shows the matching pose, and the inspector lists joint angles.">
+        </div>
+        <figcaption><span class="pre">Fig. 02  Paused on command 7 of 29. The active source line, the pose and the joint angles stay linked.</span><span class="mono-11">mearm-02-step-through.png</span></figcaption>
+      </figure>
+      <ol class="walk" role="list">
+        <li><p class="mono-12">01</p><h3 class="cond cond-22">Start and edit</h3><p class="text-16">Choose one of eight examples and edit a command.</p></li>
+        <li><p class="mono-12">02</p><h3 class="cond cond-22">See the motion</h3><p class="text-16">Compare the path and coordinates with your prediction.</p></li>
+        <li><p class="mono-12">03</p><h3 class="cond cond-22">Explain each step</h3><p class="text-16">Link the active command and its source line to a pose.</p></li>
+        <li><p class="mono-12">04</p><h3 class="cond cond-22">Revise and replay</h3><p class="text-16">Step through the sequence, then revise it.</p></li>
+        <li><p class="mono-12">05</p><h3 class="cond cond-22">Check the boundary</h3><p class="text-16">Read the diagnostics, then verify the motion on hardware.</p></li>
+      </ol>
+    </section>
+
+    <!-- ===== 05 Diagnostics ===== -->
+    <section class="sec wrap" aria-labelledby="s05">
+      <div class="sec-head">
+        <p class="kicker"><span class="kicker__step mono-12">STEP 05</span><span class="mono-12 caps pre">Decision 2  ·  Make uncertainty visible</span></p>
+        <h2 id="s05">Show what the model can and cannot check</h2>
+      </div>
+      <p class="text-19 max-820">Source-linked diagnostics expose reachability and servo-limit failures on the line that caused them. A failed parse disables playback, so a stale preview can never run.</p>
+      <ul class="grid-3" role="list">
+        <li class="card state">
+          <img src="/assets/mearm/mearm-03-caution-381.webp"
+               srcset="/assets/mearm/mearm-03-caution-381.webp 381w, /assets/mearm/mearm-03-caution-762.webp 762w"
+               sizes="(max-width: 768px) calc(100vw - 40px), 381px"
+               width="381" height="293" loading="lazy" decoding="async"
+               alt="The 3D preview playing a pose that is reachable but not on the approved list.">
+          <p class="banner banner--caution">Line 13: Position is mathematically valid but is not on the instructor-approved pose list.</p>
+          <div class="state__text">
+            <p class="tag"><span class="dot" style="--dot: #c88719" aria-hidden="true"></span><span class="mono-11 caps" style="color: #8a5a00">Caution</span></p>
+            <h3 class="cond cond-26">Playback continues</h3>
+            <p class="text-16">Reachable, but not an approved pose. The preview still plays; verify the pose on hardware.</p>
+            <p class="mono-11 file">mearm-03-caution.png</p>
+          </div>
+        </li>
+        <li class="card state">
+          <img src="/assets/mearm/mearm-04-invalid-381.webp"
+               srcset="/assets/mearm/mearm-04-invalid-381.webp 381w, /assets/mearm/mearm-04-invalid-762.webp 762w"
+               sizes="(max-width: 768px) calc(100vw - 40px), 381px"
+               width="381" height="293" loading="lazy" decoding="async"
+               alt="The timeline stopped before a motion that exceeds the shoulder servo limit.">
+          <p class="banner">Line 13: Position exceeds the configured shoulder servo limit.</p>
+          <div class="state__text">
+            <p class="tag"><span class="dot" style="--dot: #c84a59" aria-hidden="true"></span><span class="mono-11 caps" style="color: var(--wine)">Invalid</span></p>
+            <h3 class="cond cond-26">Timeline truncates</h3>
+            <p class="text-16">The timeline stops before the invalid motion. Revise the coordinate and preview again.</p>
+            <p class="mono-11 file">mearm-04-invalid.png</p>
+          </div>
+        </li>
+        <li class="card state">
+          <img src="/assets/mearm/mearm-05-unsupported-381.webp"
+               srcset="/assets/mearm/mearm-05-unsupported-381.webp 381w, /assets/mearm/mearm-05-unsupported-762.webp 762w"
+               sizes="(max-width: 768px) calc(100vw - 40px), 381px"
+               width="381" height="293" loading="lazy" decoding="async"
+               alt="A sketch with a loop the parser does not support; playback controls are disabled.">
+          <p class="banner">Line 11: Unsupported character '&lt;'.</p>
+          <div class="state__text">
+            <p class="tag"><span class="dot" style="--dot: #c84a59" aria-hidden="true"></span><span class="mono-11 caps" style="color: var(--wine)">Code error</span></p>
+            <h3 class="cond cond-26">Playback disabled</h3>
+            <p class="text-16">No timeline is built. The wording of this message is the next thing I would fix.</p>
+            <p class="mono-11 file">mearm-05-unsupported.png</p>
+          </div>
+        </li>
+      </ul>
+      <div class="note">
+        <p class="mono-11 caps">Tradeoff</p>
+        <p>Kinematics and timing do not establish physical safety. The preview does not model collisions, torque, heat, or backlash.</p>
+      </div>
+    </section>
+
+    <!-- ===== 06 Reviewing AI output ===== -->
+    <section class="sec wrap" aria-labelledby="s06">
+      <div class="sec-head">
+        <p class="kicker"><span class="kicker__step mono-12">STEP 06</span><span class="mono-12 caps pre">Decision 3  ·  Human review of AI output</span></p>
+        <h2 id="s06">I rejected the first arm model</h2>
+      </div>
+      <div class="cols">
+        <div class="review__left">
+          <p class="text-19">Codex generated the core and tests, and Claude generated the interface. My job was to review both against the specification.</p>
+          <p class="text-19">The initial arm ignored documented part dimensions and assembly order. I rejected it and had it rebuilt against the MeArm reference geometry. Eleven arm-model tests now check transforms and part ordering.</p>
+          <div class="note">
+            <p class="mono-11 caps">Tradeoff</p>
+            <p>Reference-matched graphics still need comparison with a calibrated physical arm.</p>
+          </div>
+        </div>
+        <div class="review__figs">
+          <figure class="shot">
+            <div class="window">
+              <img src="/assets/mearm/mearm-initial-model-304.webp"
+                   srcset="/assets/mearm/mearm-initial-model-304.webp 304w, /assets/mearm/mearm-initial-model-608.webp 608w"
+                   sizes="(max-width: 768px) 45vw, 304px"
+                   width="304" height="316" loading="lazy" decoding="async"
+                   alt="The initial AI-generated 3D arm model, with parts out of proportion and assembled in the wrong order.">
+            </div>
+            <figcaption><span>Initial · rejected</span><span class="mono-11">mearm-initial-model.png</span></figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="window">
+              <img src="/assets/mearm/mearm-06-arm-rebuilt-304.webp"
+                   srcset="/assets/mearm/mearm-06-arm-rebuilt-304.webp 304w, /assets/mearm/mearm-06-arm-rebuilt-608.webp 608w"
+                   sizes="(max-width: 768px) 45vw, 304px"
+                   width="304" height="316" loading="lazy" decoding="async"
+                   alt="The rebuilt 3D arm model matching the MeArm reference geometry.">
+            </div>
+            <figcaption><span>Rebuilt · v0.9.0</span><span class="mono-11">mearm-06-arm-rebuilt.png</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 07 In the classroom ===== -->
+    <section class="sec wrap" aria-labelledby="s07">
+      <div class="sec-head">
+        <p class="kicker"><span class="kicker__step mono-12">STEP 07</span><span class="mono-12 caps pre">In the classroom  ·  one instructor-reported episode</span></p>
+        <h2 id="s07">From a stalled rescue task to a completed pickup</h2>
+      </div>
+      <ol class="episode" role="list">
+        <li class="card stage"><p class="mono-11 caps">Difficulty</p><p>A group’s rescue sequence stalled on hardware. 10 mm steps were too small to observe clearly.</p></li>
+        <li class="episode__arrow" aria-hidden="true">→</li>
+        <li class="card stage"><p class="mono-11 caps">Tool use</p><p>Students planned the sequence in the viewer and inspected it with the scrubbable timeline.</p></li>
+        <li class="episode__arrow" aria-hidden="true">→</li>
+        <li class="card stage"><p class="mono-11 caps is-result">Observed result</p><p>They returned to the physical arm and completed the pickup. The tool served as a planning reference.</p></li>
+      </ol>
+      <div class="note note--paper">
+        <p class="mono-11 caps">What this episode does not show</p>
+        <p>The tool’s effect was not isolated. Instructors still rated the programming introduction “so-so”; IDE setup and uploading consumed much of the day.</p>
+      </div>
+    </section>
+
+    <!-- ===== 08 Evidence and limits ===== -->
+    <section class="sec wrap" aria-labelledby="s08">
+      <div class="sec-head">
+        <p class="kicker"><span class="kicker__step mono-12">STEP 08</span><span class="mono-12 caps">Evidence and limits</span></p>
+        <h2 id="s08">What this does and does not prove</h2>
+      </div>
+      <ul class="grid-3" role="list">
+        <li class="card evidence">
+          <p class="tag"><span class="dot" style="--dot: #246b5b" aria-hidden="true"></span><span class="mono-11 caps">Software evidence</span></p>
+          <h3 class="cond cond-29">A working release candidate</h3>
+          <p class="text-17">57 automated tests pass, alongside strict type checking, a production build and an offline-asset check. Final browser and hardware gates remain open.</p>
+        </li>
+        <li class="card evidence">
+          <p class="tag"><span class="dot" style="--dot: #c88719" aria-hidden="true"></span><span class="mono-11 caps">Classroom evidence</span></p>
+          <h3 class="cond cond-29">Use observed in one cohort</h3>
+          <p class="text-17">Six learners used the preview. One reported episode shows its use as a planning reference.</p>
+        </li>
+        <li class="card evidence">
+          <p class="tag"><span class="dot" style="--dot: #9aa4ab" aria-hidden="true"></span><span class="mono-11 caps">Learning evidence</span></p>
+          <h3 class="cond cond-29">Outcomes remain unmeasured</h3>
+          <p class="text-17">No assessment or comparison establishes gains in understanding, speed, or independence.</p>
+        </li>
+      </ul>
+      <div class="boundary">
+        <p>Release boundary: v0.9.0. Final browser checks and the physical validation protocol are required before a classroom-ready 1.0.</p>
+        <a href="https://github.com/FriedFishZYr/mearm/blob/main/docs/VALIDATION_REPORT.md">Validation report on GitHub →</a>
+      </div>
+    </section>
+
+    <!-- ===== 09 Next ===== -->
+    <section class="sec wrap" aria-labelledby="s09">
+      <div class="sec-head">
+        <p class="kicker"><span class="kicker__step mono-12">STEP 09</span><span class="mono-12 caps pre">Next iteration  ·  proposed, not implemented</span></p>
+        <h2 id="s09">Clearer errors, then a learner evaluation</h2>
+      </div>
+      <ol class="next" role="list">
+        <li><p class="mono-12">01</p><h3 class="cond cond-29">Give beginners an actionable message</h3><p class="text-17">The loop example reports “Unsupported character '&lt;'.” It should explain that loops are unsupported and suggest a sequence of explicit commands.</p></li>
+        <li><p class="mono-12">02</p><h3 class="cond cond-29">Run a small beginner evaluation</h3><p class="text-17">Think-alouds with 4–6 beginners to examine predictions, explanations and error recovery, and to investigate the IDE setup and upload bottleneck instructors reported.</p></li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="wrap footer__row">
+      <div class="footer__left">
+        <p class="cond">MeArm Classroom Motion Lab</p>
+        <p class="mono-12 pre">TypeScript · Three.js · Vite · Vitest  ·  AI assistance: Codex and Claude</p>
+      </div>
+      <div class="footer__right">
+        <a class="mono-12" href="https://github.com/FriedFishZYr/mearm">github.com/FriedFishZYr/mearm</a>
+        <a class="footer__back" href="/">← All work</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
