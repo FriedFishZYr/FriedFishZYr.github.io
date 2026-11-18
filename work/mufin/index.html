@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MuFIN case study — Yinran Zhu</title>
-  <meta name="description" content="A randomized study of two feedback designs for online calculus, then a closer look at what each learner did right after answering the feedback’s own question.">
+  <meta name="description" content="A randomized study of two feedback designs for online calculus, then a pathway analysis mined from interaction logs: what each learner did right after answering the feedback’s own question.">
   <link rel="canonical" href="https://friedfishzyr.github.io/work/mufin/">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Yinran Zhu">
   <meta property="og:title" content="How learners use AI feedback to fix their own mistakes — MuFIN case study">
-  <meta property="og:description" content="A randomized study of two feedback designs for online calculus, then a closer look at what each learner did right after answering the feedback’s own question.">
+  <meta property="og:description" content="A randomized study of two feedback designs for online calculus, then a pathway analysis mined from interaction logs: what each learner did right after answering the feedback’s own question.">
   <meta property="og:url" content="https://friedfishzyr.github.io/work/mufin/">
   <meta property="og:image" content="https://friedfishzyr.github.io/assets/og/mufin.png">
   <meta property="og:image:width" content="1200">
@@ -48,9 +48,9 @@
     <!-- ===== Hero ===== -->
     <section class="hero" aria-labelledby="mufin-title">
       <div class="wrap">
-        <p class="label">Case study: UX and learning science research</p>
+        <p class="label">Case study: Data mining and learning science research</p>
         <h1 id="mufin-title" class="hero__title">How learners use AI feedback to fix their own mistakes</h1>
-        <p class="hero__lede">A randomized study of two feedback designs for online calculus, then a closer look at what each learner did right after answering the feedback’s own question.</p>
+        <p class="hero__lede">A randomized study of two feedback designs for online calculus, then a pathway analysis mined from interaction logs: what each learner did right after answering the feedback’s own question.</p>
 
         <div class="hero__visual">
           <div class="browser">
@@ -96,7 +96,7 @@
         <h2 id="in-short" class="serif-40">In short</h2>
         <ul class="stats" role="list">
           <li class="stat"><p class="stat__num">138</p><p class="stat__text">learners randomly assigned to two feedback designs (team study)</p></li>
-          <li class="stat"><p class="stat__num">492</p><p class="stat__text">feedback episodes I rebuilt from raw interaction logs</p></li>
+          <li class="stat"><p class="stat__num">492</p><p class="stat__text">feedback episodes I mined from raw interaction logs</p></li>
           <li class="stat"><p class="stat__num stat__num--accent">+30.5</p><p class="stat__text">percentage points more likely to fix the problem after a full-credit embedded answer</p></li>
           <li class="stat"><p class="stat__num">32</p><p class="stat__text">edge cases I reviewed one by one</p></li>
         </ul>
@@ -123,7 +123,7 @@
               <div class="meta"><dt>Timeline</dt><dd>August 2026 to present</dd></div>
               <div class="meta"><dt>My role</dt><dd>Research assistant through an independent study. Sole analyst on the pathway analysis.</dd></div>
               <div class="meta"><dt>Team</dt><dd>MuFIN research team: feedback design and the randomized study</dd></div>
-              <div class="meta"><dt>Methods</dt><dd>Randomized experiment, log analysis, Bayesian multilevel modeling, robustness checks, qualitative case review</dd></div>
+              <div class="meta"><dt>Methods</dt><dd>Randomized experiment, educational data mining of interaction logs, Bayesian multilevel modeling, robustness checks, qualitative case review</dd></div>
               <div class="meta"><dt>Tools</dt><dd>Python (PyMC, nutpie, ArviZ), LearnVia, Prolific</dd></div>
             </dl>
           </div>
@@ -164,7 +164,7 @@
         <ol class="steps steps--process" role="list">
           <li class="step step--team"><p class="step__num">1</p><p class="step__title">Team study</p><p class="step__text">Randomized comparison, 138 learners</p></li>
           <li class="step"><p class="step__num">2</p><p class="step__title">Open question</p><p class="step__text">Does a good embedded answer carry over?</p></li>
-          <li class="step"><p class="step__num">3</p><p class="step__title">Episode rebuild</p><p class="step__text">492 episodes from raw logs</p></li>
+          <li class="step"><p class="step__num">3</p><p class="step__title">Episode rebuild</p><p class="step__text">492 episodes mined from raw logs</p></li>
           <li class="step"><p class="step__num">4</p><p class="step__title">Bayesian model</p><p class="step__text">Learner and problem effects, pre-test</p></li>
           <li class="step"><p class="step__num">5</p><p class="step__title">Stress tests</p><p class="step__text">8 specifications, 67 refits</p></li>
           <li class="step"><p class="step__num">6</p><p class="step__title">Case review</p><p class="step__text">All 32 mismatch cases</p></li>
@@ -261,7 +261,7 @@
           </div>
           <div class="sec-head__right">
             <h2 id="s02">I changed the unit of analysis from learner to episode</h2>
-            <p class="lead-19">The team study compared people. I zoomed in on moments: every time a learner got a problem wrong, how they answered the feedback question, and what they did next on the same problem. The approach builds on research into how learners process hints (Goldin, Koedinger and Aleven, 2012).</p>
+            <p class="lead-19">The team study compared people. I zoomed in on moments: every time a learner got a problem wrong, how they answered the feedback question, and what they did next on the same problem. The approach follows educational data mining work on how learners process hints (Goldin, Koedinger and Aleven, 2012).</p>
           </div>
         </div>
 
