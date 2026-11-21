@@ -4,14 +4,14 @@ Personal portfolio served by GitHub Pages at <https://friedfishzyr.github.io>.
 
 Plain HTML and CSS. No framework and no build step. Edit a file, refresh the browser.
 
-Two pages use JavaScript, each with one dependency-free file loaded with `defer`: `js/home.js` (Home) and `js/mufin-generation.js` (the MuFIN Generation article). Neither makes network requests, and both pages still read completely with JavaScript off. The other pages have no scripts.
+Three pages use JavaScript, in dependency-free files loaded with `defer`: `js/home.js` (Home), `js/mufin-article.js` (the section bar on both MuFIN articles) and `js/mufin-generation.js` (the walkthrough demo on the MuFIN Generation article). None makes network requests, and every page still reads completely with JavaScript off. The KeyPalette and MeArm pages have no scripts.
 
 The design source is the Figma file **YinranZhu_Portfolios**, page **Portfolio**:
 
 | Page | Figma frame | File |
 |---|---|---|
 | Home | `74:249` (superseded: the current Home was built in code, see below) | `index.html` |
-| MuFIN Pathway Analysis case study | `6:41` | `work/mufin/index.html` |
+| MuFIN Pathway Analysis article | `6:41` (superseded: rebuilt in code on the MuFIN Generation layout) | `work/mufin/index.html` |
 | KeyPalette case study | `29:249` | `work/keypalette/index.html` |
 | MeArm case study | `82:257` | `work/mearm/index.html` |
 | MuFIN Generation article | `144:652` | `work/mufin-generation/index.html` |
@@ -30,19 +30,21 @@ Then open <http://localhost:8000>. Use a server rather than opening the files di
 
 ```
 index.html                 Home
-work/mufin/index.html      MuFIN Pathway Analysis case study (what learners did after the feedback)
+work/mufin/index.html      MuFIN Pathway Analysis article (what learners did after the feedback)
 work/keypalette/index.html KeyPalette case study
 work/mearm/index.html      MeArm case study
 work/mufin-generation/index.html  MuFIN Generation article (how the feedback was generated)
 404.html                   "Page not found" (GitHub Pages serves it automatically)
 css/base.css               Shared: reset, .wrap layout column, focus styles, reduced motion
 css/home.css               Home and 404 (Geist + Geist Mono, research-index layout)
-css/mufin.css              MuFIN only (research-report look, Source Serif 4 + Source Sans 3)
+css/mufin-article.css      Shared by the two MuFIN articles: top bar, lead row, reading column, figure mats, footer (Geist / Geist Mono / Source Serif 4)
+css/mufin.css              MuFIN Pathway Analysis only: red accent, wide chart tier, case-study modules
 css/keypalette.css         KeyPalette only (Archivo, keycap theme)
 css/mearm.css              MeArm only (Barlow / Barlow Condensed / Fragment Mono, laser-cut kit theme)
-css/mufin-generation.css   MuFIN Generation only (Geist / Geist Mono / Source Serif 4, own top bar and footer)
+css/mufin-generation.css   MuFIN Generation only: its figures and the walkthrough demo
 js/home.js                 Home only: header name-to-monogram on scroll, dropdowns, mobile menu, carousels, filters
-js/mufin-generation.js     MuFIN Generation only: the section bar and the scripted walkthrough demo
+js/mufin-article.js        Both MuFIN articles: the section bar that appears once you scroll past the title
+js/mufin-generation.js     MuFIN Generation only: the scripted walkthrough demo
 assets/home/               Home images (MuFIN Generation figure; older card thumbnails)
 assets/mufin/              MuFIN charts, diagrams and artifact thumbnails (SVG)
 assets/keypalette/         KeyPalette screenshots (WebP) and keyboard art (SVG)
@@ -52,9 +54,9 @@ favicon.svg, favicon-32.png, apple-touch-icon.png
 .nojekyll                  Tells GitHub Pages to serve the files as-is
 ```
 
-Each case study has its own stylesheet and visual language on purpose. Only `base.css` is shared.
+Each project has its own stylesheet and visual language on purpose. `base.css` is shared by every page. The two MuFIN articles also share `mufin-article.css`, so they read as a pair: same layout, teal accent on Generation, red on Pathway Analysis. To change something on both (top bar, title block, contents rail, captions, footer), edit `mufin-article.css`; each page's own file only holds what the other page does not have.
 
-Home has its own header and footer (in `home.css`), shared only with the 404 page. The header shows the full name at the top of the page; once you scroll, it turns into a dark bar and the name collapses to the "Y/Z" mark. The name is set in Archivo (expanded width) with a drawn slash in place of the I; the slash steepens to 24° in the name and tips to 42° in the mark, parallel to the Y's arm and the Z's diagonal (see `.brand__slash` in `home.css`). The MuFIN case study keeps the older nav and footer in `mufin.css`.
+Home has its own header and footer (in `home.css`), shared only with the 404 page. The header shows the full name at the top of the page; once you scroll, it turns into a dark bar and the name collapses to the "Y/Z" mark. The name is set in Archivo (expanded width) with a drawn slash in place of the I; the slash steepens to 24° in the name and tips to 42° in the mark, parallel to the Y's arm and the Z's diagonal (see `.brand__slash` in `home.css`). The two MuFIN articles share a simpler top bar and footer in `mufin-article.css`.
 
 ## Edit text
 
@@ -67,9 +69,9 @@ All copy is in the HTML files. Open the page, find the sentence and change it. A
 
 ## Update the résumé
 
-The Resume links (Home header, Home footer, MuFIN nav, MuFIN Generation top bar) point to the résumé PDF on Google Drive. To update it without changing the link, open the file in Drive and use "Manage versions" → "Upload new version". If you share a different file instead, search the HTML files for `drive.google.com` and update the address. Keep the file shared as "Anyone with the link can view".
+The Resume links (Home header, Home footer, and the top bar of both MuFIN articles) point to the résumé PDF on Google Drive. To update it without changing the link, open the file in Drive and use "Manage versions" → "Upload new version". If you share a different file instead, search the HTML files for `drive.google.com` and update the address. Keep the file shared as "Anyone with the link can view".
 
-Contact emails appear in the Home header's Contact menu and in the footer on Home, MuFIN and MuFIN Generation. The Gmail address is labelled "Jobs" and the CMU address "School".
+Contact emails appear in the Home header's Contact menu and in the footer on Home and both MuFIN articles. The Gmail address is labelled "Jobs" and the CMU address "School".
 
 ## Swap an image
 
