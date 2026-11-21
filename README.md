@@ -11,7 +11,7 @@ The design source is the Figma file **YinranZhu_Portfolios**, page **Portfolio**
 | Page | Figma frame | File |
 |---|---|---|
 | Home | `74:249` (superseded: the current Home was built in code, see below) | `index.html` |
-| MuFIN case study | `6:41` | `work/mufin/index.html` |
+| MuFIN Pathway Analysis case study | `6:41` | `work/mufin/index.html` |
 | KeyPalette case study | `29:249` | `work/keypalette/index.html` |
 | MeArm case study | `82:257` | `work/mearm/index.html` |
 | MuFIN Generation article | `144:652` | `work/mufin-generation/index.html` |
@@ -30,7 +30,7 @@ Then open <http://localhost:8000>. Use a server rather than opening the files di
 
 ```
 index.html                 Home
-work/mufin/index.html      MuFIN case study
+work/mufin/index.html      MuFIN Pathway Analysis case study (what learners did after the feedback)
 work/keypalette/index.html KeyPalette case study
 work/mearm/index.html      MeArm case study
 work/mufin-generation/index.html  MuFIN Generation article (how the feedback was generated)
