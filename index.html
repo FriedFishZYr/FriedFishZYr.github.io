@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Yinran Zhu — Portfolio</title>
-  <meta name="description" content="Three case studies: data mining and learning-science research with Carnegie Mellon’s MuFIN group, a classroom robotics tool built at Boston University, and a design tool I shipped on my own.">
+  <meta name="description" content="I study how people use products, then design and build better ones. Learning-science research and AI feedback with Carnegie Mellon’s MuFIN group, a classroom robotics tool, and a design tool I shipped on my own.">
   <link rel="canonical" href="https://friedfishzyr.github.io/">
 
   <!-- Link previews (Slack, LinkedIn, iMessage…) -->
@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://friedfishzyr.github.io/assets/og/home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Previews of three case studies: an AI feedback interface, a laser-cut robot arm sheet, and a keycap colorway on a keyboard.">
+  <meta property="og:image:alt" content="Yinran Zhu: I study how people use products, then design and build better ones. Projects: MuFIN (2 pieces), KeyPalette (1 piece) and MeArm (1 piece).">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -25,136 +25,322 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;1,8..60,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Archivo:wdth,wght@115,600&display=swap">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/home.css">
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="/js/home.js" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="nav">
-    <div class="wrap nav__bar">
-      <a class="nav__name" href="/">Yinran Zhu</a>
-      <nav aria-label="Main">
-        <ul class="nav__links" role="list">
-          <li><a href="#work" aria-current="page">Work</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="https://drive.google.com/file/d/1gkcjEiH1-XC1gn6kAeQXWxprg3A8apSt/view?usp=sharing">Resume</a></li>
-        </ul>
-      </nav>
+  <!-- ===== Header =====
+       Full name at the top of the page; once you scroll, the bar turns dark
+       and the name collapses to the YZ monogram (js/home.js). -->
+  <span class="hdr-sentinel" aria-hidden="true" data-hdr-sentinel></span>
+  <header class="hdr" data-hdr>
+    <div class="hdr__bar">
+      <a class="brand" href="/" aria-label="Yinran Zhu, home">
+        <span class="brand__word" aria-hidden="true"><span class="brand__k">Y</span><span class="brand__k brand__slash"></span><span class="brand__c">NRAN</span><span class="brand__c brand__gap"> </span><span class="brand__k">Z</span><span class="brand__c">HU</span></span>
+      </a>
+
+      <div class="hdr__links" id="hdr-links" data-hdr-links>
+        <nav class="hdr__nav hdr__nav--main" aria-label="Main">
+          <ul role="list">
+            <li class="dd">
+              <a class="pill" href="#work" data-dd="dd-work">Work<svg class="pill__chev" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M2 3.75L5 6.75l3-3"/></svg></a>
+              <div class="dd__panel" id="dd-work" hidden>
+                <ul role="list">
+                  <li><a href="/work/mufin-generation/"><span class="dd__k">MuFIN</span>How AI feedback helps a calculus learner revisit a mistake</a></li>
+                  <li><a href="/work/mufin/"><span class="dd__k">MuFIN</span>How learners use AI feedback to fix their own mistakes</a></li>
+                  <li><a href="/work/keypalette/"><span class="dd__k">KeyPalette</span>Design a keycap colorway before you buy it</a></li>
+                  <li><a href="/work/mearm/"><span class="dd__k">MeArm</span>Making robot code visible to beginners</a></li>
+                  <li class="dd__all"><a href="#work">All work</a></li>
+                </ul>
+              </div>
+            </li>
+            <li><a class="pill" href="#about">About</a></li>
+          </ul>
+        </nav>
+        <nav class="hdr__nav hdr__nav--aside" aria-label="Contact and résumé">
+          <ul role="list">
+            <li class="dd">
+              <a class="pill" href="#contact" data-dd="dd-contact">Contact<svg class="pill__chev" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M2 3.75L5 6.75l3-3"/></svg></a>
+              <div class="dd__panel dd__panel--end" id="dd-contact" hidden>
+                <ul role="list">
+                  <li><a href="mailto:zhuyinran1231@gmail.com"><span class="dd__k">Jobs</span>zhuyinran1231@gmail.com</a></li>
+                  <li><a href="mailto:yinranz@andrew.cmu.edu"><span class="dd__k">School</span>yinranz@andrew.cmu.edu</a></li>
+                  <li><a href="https://www.linkedin.com/in/yinranzhu">LinkedIn</a></li>
+                  <li><a href="https://github.com/FriedFishZYr">GitHub</a></li>
+                </ul>
+              </div>
+            </li>
+            <li><a class="pill" href="https://drive.google.com/file/d/1gkcjEiH1-XC1gn6kAeQXWxprg3A8apSt/view?usp=sharing">Resume</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <button class="hdr__toggle" type="button" aria-expanded="false" aria-controls="hdr-links" data-hdr-toggle hidden>
+        <span class="visually-hidden">Menu</span>
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 6h12M4 10h12M4 14h8"/></svg>
+      </button>
     </div>
   </header>
 
   <main id="main">
-    <section class="intro wrap" aria-labelledby="intro-title">
-      <p class="intro__kicker">MS in Learning Engineering, Carnegie Mellon HCII</p>
-      <h1 id="intro-title" class="intro__title">I study how people use products, then design and build better ones.</h1>
-      <p class="intro__lede">Three case studies: data mining and learning-science research with Carnegie Mellon’s MuFIN group, a classroom robotics tool built at Boston University, and a design tool I shipped on my own.</p>
-      <ul class="contact" role="list" aria-label="Contact">
-        <li><span class="contact__label">Jobs</span> <a href="mailto:zhuyinran1231@gmail.com">zhuyinran1231@gmail.com</a></li>
-        <li><span class="contact__label">School</span> <a href="mailto:yinranz@andrew.cmu.edu">yinranz@andrew.cmu.edu</a></li>
-        <li><a href="https://www.linkedin.com/in/yinranzhu">LinkedIn</a></li>
-        <li><a href="https://github.com/FriedFishZYr">GitHub</a></li>
-        <li><a href="https://drive.google.com/file/d/1gkcjEiH1-XC1gn6kAeQXWxprg3A8apSt/view?usp=sharing">Resume</a></li>
-      </ul>
+
+    <!-- ===== Statement ===== -->
+    <section class="statement wrap" aria-labelledby="statement-title">
+      <h1 class="statement__title" id="statement-title">I study how people use products, then design and build better ones.</h1>
     </section>
 
-    <section id="work" class="work wrap" aria-labelledby="work-title">
-      <div class="work__head">
-        <h2 id="work-title">Selected work</h2>
-        <p class="work__count">3 case studies</p>
+    <!-- ===== Projects row ===== -->
+    <section class="projects" aria-labelledby="projects-title" data-carousel>
+      <h2 class="visually-hidden" id="projects-title">Projects</h2>
+      <div class="projects__viewport wrap">
+        <ul class="projects__track" role="list" data-track>
+          <li class="proj" data-slide>
+            <div class="proj__head">
+              <svg class="proj__icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M7 6c5 18 10 26 17 26S36 24 41 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                <circle cx="31" cy="25" r="3" fill="currentColor"/>
+                <path d="M24 39h11" stroke="currentColor" stroke-width="3.2"/>
+                <path d="M8 44h27" stroke="currentColor" stroke-width="2.2" stroke-dasharray="4 3"/>
+              </svg>
+              <div>
+                <h3 class="proj__name">MuFIN</h3>
+                <p class="proj__count">2 pieces</p>
+              </div>
+            </div>
+            <p class="proj__desc">AI feedback for online calculus with Carnegie Mellon’s MuFIN group: how the feedback was generated, and what each learner did right after answering the feedback’s own question.</p>
+            <ul class="proj__links" role="list">
+              <li><a href="/work/mufin-generation/">How AI feedback helps a calculus learner revisit a mistake <span aria-hidden="true">→</span></a></li>
+              <li><a href="/work/mufin/">How learners use AI feedback to fix their own mistakes <span aria-hidden="true">→</span></a></li>
+            </ul>
+          </li>
+          <li class="proj" data-slide>
+            <div class="proj__head">
+              <svg class="proj__icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <rect x="5" y="8" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/>
+                <rect x="19" y="8" width="11" height="11" rx="2.5" fill="currentColor" stroke="currentColor" stroke-width="2.2"/>
+                <rect x="33" y="8" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/>
+                <rect x="5" y="23" width="18" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/>
+                <rect x="26" y="23" width="11" height="11" rx="2.5" fill="currentColor" stroke="currentColor" stroke-width="2.2"/>
+                <rect x="5" y="38" width="39" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/>
+              </svg>
+              <div>
+                <h3 class="proj__name">KeyPalette</h3>
+                <p class="proj__count">1 piece</p>
+              </div>
+            </div>
+            <p class="proj__desc">KeyPalette is a free, browser-only planner for mechanical keyboard enthusiasts. Pick a layout, paint keys by zone, and share the result as a link.</p>
+            <ul class="proj__links" role="list">
+              <li><a href="/work/keypalette/">Design a keycap colorway before you buy it <span aria-hidden="true">→</span></a></li>
+            </ul>
+          </li>
+          <li class="proj" data-slide>
+            <div class="proj__head">
+              <svg class="proj__icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M6 42h22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M17 42V30l9-12 10 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+                <circle cx="17" cy="30" r="3" fill="currentColor"/>
+                <circle cx="26" cy="18" r="3" fill="currentColor"/>
+                <path d="M36 22l7-6M36 22l7 3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+              <div>
+                <h3 class="proj__name">MeArm</h3>
+                <p class="proj__count">1 piece</p>
+              </div>
+            </div>
+            <p class="proj__desc">MeArm Classroom Motion Lab links beginner Arduino commands to a 3D motion preview, so students can predict, explain, and revise before testing on hardware.</p>
+            <ul class="proj__links" role="list">
+              <li><a href="/work/mearm/">Making robot code visible to beginners <span aria-hidden="true">→</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="pager pager--light wrap" data-pager hidden>
+        <button class="pager__btn" type="button" data-prev aria-label="Previous project"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+        <p class="pager__count" aria-live="polite"><span data-count>01</span> / <span data-total>03</span></p>
+        <button class="pager__btn" type="button" data-next aria-label="Next project"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
+      </div>
+    </section>
+
+    <!-- ===== Featured band ===== -->
+    <section class="featured" aria-labelledby="featured-title" data-carousel>
+      <h2 class="visually-hidden" id="featured-title">Featured</h2>
+      <div class="featured__viewport wrap">
+        <ul class="featured__track" role="list" data-track>
+          <li class="feat" data-slide>
+            <div class="feat__media feat__media--mat">
+              <img src="/assets/home/mufin-generation-figure-880.png"
+                   srcset="/assets/home/mufin-generation-figure-880.png 1x, /assets/home/mufin-generation-figure-1760.png 2x"
+                   width="880" height="418" loading="lazy" decoding="async"
+                   alt="The featured error: a learner chose (x² − 4) / (x + 2). A graph of f(x) = x² shows a solid teal bar measuring distance from 2 and a dashed red bar measuring distance from −2.">
+            </div>
+            <div class="feat__text">
+              <p class="feat__meta"><span class="feat__tag">Feedback generation</span><span>November 2026</span></p>
+              <h3 class="feat__title"><a href="/work/mufin-generation/">How AI feedback helps a calculus learner revisit a mistake</a></h3>
+              <p class="feat__desc">The system generates narrated, interactive feedback before the lesson. A reasoning model writes a structured spec for each anticipated wrong answer, one template renders it, and only small model calls run while a learner waits.</p>
+              <p class="feat__cta" aria-hidden="true">Read the article →</p>
+            </div>
+          </li>
+          <li class="feat" data-slide>
+            <div class="feat__media">
+              <img src="/assets/home/episode-pathways-card.svg" width="1164" height="415" loading="lazy" decoding="async"
+                   alt="Episode pathways: an incorrect original response leads to feedback (visual diagnosis and embedded question), then to a last embedded score of full credit or partial/incorrect, then to the next attempt on the same problem: correct, incorrect, or no observed reattempt. Six paths are labeled A to F; path B, full credit then incorrect, is highlighted.">
+            </div>
+            <div class="feat__text">
+              <p class="feat__meta"><span class="feat__tag">Data mining and learning science research</span><span>August 2026 to present</span></p>
+              <h3 class="feat__title"><a href="/work/mufin/">How learners use AI feedback to fix their own mistakes</a></h3>
+              <p class="feat__desc">A randomized study of two feedback designs for online calculus, then a pathway analysis mined from interaction logs: what each learner did right after answering the feedback’s own question.</p>
+              <p class="feat__cta" aria-hidden="true">Read case study →</p>
+            </div>
+          </li>
+          <li class="feat" data-slide>
+            <div class="feat__media">
+              <img src="/assets/home/keypalette-editor-65.webp"
+                   width="1990" height="1079" loading="lazy" decoding="async"
+                   alt="KeyPalette editor with the 65% layout with arrows: pale grey typing keys, light blue modifiers, arrow and navigation keys, and the keycap color panel on the left.">
+            </div>
+            <div class="feat__text">
+              <p class="feat__meta"><span class="feat__tag">Product design + engineering</span><span>April to October 2026</span></p>
+              <h3 class="feat__title"><a href="/work/keypalette/">Design a keycap colorway before you buy it</a></h3>
+              <p class="feat__desc">KeyPalette is a free, browser-only planner for mechanical keyboard enthusiasts. Pick a layout, paint keys by zone, and share the result as a link.</p>
+              <p class="feat__cta" aria-hidden="true">Read case study →</p>
+            </div>
+          </li>
+          <li class="feat" data-slide>
+            <div class="feat__media">
+              <img src="/assets/mearm/mearm-01-workspace-1200.webp"
+                   srcset="/assets/mearm/mearm-01-workspace-1200.webp 1200w, /assets/mearm/mearm-01-workspace-2400.webp 2400w"
+                   sizes="(max-width: 820px) 100vw, 680px"
+                   width="1200" height="750" loading="lazy" decoding="async"
+                   alt="MeArm Classroom Motion Lab workspace: an Arduino sketch on the left, a 3D preview of the robot arm in the middle, and an inspector with coordinates on the right.">
+            </div>
+            <div class="feat__text">
+              <p class="feat__meta"><span class="feat__tag">Learning product</span><span>July 2026</span></p>
+              <h3 class="feat__title"><a href="/work/mearm/">Making robot code visible to beginners</a></h3>
+              <p class="feat__desc">MeArm Classroom Motion Lab links beginner Arduino commands to a 3D motion preview, so students can predict, explain, and revise before testing on hardware.</p>
+              <p class="feat__cta" aria-hidden="true">Read case study →</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="pager pager--dark wrap" data-pager hidden>
+        <button class="pager__btn" type="button" data-prev aria-label="Previous featured piece"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+        <p class="pager__count" aria-live="polite"><span data-count>01</span> / <span data-total>04</span></p>
+        <button class="pager__btn" type="button" data-next aria-label="Next featured piece"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
+      </div>
+    </section>
+
+    <!-- ===== All work ===== -->
+    <section class="work wrap" id="work" aria-labelledby="work-title">
+      <h2 class="visually-hidden" id="work-title">All work</h2>
+      <p class="work__count"><span data-work-count>4</span> <span class="work__count-label" data-work-label>pieces</span></p>
+      <div class="work__bar" data-filters hidden>
+        <div class="filters" role="group" aria-label="Filter by project">
+          <button class="pill pill--filter" type="button" aria-pressed="true" data-filter="all">All</button>
+          <button class="pill pill--filter" type="button" aria-pressed="false" data-filter="mufin">MuFIN</button>
+          <button class="pill pill--filter" type="button" aria-pressed="false" data-filter="keypalette">KeyPalette</button>
+          <button class="pill pill--filter" type="button" aria-pressed="false" data-filter="mearm">MeArm</button>
+        </div>
+        <p class="work__sort">Most recent</p>
       </div>
 
-      <ul class="cards" role="list">
-        <!-- Card 01: MuFIN -->
-        <li class="card">
-          <div class="card__thumb">
-            <img src="/assets/home/mufin-preview-324.webp"
-                 srcset="/assets/home/mufin-preview-324.webp 1x, /assets/home/mufin-preview-648.webp 2x"
-                 width="324" height="215"
-                 alt="Feedback interface for a calculus limits problem: a graph shows the learner’s denominator anchored at −2 instead of 2, with audio narration controls.">
+      <!-- Canvas: each piece is led by an image, then title, one short
+           sentence and skill chips. Sizes and offsets vary (home.css). -->
+      <ul class="canvas" role="list" data-canvas>
+        <li class="piece piece--1" data-project="mufin">
+          <p class="piece__meta"><span>Feedback generation</span><span>November 2026</span></p>
+          <div class="piece__img">
+            <img src="/assets/home/mufin-generation-figure-880.png"
+                 srcset="/assets/home/mufin-generation-figure-880.png 880w, /assets/home/mufin-generation-figure-1760.png 1760w"
+                 sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 740px"
+                 width="880" height="418" loading="lazy" decoding="async"
+                 alt="The featured error: a learner chose (x² − 4) / (x + 2). A graph of f(x) = x² shows a solid teal bar measuring distance from 2 and a dashed red bar measuring distance from −2.">
           </div>
-          <div class="card__text">
-            <p class="card__kicker pre">01  ·  Data mining and learning science research</p>
-            <h3 class="card__title"><a href="/work/mufin/" class="card__link">How learners use AI feedback to fix their own mistakes</a></h3>
-            <p class="card__desc">A randomized study of two feedback designs for online calculus, then a pathway analysis mined from interaction logs: what each learner did right after answering the feedback’s own question.</p>
-          </div>
-          <dl class="card__meta">
-            <div><dt>My role</dt><dd>Sole analyst on the pathway analysis</dd></div>
-            <div><dt>Timeline</dt><dd>August 2026 to present</dd></div>
-            <div><dt>Outcome</dt><dd class="card__outcome">+30.5 points, held across 8 robustness checks · 5 design recommendations</dd></div>
-            <div><dt>Skills</dt><dd><ul class="tags" role="list"><li>Educational data mining</li><li>Learning science research</li><li>Experiment design</li><li>Bayesian modeling (Python)</li><li>Insights to design recommendations</li></ul></dd></div>
-          </dl>
-          <p class="card__cta" aria-hidden="true">Read case study →</p>
+          <h3 class="piece__title"><a href="/work/mufin-generation/">How AI feedback helps a calculus learner revisit a mistake</a></h3>
+          <p class="piece__desc">The system generates narrated, interactive feedback before the lesson.</p>
+          <ul class="tags" role="list" aria-label="Topics"><li>LLM generation</li><li>Multimodal feedback</li><li>Learning engineering</li><li>Evaluation</li></ul>
         </li>
-
-        <!-- Card 02: MeArm -->
-        <li class="card">
-          <div class="card__thumb card__thumb--kraft">
-            <img src="/assets/home/mearm-cut-sheet.svg" width="304" height="96"
-                 alt="Laser-cut sheet of robot arm parts: base plates, arm links and a servo horn.">
+        <li class="piece piece--2" data-project="mufin">
+          <p class="piece__meta"><span>Data mining and learning science research</span><span>August 2026 to present</span></p>
+          <div class="piece__img">
+            <img src="/assets/home/episode-pathways-card.svg" width="1164" height="415" loading="lazy" decoding="async"
+                 alt="Episode pathways: an incorrect original response leads to feedback (visual diagnosis and embedded question), then to a last embedded score of full credit or partial/incorrect, then to the next attempt on the same problem: correct, incorrect, or no observed reattempt. Six paths are labeled A to F; path B, full credit then incorrect, is highlighted.">
           </div>
-          <div class="card__text">
-            <p class="card__kicker pre">02  ·  Learning product</p>
-            <h3 class="card__title"><a href="/work/mearm/" class="card__link">Making robot code visible to beginners</a></h3>
-            <p class="card__desc">MeArm Classroom Motion Lab links beginner Arduino commands to a 3D motion preview, so students can predict, explain, and revise before testing on hardware.</p>
-          </div>
-          <dl class="card__meta">
-            <div><dt>Role</dt><dd>Product author</dd></div>
-            <div><dt>Timeline</dt><dd>July 2026</dd></div>
-            <div><dt>Outcome</dt><dd class="card__outcome">v0.9.0 release candidate · used by a cohort of 6 learners · 57 automated tests</dd></div>
-            <div><dt>Skills</dt><dd><ul class="tags" role="list"><li>Product specification</li><li>Scope and tradeoffs</li><li>Learning experience design</li><li>Classroom validation</li></ul></dd></div>
-          </dl>
-          <p class="card__cta" aria-hidden="true">Read case study →</p>
+          <h3 class="piece__title"><a href="/work/mufin/">How learners use AI feedback to fix their own mistakes</a></h3>
+          <p class="piece__desc">A randomized study of two feedback designs for online calculus, then a pathway analysis mined from interaction logs.</p>
+          <ul class="tags" role="list" aria-label="Skills"><li>Educational data mining</li><li>Learning science research</li><li>Experiment design</li><li>Bayesian modeling (Python)</li><li>Insights to design recommendations</li></ul>
         </li>
-
-        <!-- Card 03: KeyPalette -->
-        <li class="card">
-          <div class="card__thumb">
-            <img class="card__board"
-                 src="/assets/home/keypalette-board-304.webp"
-                 srcset="/assets/home/keypalette-board-304.webp 1x, /assets/home/keypalette-board-608.webp 2x"
-                 width="304" height="110"
-                 alt="Tenkeyless keyboard painted in the Nord colorway: pale grey alphas with blue-grey modifiers.">
+        <li class="piece piece--3" data-project="keypalette">
+          <p class="piece__meta"><span>Product design + engineering</span><span>April to October 2026</span></p>
+          <div class="piece__img">
+            <img src="/assets/home/keypalette-editor-65.webp"
+                 width="1990" height="1079" loading="lazy" decoding="async"
+                 alt="KeyPalette editor with the 65% layout with arrows: pale grey typing keys, light blue modifiers, arrow and navigation keys, and the keycap color panel on the left.">
           </div>
-          <div class="card__text">
-            <p class="card__kicker pre">03  ·  Product design + engineering</p>
-            <h3 class="card__title"><a href="/work/keypalette/" class="card__link">Design a keycap colorway before you buy it</a></h3>
-            <p class="card__desc">KeyPalette is a free, browser-only planner for mechanical keyboard enthusiasts. Pick a layout, paint keys by zone, and share the result as a link.</p>
+          <h3 class="piece__title"><a href="/work/keypalette/">Design a keycap colorway before you buy it</a></h3>
+          <p class="piece__desc">KeyPalette is a free, browser-only planner for mechanical keyboard enthusiasts.</p>
+          <ul class="tags" role="list" aria-label="Skills"><li>Product design</li><li>Front-end engineering (React)</li><li>Interaction design</li><li>Accessibility</li><li>Release planning</li></ul>
+        </li>
+        <li class="piece piece--4" data-project="mearm">
+          <p class="piece__meta"><span>Learning product</span><span>July 2026</span></p>
+          <div class="piece__img">
+            <img src="/assets/mearm/mearm-01-workspace-1200.webp"
+                 srcset="/assets/mearm/mearm-01-workspace-1200.webp 1200w, /assets/mearm/mearm-01-workspace-2400.webp 2400w"
+                 sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 520px"
+                 width="1200" height="750" loading="lazy" decoding="async"
+                 alt="MeArm Classroom Motion Lab workspace: an Arduino sketch on the left, a 3D preview of the robot arm in the middle, and an inspector with coordinates on the right.">
           </div>
-          <dl class="card__meta">
-            <div><dt>Role</dt><dd>Solo: design, engineering, copy</dd></div>
-            <div><dt>Timeline</dt><dd>April to October 2026</dd></div>
-            <div><dt>Outcome</dt><dd class="card__outcome">Live since October 2026 · 13 layouts · 46 automated tests</dd></div>
-            <div><dt>Skills</dt><dd><ul class="tags" role="list"><li>Product design</li><li>Front-end engineering (React)</li><li>Interaction design</li><li>Accessibility</li><li>Release planning</li></ul></dd></div>
-          </dl>
-          <p class="card__cta" aria-hidden="true">Read case study →</p>
+          <h3 class="piece__title"><a href="/work/mearm/">Making robot code visible to beginners</a></h3>
+          <p class="piece__desc">MeArm Classroom Motion Lab links beginner Arduino commands to a 3D motion preview.</p>
+          <ul class="tags" role="list" aria-label="Skills"><li>Product specification</li><li>Scope and tradeoffs</li><li>Learning experience design</li><li>Classroom validation</li></ul>
         </li>
       </ul>
     </section>
 
-    <section id="about" class="about" aria-labelledby="about-title">
-      <div class="wrap about__inner">
-        <h2 id="about-title">About</h2>
-        <div class="about__body">
-          <p>I’m a master’s student in Learning Engineering at Carnegie Mellon’s Human-Computer Interaction Institute. I came to it from education: a B.S. in Education &amp; Human Development at Boston University, plus hands-on time in RASTIC, BU’s robotics and autonomous systems teaching lab.</p>
-          <p class="about__open">Open to Summer 2027 Internships.</p>
-        </div>
+    <!-- ===== About ===== -->
+    <section class="about wrap" id="about" aria-labelledby="about-title">
+      <h2 class="about__title" id="about-title">About</h2>
+      <div class="about__body">
+        <p>I’m a master’s student in Learning Engineering at Carnegie Mellon’s Human-Computer Interaction Institute. I came to it from education: a B.S. in Education &amp; Human Development at Boston University, plus hands-on time in RASTIC, BU’s robotics and autonomous systems teaching lab.</p>
+        <p class="about__open">Open to Summer 2027 Internships.</p>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer__bar">
-      <div class="footer__id">
-        <p class="footer__name">Yinran Zhu</p>
-        <p class="footer__sub">MS in Learning Engineering, Human-Computer Interaction Institute, Carnegie Mellon University</p>
+  <!-- ===== Footer ===== -->
+  <footer class="ftr" id="contact">
+    <div class="wrap ftr__grid">
+      <div class="ftr__id">
+        <p class="ftr__name">Yinran Zhu</p>
+        <p class="ftr__sub">MS in Learning Engineering, Human-Computer Interaction Institute, Carnegie Mellon University</p>
       </div>
-      <div class="footer__contact">
-        <p class="footer__email"><span class="footer__label">Jobs</span> <a href="mailto:zhuyinran1231@gmail.com">zhuyinran1231@gmail.com</a></p>
-        <p class="footer__email"><span class="footer__label">School</span> <a href="mailto:yinranz@andrew.cmu.edu">yinranz@andrew.cmu.edu</a></p>
-        <a class="footer__top" href="#top">Back to top</a>
+      <div class="ftr__col">
+        <p class="ftr__head">Work</p>
+        <ul role="list">
+          <li><a href="/work/mufin-generation/">MuFIN: feedback generation</a></li>
+          <li><a href="/work/mufin/">MuFIN: pathway analysis</a></li>
+          <li><a href="/work/keypalette/">KeyPalette</a></li>
+          <li><a href="/work/mearm/">MeArm</a></li>
+        </ul>
       </div>
+      <div class="ftr__col">
+        <p class="ftr__head">Contact</p>
+        <ul role="list">
+          <li><span class="ftr__label">Jobs</span> <a href="mailto:zhuyinran1231@gmail.com">zhuyinran1231@gmail.com</a></li>
+          <li><span class="ftr__label">School</span> <a href="mailto:yinranz@andrew.cmu.edu">yinranz@andrew.cmu.edu</a></li>
+          <li><a href="https://www.linkedin.com/in/yinranzhu">LinkedIn</a></li>
+          <li><a href="https://github.com/FriedFishZYr">GitHub</a></li>
+          <li><a href="https://drive.google.com/file/d/1gkcjEiH1-XC1gn6kAeQXWxprg3A8apSt/view?usp=sharing">Resume</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap ftr__base">
+      <p>Open to Summer 2027 Internships.</p>
+      <a class="ftr__top" href="#top">Back to top</a>
     </div>
   </footer>
 </body>

@@ -2,16 +2,19 @@
 
 Personal portfolio served by GitHub Pages at <https://friedfishzyr.github.io>.
 
-Plain HTML and CSS. No framework, no build step, no JavaScript. Edit a file, refresh the browser.
+Plain HTML and CSS. No framework and no build step. Edit a file, refresh the browser.
+
+Two pages use JavaScript, each with one dependency-free file loaded with `defer`: `js/home.js` (Home) and `js/mufin-generation.js` (the MuFIN Generation article). Neither makes network requests, and both pages still read completely with JavaScript off. The other pages have no scripts.
 
 The design source is the Figma file **YinranZhu_Portfolios**, page **Portfolio**:
 
 | Page | Figma frame | File |
 |---|---|---|
-| Home | `74:249` | `index.html` |
+| Home | `74:249` (superseded: the current Home was built in code, see below) | `index.html` |
 | MuFIN case study | `6:41` | `work/mufin/index.html` |
 | KeyPalette case study | `29:249` | `work/keypalette/index.html` |
 | MeArm case study | `82:257` | `work/mearm/index.html` |
+| MuFIN Generation article | `144:652` | `work/mufin-generation/index.html` |
 
 Case studies live under `/work/…` so they never collide with the KeyPalette app itself at `/KeyPalette`.
 
@@ -30,13 +33,17 @@ index.html                 Home
 work/mufin/index.html      MuFIN case study
 work/keypalette/index.html KeyPalette case study
 work/mearm/index.html      MeArm case study
+work/mufin-generation/index.html  MuFIN Generation article (how the feedback was generated)
 404.html                   "Page not found" (GitHub Pages serves it automatically)
 css/base.css               Shared: reset, .wrap layout column, focus styles, reduced motion
-css/home.css               Home and 404 (Source Serif 4 + Source Sans 3)
-css/mufin.css              MuFIN only (research-report look, same fonts as Home)
+css/home.css               Home and 404 (Geist + Geist Mono, research-index layout)
+css/mufin.css              MuFIN only (research-report look, Source Serif 4 + Source Sans 3)
 css/keypalette.css         KeyPalette only (Archivo, keycap theme)
 css/mearm.css              MeArm only (Barlow / Barlow Condensed / Fragment Mono, laser-cut kit theme)
-assets/home/               Home card thumbnails
+css/mufin-generation.css   MuFIN Generation only (Geist / Geist Mono / Source Serif 4, own top bar and footer)
+js/home.js                 Home only: header name-to-monogram on scroll, dropdowns, mobile menu, carousels, filters
+js/mufin-generation.js     MuFIN Generation only: the section bar and the scripted walkthrough demo
+assets/home/               Home images (MuFIN Generation figure; older card thumbnails)
 assets/mufin/              MuFIN charts, diagrams and artifact thumbnails (SVG)
 assets/keypalette/         KeyPalette screenshots (WebP) and keyboard art (SVG)
 assets/mearm/              MeArm screenshots (WebP) and cut-sheet motif (SVG)
@@ -47,7 +54,7 @@ favicon.svg, favicon-32.png, apple-touch-icon.png
 
 Each case study has its own stylesheet and visual language on purpose. Only `base.css` is shared.
 
-The Home and MuFIN pages use the same nav and footer. Their styles are repeated in `home.css` and `mufin.css`, so if you restyle one, update the other too.
+Home has its own header and footer (in `home.css`), shared only with the 404 page. The header shows the full name at the top of the page; once you scroll, it turns into a dark bar and the name collapses to the "Y/Z" mark. The name is set in Archivo (expanded width) with a drawn slash in place of the I; the slash steepens to 24° in the name and tips to 42° in the mark, parallel to the Y's arm and the Z's diagonal (see `.brand__slash` in `home.css`). The MuFIN case study keeps the older nav and footer in `mufin.css`.
 
 ## Edit text
 
@@ -60,9 +67,9 @@ All copy is in the HTML files. Open the page, find the sentence and change it. A
 
 ## Update the résumé
 
-The Resume links (Home nav, Home contact row, MuFIN nav) point to the résumé PDF on Google Drive. To update it without changing the link, open the file in Drive and use "Manage versions" → "Upload new version". If you share a different file instead, search the HTML files for `drive.google.com` and update the address. Keep the file shared as "Anyone with the link can view".
+The Resume links (Home header, Home footer, MuFIN nav, MuFIN Generation top bar) point to the résumé PDF on Google Drive. To update it without changing the link, open the file in Drive and use "Manage versions" → "Upload new version". If you share a different file instead, search the HTML files for `drive.google.com` and update the address. Keep the file shared as "Anyone with the link can view".
 
-Contact emails appear in two places, the Home contact row and the footer on Home and MuFIN. The Gmail address is labelled "Jobs" and the CMU address "School".
+Contact emails appear in the Home header's Contact menu and in the footer on Home, MuFIN and MuFIN Generation. The Gmail address is labelled "Jobs" and the CMU address "School".
 
 ## Swap an image
 
@@ -86,7 +93,7 @@ On phones, the wide MuFIN charts scroll sideways inside their own box (`class="s
    - keep exactly one `<h1>`,
    - set `href="/"` on the "All work" link.
 4. Put images in `assets/new-project/` and a 1200×630 preview image in `assets/og/new-project.png`.
-5. Add a card for it on the Home page (`index.html`). Copy one of the `<li class="card">` blocks inside `<ul class="cards">` and update the number, title, link, description, meta and thumbnail. Also update the "3 case studies" count.
+5. Add it to the Home page (`index.html`) in five places: the Work menu in the header, its project column (or a link in an existing one, and that column's piece count), a slide in the featured band, a card on the work canvas (with `data-project` matching a filter button; the `piece--1` to `piece--4` classes set each card's size and offset in `home.css`), and the Work column in the footer. Also update the "4 pieces" count.
 
 ## Accessibility and performance checklist
 
