@@ -97,7 +97,7 @@ On phones, wide charts and drawings scroll sideways inside their own box (`class
 
 ## Change a cover
 
-Each piece has one cover illustration, shown twice on Home (the featured band and the work canvas). The drawings live in the Figma file **YinranZhu_Portfolios**, page **Arts**, as four 1600×900 frames. They share one recipe: a flat pale background and one or two simple shapes cut from 24px graph paper, in three or four colours.
+Each piece has one cover illustration, shown twice on Home (the featured band and the work grid). The drawings live in the Figma file **YinranZhu_Portfolios**, page **Arts**, as four 1600×900 frames. They share one recipe: a flat pale background and one or two simple shapes cut from 24px graph paper, in three or four colours.
 
 To change one, edit its frame in Figma, export the frame as SVG, and save it over the file of the same name in `assets/covers/` (`mufin-generation.svg`, `mufin-pathway.svg`, `keypalette.svg`, `mearm.svg`). Keep the frame at 1600×900 so it fills its slot. If the drawing changes meaning, update the two `alt` texts for it in `index.html`.
 
@@ -111,7 +111,7 @@ To change one, edit its frame in Figma, export the frame as SVG, and save it ove
    - write the contents list twice (see "Edit text"), with short labels,
    - number the sections `s01`, `s02`, … so the contents links and the contents bar find them.
 4. Put images in `assets/new-project/`, a 1200×630 preview image in `assets/og/new-project.png`, and a 1600×900 cover in `assets/covers/new-project.svg` (see "Change a cover").
-5. Add it to the Home page (`index.html`) in five places: the Work menu in the header, its project column (or a link in an existing one, and that column's piece count), a slide in the featured band, a card on the work canvas (with `data-project` matching a filter button; the `piece--1` to `piece--4` classes set each card's size and offset in `home.css`), and the Work column in the footer. Also update the "4 pieces" count.
+5. Add it to the Home page (`index.html`) in five places: the Work menu in the header, its project column (or a link in an existing one, and that column's piece count), a slide in the featured band, a card in the work grid (with `data-project` matching a filter button), and the Work column in the footer. Also update the "4 pieces" count.
 
 ## Accessibility and performance checklist
 

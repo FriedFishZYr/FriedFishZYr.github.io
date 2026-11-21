@@ -208,7 +208,6 @@
   function initFilters() {
     var bar = document.querySelector("[data-filters]");
     if (!bar) return;
-    var canvas = document.querySelector("[data-canvas]");
     var rows = Array.prototype.slice.call(document.querySelectorAll(".piece[data-project]"));
     var buttons = Array.prototype.slice.call(bar.querySelectorAll("[data-filter]"));
     var countEl = document.querySelector("[data-work-count]");
@@ -227,8 +226,6 @@
       });
       countEl.textContent = n;
       labelEl.textContent = n === 1 ? "piece" : "pieces";
-      // The staggered layout only works with every piece present.
-      if (canvas) canvas.classList.toggle("is-filtered", filter !== "all");
     }
 
     buttons.forEach(function (b) {
