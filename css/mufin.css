@@ -126,6 +126,16 @@ body {
   color: var(--muted);
 }
 
+.caption a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.caption a:hover {
+  color: var(--accent);
+}
+
 .footnote {
   max-width: 760px;
   font-size: 14px;
