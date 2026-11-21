@@ -1,0 +1,867 @@
+/* ==========================================================================
+   mufin-article.css — the article shell shared by the two MuFIN pieces:
+   work/mufin-generation/ and work/mufin/. Linked after base.css and before
+   each page's own stylesheet.
+
+   Research-article look: Geist for UI and headings, Source Serif 4 for
+   reading text, Geist Mono for labels. Warm figure mats and cards.
+   Holds the top bar, the lead row (title, contents rail, metadata rail,
+   summary), the reading column, figures and captions, sources, the footer
+   and the section bar (js/mufin-article.js).
+
+   Accent: --accent and --accent-text default to teal. A page can set its
+   own (mufin.css uses red) without touching anything else.
+   Figma: YinranZhu_Portfolios › Portfolio › frame 144:652.
+   ========================================================================== */
+
+:root {
+  --ink: #101418;
+  --body: #2a2f36;
+  --secondary: #4a525c;
+  --muted: #6b7480;
+  --rule: #e3e6ea;
+  --teal: #0f766e;
+  --teal-text: #0b5e58;
+  --accent: var(--teal);
+  --accent-text: var(--teal-text);
+  --teal-tint: #e3f1ee;
+  --teal-tint-2: #eef6f4;
+  --red: #d9472f;
+  --mat: #eceae3;
+  --card: #faf9f6;
+  --box: #f2f1ec;
+  --box-stroke: #b9b6ae;
+  --group-stroke: #d3d0c8;
+  --dg-text: #3d3d3a;
+  --dg-subtext: #6b6a65;
+  --held: #a7a49c;
+  --connector: #8c8a84;
+  --footer-bg: #101418;
+  --footer-muted: #aeb5c0;
+  --focus-ring: #0f766e;
+
+  --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  --gutter: 24px;
+  /* Height of the fixed section bar, so anchor jumps land below it. */
+  --bar-h: 44px;
+}
+
+html {
+  scroll-padding-top: calc(var(--bar-h) + 16px);
+}
+
+body {
+  background: #fff;
+  color: var(--body);
+  font-family: var(--sans);
+}
+
+.wrap {
+  --wrap-max: 1120px;
+  --gutter: 24px;
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* ---------- Shared text styles ---------- */
+
+.eyebrow {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.h1 {
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.h2 {
+  padding-top: 56px;
+  padding-bottom: 4px;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.small-label {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.text-link {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
+}
+
+.text-link--16 {
+  font-size: 16px;
+}
+
+.text-link:hover {
+  color: var(--accent-text);
+}
+
+/* ---------- Top bar ---------- */
+
+.topbar {
+  background: #fff;
+  border-bottom: 1px solid var(--rule);
+}
+
+.topbar__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 64px;
+  padding-block: 22px;
+}
+
+.topbar__name {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.topbar__links {
+  display: flex;
+  gap: 28px;
+  font-size: 14px;
+}
+
+.topbar__links a {
+  color: var(--secondary);
+}
+
+.topbar__links a.is-current {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.topbar__links a:hover,
+.topbar__name:hover {
+  color: var(--accent);
+}
+
+/* ---------- Article grid ----------
+   Reading column 720px; figures break out 80px each side (880px). */
+
+.article {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--gutter), 1fr)
+    [wide-start] minmax(0, 80px)
+    [content-start] minmax(0, 720px)
+    [content-end] minmax(0, 80px)
+    [wide-end] minmax(var(--gutter), 1fr)
+    [full-end];
+  row-gap: 24px;
+  padding-top: 72px;
+  padding-bottom: 120px;
+}
+
+.article > * {
+  grid-column: content;
+  min-width: 0;
+}
+
+.article > .fig--wide,
+.sec > .fig--wide {
+  grid-column: wide;
+}
+
+.sec {
+  grid-column: full;
+  display: grid;
+  grid-template-columns: subgrid;
+  row-gap: 22px;
+}
+
+.sec > * {
+  grid-column: content;
+  min-width: 0;
+}
+
+/* Figures sit 24px from text, like the rest of the article. */
+.sec > .fig {
+  margin-block: 2px;
+}
+
+/* ---------- Reading text ---------- */
+
+.prose,
+.sec {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--body);
+}
+
+.prose {
+  display: grid;
+  row-gap: 22px;
+}
+
+.sec > .h2,
+.sec > .fig,
+.sec > .link-line {
+  font-family: var(--sans);
+}
+
+.strong {
+  font-weight: 600;
+}
+
+.link-line {
+  line-height: normal;
+}
+
+/* Bulleted and numbered lists: 24px marker column, 14px gap. */
+.bullets,
+.numbered {
+  display: grid;
+  row-gap: 16px;
+  padding-left: 4px;
+}
+
+.bullets > li,
+.numbered > li {
+  position: relative;
+  padding-left: 38px;
+}
+
+.bullets > li::before,
+.numbered > li::before {
+  position: absolute;
+  left: 0;
+  width: 24px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.bullets > li::before {
+  content: "•";
+}
+
+.numbered {
+  counter-reset: item;
+}
+
+.numbered > li {
+  counter-increment: item;
+}
+
+.numbered > li::before {
+  content: counter(item) ".";
+}
+
+/* ---------- Lead row ---------- */
+
+.lead {
+  grid-column: full;
+  display: grid;
+  grid-template-columns: 180px minmax(0, 720px) 180px;
+  grid-template-areas:
+    "toc head meta"
+    "toc summary meta";
+  grid-template-rows: auto 1fr;
+  /* 100px at 1440; narrows between 1100 and 1328 so nothing overflows. */
+  column-gap: clamp(32px, (100% - 1080px) / 2, 100px);
+  row-gap: 36px;
+  width: min(1280px, 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.lead__head {
+  grid-area: head;
+  display: grid;
+  row-gap: 20px;
+  justify-items: start;
+}
+
+.lead__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding-top: 4px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 9px 16px;
+  border: 1px solid var(--group-stroke);
+  border-radius: 999px;
+  background: var(--box);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: normal;
+  color: var(--ink);
+}
+
+.pill:hover {
+  border-color: var(--box-stroke);
+  background: var(--mat);
+}
+
+/* Contents rail */
+.toc {
+  grid-area: toc;
+}
+
+.toc__label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: normal;
+  color: var(--ink);
+}
+
+.toc__list a {
+  display: flex;
+  gap: 10px;
+  padding-block: 9px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ink);
+}
+
+.toc__num {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 18px;
+  color: var(--muted);
+}
+
+.toc__list a:hover .toc__title {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-position: from-font;
+}
+
+/* Narrow-screen contents disclosure (hidden on wide screens) */
+.toc-mini {
+  display: none;
+}
+
+/* Metadata rail */
+.meta {
+  grid-area: meta;
+}
+
+.meta__item {
+  display: grid;
+  row-gap: 4px;
+  padding-block: 12px;
+  border-top: 1px solid var(--rule);
+}
+
+.meta__item:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.meta dt {
+  font-size: 12px;
+  line-height: normal;
+  color: var(--muted);
+}
+
+.meta dd {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.meta__item--topics dd span {
+  display: block;
+}
+
+/* Summary */
+.summary {
+  grid-area: summary;
+  align-self: start;
+  display: grid;
+  row-gap: 14px;
+  padding-top: 22px;
+  padding-bottom: 24px;
+  border-block: 1px solid var(--rule);
+}
+
+.bullets--summary {
+  row-gap: 12px;
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+/* ---------- Figures ---------- */
+
+.fig {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 12px;
+  padding-block: 16px;
+  font-family: var(--sans);
+}
+
+.mat {
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--mat);
+}
+
+.mat--tight {
+  padding: 12px;
+}
+
+.mat--stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 16px;
+}
+
+.mat > * {
+  min-width: 0;
+}
+
+.card {
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.caption {
+  display: flex;
+  gap: 16px;
+  color: var(--muted);
+}
+
+.caption__label {
+  flex: none;
+  width: 72px;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 21px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.caption__text {
+  max-width: 600px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Wide figures scroll sideways in their own box on narrow screens.
+   --min sets the width the content keeps. Positioned so visually hidden
+   text inside stays clipped by the box. */
+.scroll-x {
+  position: relative;
+  overflow-x: auto;
+}
+
+.scroll-x > * {
+  min-width: var(--min, auto);
+}
+
+.scroll-x:focus-visible {
+  outline-offset: 2px;
+}
+
+/* ---------- Sources ---------- */
+
+.sources {
+  display: grid;
+  row-gap: 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+}
+
+.sources p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  background: var(--footer-bg);
+  color: #fff;
+}
+
+.footer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  min-height: 280px;
+  padding-block: 44px;
+}
+
+.footer__id {
+  display: grid;
+  row-gap: 6px;
+}
+
+.footer__name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.footer__sub {
+  font-size: 13px;
+  color: var(--footer-muted);
+}
+
+.footer__links {
+  display: flex;
+  align-items: center;
+  gap: 12px 28px;
+}
+
+.footer__emails {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 6px 10px;
+}
+
+.footer__email {
+  display: contents;
+  font-size: 14px;
+}
+
+.footer__label {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--footer-muted);
+}
+
+.footer__email a {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.footer__top {
+  font-size: 13px;
+  color: var(--footer-muted);
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer :focus-visible {
+  --focus-ring: #7fd1c7;
+}
+
+/* ---------- Section bar (added by js/mufin-article.js) ----------
+   Appears once the lead row has scrolled away. Not drawn in Figma; built
+   from the page's own tokens to match the contents rail. */
+
+.secbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: var(--bar-h);
+  border-bottom: 1px solid var(--rule);
+  background: #fff;
+  transform: translateY(-100%);
+  visibility: hidden;
+}
+
+.secbar.is-visible {
+  transform: none;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .secbar {
+    transition: transform 0.2s ease, visibility 0s linear 0.2s;
+  }
+  .secbar.is-visible {
+    transition: transform 0.2s ease, visibility 0s;
+  }
+}
+
+.secbar__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: min(1280px, 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.secbar__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  height: 32px;
+  padding: 0 10px 0 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 18px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.secbar__num {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.secbar__num:empty {
+  display: none;
+}
+
+.secbar__title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.secbar__chev {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  color: var(--muted);
+}
+
+.secbar__toggle[aria-expanded="true"] .secbar__chev {
+  transform: rotate(180deg);
+}
+
+.secbar__toggle:hover .secbar__title {
+  color: var(--accent);
+}
+
+.secbar__menu {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0;
+  width: min(340px, 100%);
+  max-height: calc(100vh - var(--bar-h) - 24px);
+  overflow-y: auto;
+  padding: 8px 16px 6px;
+  border: 1px solid var(--rule);
+  border-top: 0;
+  border-radius: 0 0 10px 10px;
+  background: #fff;
+  box-shadow: 0 12px 24px rgba(16, 20, 24, 0.08);
+}
+
+.secbar__menu .toc__list li:first-child a {
+  border-top: 0;
+}
+
+.toc__list a[aria-current="location"] .toc__title {
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.toc__list a[aria-current="location"] .toc__num {
+  color: var(--accent);
+}
+
+/* ---------- Responsive ---------- */
+
+/* Rails no longer fit: one column. Metadata becomes a compact row under
+   the header, and the contents list moves into a disclosure. */
+@media (max-width: 1100px) {
+  .lead {
+    grid-template-columns: minmax(0, 720px);
+    grid-template-areas:
+      "head"
+      "meta"
+      "toc"
+      "summary";
+    grid-template-rows: none;
+    justify-content: center;
+    row-gap: 24px;
+  }
+
+  .toc {
+    display: none;
+  }
+
+  .toc-mini {
+    grid-area: toc;
+    display: block;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .toc-mini summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 12px;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .toc-mini summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .toc-mini summary::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    margin-right: 4px;
+    border-right: 1.5px solid var(--muted);
+    border-bottom: 1.5px solid var(--muted);
+    transform: translateY(-2px) rotate(45deg);
+  }
+
+  .toc-mini[open] summary::after {
+    transform: translateY(2px) rotate(-135deg);
+  }
+
+  .toc-mini .toc__list {
+    padding-bottom: 8px;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+  }
+
+  .meta__item,
+  .meta__item:first-child {
+    padding: 0;
+    border: 0;
+  }
+
+  .meta__item--topics dd span {
+    display: inline;
+  }
+
+  .meta__item--topics dd span:not(:last-child)::after {
+    content: " · ";
+    color: var(--muted);
+  }
+
+  .summary {
+    border-top: 0;
+    padding-top: 0;
+  }
+}
+
+/* Figures lose their breakout and fill the column. */
+@media (max-width: 960px) {
+  .article {
+    grid-template-columns:
+      [full-start] var(--gutter)
+      [wide-start content-start] minmax(0, 1fr)
+      [content-end wide-end] var(--gutter)
+      [full-end];
+  }
+}
+
+@media (max-width: 900px) {
+  .caption {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+  }
+
+  .wrap {
+    --gutter: 20px;
+  }
+
+  .article {
+    padding-top: 48px;
+    padding-bottom: 80px;
+  }
+
+  .h1 {
+    font-size: 34px;
+  }
+
+  .h2 {
+    padding-top: 40px;
+    font-size: 26px;
+  }
+
+  .prose,
+  .sec {
+    font-size: 18px;
+  }
+
+  .bullets > li,
+  .numbered > li {
+    padding-left: 28px;
+  }
+
+  .mat {
+    padding: 12px;
+  }
+
+  .topbar__links {
+    gap: 18px;
+  }
+
+  .footer__bar {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .footer__links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer__id {
+    max-width: 100%;
+  }
+}
