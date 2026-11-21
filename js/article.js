@@ -1,6 +1,6 @@
 /* ==========================================================================
-   mufin-article.js — the contents bar shared by the two MuFIN articles
-   (work/mufin-generation/ and work/mufin/), loaded with `defer`.
+   article.js — the contents bar shared by every piece under work/,
+   loaded with `defer`.
    No libraries, no network requests.
 
    The contents rail at the left of the lead row turns into a one-row bar

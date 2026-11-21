@@ -1,13 +1,12 @@
 /* ==========================================================================
-   mufin-article.css — the article shell shared by the two MuFIN pieces:
-   work/mufin-generation/ and work/mufin/. Linked after base.css and before
-   each page's own stylesheet.
+   article.css — the article shell shared by every piece under work/.
+   Linked after base.css and before each page's own stylesheet.
 
    Research-article look: Geist for UI and headings, Source Serif 4 for
    reading text, Geist Mono for labels. Warm figure mats and cards.
    Holds the top bar, the lead row (title, contents rail, metadata rail,
    summary), the reading column, figures and captions, sources, the footer
-   and the section bar (js/mufin-article.js).
+   and the section bar (js/article.js).
 
    The interface is ink and grey: --accent is ink and --accent-text (its
    hover) is grey. Colour is kept for the figures, where it means
@@ -594,7 +593,7 @@ strong {
   --focus-ring: #fff;
 }
 
-/* ---------- Contents bar (added by js/mufin-article.js) ----------
+/* ---------- Contents bar (added by js/article.js) ----------
    The contents rail, folded into one row under the top bar. On wide
    screens it slides down from behind the top bar once the rail has
    scrolled out of sight, and slides back when the rail returns. On

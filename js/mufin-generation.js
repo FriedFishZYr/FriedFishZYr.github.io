@@ -5,7 +5,7 @@
 
    The demo lives behind initMufinDemo(root). Without JavaScript the page
    shows step 1 of it, inert, plus a note. The section bar that both MuFIN
-   articles share is in js/mufin-article.js.
+   articles share is in js/article.js.
    ========================================================================== */
 
 (function () {

@@ -1,22 +1,15 @@
 /* ==========================================================================
    mufin.css — MuFIN Pathway Analysis only (work/mufin/).
-   The page shell (top bar, lead row, reading column, figure mats, captions,
-   footer, section bar) lives in mufin-article.css, which is linked first
-   and is shared with the MuFIN Generation article.
+   The page shell is in article.css and the modules it shares with the
+   other case studies (stat row, topic grids, steps, rows, callouts,
+   figure cards) are in case-study.css. Both are linked first.
 
-   This file adds what only this page has: a wider tier for the 1120px
-   charts, and the case-study modules (stat row, topic grids,
-   step rows, correction rows, case review, concept sketches, deliverables).
-
-   Width tiers inside the article grid:
-     content      720px   reading text and text modules (the default)
-     .fig--wide   880px   figures built in HTML
-     .fig--full  1184px   the charts exported from Figma at 1120px
+   This file adds what only this page has: Figure 1, the team-versus-me
+   process figure, the two study conditions, the pathway legend, the case
+   review and the concept sketches.
    ========================================================================== */
 
 :root {
-  /* The charts are drawn on white, so cards are white here. */
-  --card: #fff;
   --slate: #46515c;
   --team: #9ea3a9;
   /* The red the charts use for the 32 mismatch cases. Only for labels
@@ -24,121 +17,13 @@
   --hi: #c41230;
 }
 
-/* ---------- Width tiers ---------- */
 
-.article > .fig--full,
-.sec > .fig--full {
-  grid-column: full;
-  justify-self: center;
-  width: min(1184px, 100% - 2 * var(--gutter));
-}
-
-/* Captions stay on the 880px column, under the wider chart. */
-.fig--full > .caption {
-  width: min(880px, 100%);
-  margin-inline: auto;
-}
-
-/* ---------- Section kicker and sub-headings ---------- */
-
-.kicker,
-.h3,
-.stats,
-.topics,
-.steps,
-.rows,
-.callout,
-.gallery,
-.note {
+.gallery {
   font-family: var(--sans);
-}
-
-/* "01  The team study" above each section title. It carries the section's
-   top spacing, so the title that follows drops its own. */
-.kicker {
-  display: flex;
-  gap: 10px;
-  padding-top: 56px;
-  margin-bottom: -14px;
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: normal;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.kicker__num {
-  color: var(--accent);
-}
-
-.kicker + .h2 {
-  padding-top: 0;
-}
-
-.h3 {
-  padding-top: 14px;
-  font-weight: 600;
-  font-size: 23px;
-  line-height: 1.3;
-  letter-spacing: -0.005em;
-  color: var(--ink);
-  text-wrap: balance;
 }
 
 .accent {
   color: var(--accent);
-}
-
-.note {
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--muted);
-}
-
-.caption a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-decoration-thickness: from-font;
-  text-underline-position: from-font;
-  white-space: nowrap;
-}
-
-.caption a:hover {
-  color: var(--accent-text);
-}
-
-.sources ul {
-  display: grid;
-  row-gap: 6px;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-/* ---------- Figure cards ---------- */
-
-/* A card that holds one exported chart. */
-.plate {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: 14px;
-  padding: 16px;
-}
-
-.plate img {
-  margin-inline: auto;
-}
-
-.card--pad {
-  padding: 24px;
-}
-
-.card__title {
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 1.35;
-  color: var(--ink);
 }
 
 /* ---------- Figure 1: the feedback and the headline numbers ---------- */
@@ -203,28 +88,12 @@
   color: var(--muted);
 }
 
-/* ---------- Stat row ---------- */
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
-  padding-bottom: 8px;
-}
-
-.stat,
 .prob {
   display: grid;
   row-gap: 8px;
   align-content: start;
 }
 
-.stat {
-  padding-top: 16px;
-  border-top: 1px solid var(--rule);
-}
-
-.stat__num,
 .prob__num {
   font-weight: 600;
   font-size: 40px;
@@ -233,89 +102,9 @@
   color: var(--ink);
 }
 
-.stat__num--accent {
-  color: var(--accent);
-}
-
-.stat__text,
 .prob__text {
   font-size: 14px;
   line-height: 1.5;
-  color: var(--secondary);
-}
-
-/* ---------- Topics (rule on top, title, text) ---------- */
-
-.topics {
-  display: grid;
-  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
-  gap: 28px 24px;
-}
-
-.topics--2 {
-  --cols: 2;
-  column-gap: 32px;
-}
-
-.topic {
-  display: grid;
-  row-gap: 8px;
-  align-content: start;
-  padding-top: 14px;
-  border-top: 2px solid var(--ink);
-}
-
-.topic__title {
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 1.35;
-  color: var(--ink);
-}
-
-.topic p {
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--secondary);
-}
-
-/* ---------- Steps (numbered, rule on top) ---------- */
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
-  gap: 24px;
-}
-
-.steps--3 {
-  --cols: 3;
-}
-
-.step {
-  display: grid;
-  row-gap: 4px;
-  align-content: start;
-  padding-top: 12px;
-  border-top: 3px solid var(--ink);
-}
-
-.step__num {
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: normal;
-  color: var(--muted);
-}
-
-.step__title {
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 1.35;
-  color: var(--ink);
-}
-
-.step__text {
-  font-size: 13px;
-  line-height: 1.45;
   color: var(--secondary);
 }
 
@@ -412,44 +201,6 @@
   color: var(--secondary);
 }
 
-/* A short callout that closes a section. */
-.callout {
-  display: grid;
-  row-gap: 10px;
-  margin-top: 10px;
-  padding-top: 20px;
-  border-top: 2px solid var(--ink);
-}
-
-.callout__text {
-  font-family: var(--serif);
-  font-size: 24px;
-  line-height: 1.45;
-  color: var(--ink);
-}
-
-.callout--stat {
-  grid-template-columns: 200px minmax(0, 1fr);
-  column-gap: 32px;
-  align-items: start;
-}
-
-.callout__stat {
-  display: grid;
-  row-gap: 8px;
-}
-
-.callout__stat .stat__num {
-  color: var(--accent);
-}
-
-.callout__body {
-  font-family: var(--serif);
-  font-size: 17px;
-  line-height: 1.6;
-  color: var(--body);
-}
-
 /* ---------- 02 Path legend under the pathways diagram ---------- */
 
 .path-legend {
@@ -476,41 +227,6 @@
   color: var(--hi);
 }
 
-/* ---------- 03 / 06 Rows: a claim on the left, its evidence on the right ---------- */
-
-.rows {
-  border-bottom: 1px solid var(--rule);
-}
-
-.row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  column-gap: 40px;
-  padding-block: 22px;
-  border-top: 1px solid var(--rule);
-}
-
-.row__left,
-.row__right {
-  display: grid;
-  row-gap: 6px;
-  align-content: start;
-}
-
-.row__title {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 1.35;
-  color: var(--ink);
-}
-
-.row p {
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--secondary);
-}
-
-.row .row__label,
 .case-step__label,
 .concept__label,
 .arm__label {
@@ -858,50 +574,19 @@
 }
 
 @media (max-width: 720px) {
-  .stats,
-  .steps,
-  .steps--3 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 
-  .topics,
-  .topics--2,
-  .arms,
-  .row,
-  .callout--stat {
+  .arms {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .row,
-  .callout--stat {
-    row-gap: 12px;
   }
 }
 
 @media (max-width: 640px) {
-  .kicker {
-    padding-top: 40px;
-  }
 
-  .h3 {
-    font-size: 21px;
-  }
-
-  .callout__text {
-    font-size: 21px;
-  }
-
-  .plate {
-    padding: 12px;
-  }
-
-  .card--pad,
   .condition,
   .concept {
     padding: 18px;
   }
 
-  .stat__num,
   .prob__num {
     font-size: 34px;
   }
@@ -909,9 +594,7 @@
 
 @media (max-width: 480px) {
   .probs,
-  .case-steps,
-  .steps,
-  .steps--3 {
+  .case-steps {
     grid-template-columns: minmax(0, 1fr);
   }
 
