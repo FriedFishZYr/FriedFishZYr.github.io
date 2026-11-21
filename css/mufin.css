@@ -4,8 +4,8 @@
    footer, section bar) lives in mufin-article.css, which is linked first
    and is shared with the MuFIN Generation article.
 
-   This file adds what only this page has: a red accent, a wider tier for
-   the 1120px charts, and the case-study modules (stat row, topic grids,
+   This file adds what only this page has: a wider tier for the 1120px
+   charts, and the case-study modules (stat row, topic grids,
    step rows, correction rows, case review, concept sketches, deliverables).
 
    Width tiers inside the article grid:
@@ -15,17 +15,13 @@
    ========================================================================== */
 
 :root {
-  --accent: #c41230;
-  --accent-text: #9d0e26;
-  --focus-ring: #c41230;
   /* The charts are drawn on white, so cards are white here. */
   --card: #fff;
   --slate: #46515c;
   --team: #9ea3a9;
-}
-
-.footer :focus-visible {
-  --focus-ring: #fff;
+  /* The red the charts use for the 32 mismatch cases. Only for labels
+     that point at that red inside a chart. */
+  --hi: #c41230;
 }
 
 /* ---------- Width tiers ---------- */
@@ -181,16 +177,17 @@
   row-gap: 8px;
 }
 
+/* Before in grey, after in ink. */
 .pull__num {
   font-weight: 600;
   font-size: 46px;
   line-height: 1;
   letter-spacing: -0.03em;
-  color: var(--ink);
+  color: var(--muted);
 }
 
 .pull__num--accent {
-  color: var(--accent);
+  color: var(--ink);
 }
 
 .pull__arrow {
@@ -322,7 +319,7 @@
   color: var(--secondary);
 }
 
-/* Figure 2: grey for the team's step, red for mine. */
+/* Figure 2: grey for the team's step, ink for mine. */
 .steps--process .step {
   border-top-color: var(--accent);
 }
@@ -476,7 +473,7 @@
 
 .path-legend .is-accent,
 .path-legend .is-accent b {
-  color: var(--accent);
+  color: var(--hi);
 }
 
 /* ---------- 03 / 06 Rows: a claim on the left, its evidence on the right ---------- */
@@ -633,10 +630,6 @@
   display: grid;
   row-gap: 8px;
   align-content: start;
-}
-
-.concept__label {
-  color: var(--accent);
 }
 
 .concept__title {
@@ -803,6 +796,19 @@
 /* ==========================================================================
    Responsive
    ========================================================================== */
+
+/* Figure 1 sits between the two rails, so it stacks by its own width,
+   not the window's. */
+@container (max-width: 699px) {
+  .lede-fig {
+    flex-direction: column;
+  }
+
+  .lede-fig__ui,
+  .pull {
+    flex: none;
+  }
+}
 
 @media (max-width: 900px) {
   .lede-fig,

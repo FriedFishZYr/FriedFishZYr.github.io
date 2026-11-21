@@ -329,7 +329,7 @@
   height: 16px;
   margin-left: 12px;
   border-radius: 50%;
-  background: var(--teal);
+  background: var(--ink);
   font-family: var(--sans);
   font-weight: 600;
   font-size: 10px;
@@ -481,7 +481,6 @@
 .demo-sec {
   display: grid;
   row-gap: 24px;
-  scroll-margin-top: calc(var(--bar-h) + 16px);
 }
 
 .explore {
@@ -1354,6 +1353,19 @@ button.chip--play:hover {
   .example-card,
   .demo-card {
     padding: 18px;
+  }
+}
+
+/* Figure 1 sits between the two rails, so it stacks by its own width,
+   not the window's. */
+@container (max-width: 779px) {
+  .fig1 {
+    flex-direction: column;
+  }
+
+  .fig1__problem,
+  .fig1__graph {
+    flex-basis: auto;
   }
 }
 

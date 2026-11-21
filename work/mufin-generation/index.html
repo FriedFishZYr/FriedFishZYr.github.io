@@ -72,34 +72,23 @@
 
   <main id="main" class="article">
 
-    <!-- ===== Lead row: contents rail, header + summary, metadata rail ===== -->
+    <!-- ===== Lead row: the title, then contents rail, Figure 1, metadata rail ===== -->
     <div class="lead" id="lead">
       <header class="lead__head">
         <p class="eyebrow pre">MuFIN  ·  Feedback generation</p>
         <h1 class="h1">How AI feedback helps a calculus learner revisit a mistake</h1>
-        <div class="lead__actions">
-          <a class="pill" href="#demo">Open the walkthrough →</a>
-          <a class="text-link" href="/work/mufin/">Read the pathway analysis →</a>
-        </div>
       </header>
 
-      <dl class="meta">
-        <div class="meta__item"><dt>Published</dt><dd>November 2026</dd></div>
-        <div class="meta__item"><dt>Project</dt><dd>MuFIN × LearnVia</dd></div>
-        <div class="meta__item"><dt>Status</dt><dd>Study manuscript, 2026</dd></div>
-        <div class="meta__item meta__item--topics"><dt>Topics</dt><dd><span>LLM generation</span> <span>Multimodal feedback</span> <span>Learning engineering</span> <span>Evaluation</span></dd></div>
-      </dl>
-
-      <nav class="toc" aria-labelledby="toc-label">
-        <p class="toc__label" id="toc-label">Contents</p>
+      <!-- Short labels here; each section keeps its full heading below. -->
+      <nav class="toc" aria-label="Contents">
         <ol class="toc__list" role="list">
-          <li><a href="#s01"><span class="toc__num">01</span><span class="toc__title">Generation happens before the learner waits</span></a></li>
-          <li><a href="#s02"><span class="toc__num">02</span><span class="toc__title">The spec is a contract between model and template</span></a></li>
-          <li><a href="#s03"><span class="toc__num">03</span><span class="toc__title">Five decisions, each traded against something simpler</span></a></li>
-          <li><a href="#s04"><span class="toc__num">04</span><span class="toc__title">The learner meets one error three ways</span></a></li>
-          <li><a href="#s05"><span class="toc__num">05</span><span class="toc__title">Layering changes timing, not content</span></a></li>
-          <li><a href="#s06"><span class="toc__num">06</span><span class="toc__title">More practice inside feedback did not raise test scores</span></a></li>
-          <li><a href="#s07"><span class="toc__num">07</span><span class="toc__title">A correct embedded answer went with fixing the original problem</span></a></li>
+          <li><a href="#s01"><span class="toc__num">01</span><span class="toc__title">Before the lesson</span></a></li>
+          <li><a href="#s02"><span class="toc__num">02</span><span class="toc__title">The spec</span></a></li>
+          <li><a href="#s03"><span class="toc__num">03</span><span class="toc__title">Five decisions</span></a></li>
+          <li><a href="#s04"><span class="toc__num">04</span><span class="toc__title">What the learner sees</span></a></li>
+          <li><a href="#s05"><span class="toc__num">05</span><span class="toc__title">Layering</span></a></li>
+          <li><a href="#s06"><span class="toc__num">06</span><span class="toc__title">Study results</span></a></li>
+          <li><a href="#s07"><span class="toc__num">07</span><span class="toc__title">The next attempt</span></a></li>
           <li><a href="#s08"><span class="toc__num">08</span><span class="toc__title">Limitations</span></a></li>
           <li><a href="#s09"><span class="toc__num">09</span><span class="toc__title">Conclusion</span></a></li>
         </ol>
@@ -110,17 +99,74 @@
       <details class="toc-mini">
         <summary>Contents</summary>
         <ol class="toc__list" role="list">
-          <li><a href="#s01"><span class="toc__num">01</span><span class="toc__title">Generation happens before the learner waits</span></a></li>
-          <li><a href="#s02"><span class="toc__num">02</span><span class="toc__title">The spec is a contract between model and template</span></a></li>
-          <li><a href="#s03"><span class="toc__num">03</span><span class="toc__title">Five decisions, each traded against something simpler</span></a></li>
-          <li><a href="#s04"><span class="toc__num">04</span><span class="toc__title">The learner meets one error three ways</span></a></li>
-          <li><a href="#s05"><span class="toc__num">05</span><span class="toc__title">Layering changes timing, not content</span></a></li>
-          <li><a href="#s06"><span class="toc__num">06</span><span class="toc__title">More practice inside feedback did not raise test scores</span></a></li>
-          <li><a href="#s07"><span class="toc__num">07</span><span class="toc__title">A correct embedded answer went with fixing the original problem</span></a></li>
+          <li><a href="#s01"><span class="toc__num">01</span><span class="toc__title">Before the lesson</span></a></li>
+          <li><a href="#s02"><span class="toc__num">02</span><span class="toc__title">The spec</span></a></li>
+          <li><a href="#s03"><span class="toc__num">03</span><span class="toc__title">Five decisions</span></a></li>
+          <li><a href="#s04"><span class="toc__num">04</span><span class="toc__title">What the learner sees</span></a></li>
+          <li><a href="#s05"><span class="toc__num">05</span><span class="toc__title">Layering</span></a></li>
+          <li><a href="#s06"><span class="toc__num">06</span><span class="toc__title">Study results</span></a></li>
+          <li><a href="#s07"><span class="toc__num">07</span><span class="toc__title">The next attempt</span></a></li>
           <li><a href="#s08"><span class="toc__num">08</span><span class="toc__title">Limitations</span></a></li>
           <li><a href="#s09"><span class="toc__num">09</span><span class="toc__title">Conclusion</span></a></li>
         </ol>
       </details>
+
+      <figure class="fig lead__fig" id="fig1">
+        <div class="mat fig1">
+          <div class="card fig1__problem">
+            <div class="fig1__block">
+              <p class="small-label">The task</p>
+              <p class="fig1__task">Estimate the slope of f(x) = x² at x = 2 with a difference quotient as x approaches 2.</p>
+            </div>
+            <div class="fig1__block fig1__block--choice">
+              <p class="small-label">The learner chose</p>
+              <p class="frac">
+                <span class="frac__top">x² − 4</span>
+                <span class="visually-hidden"> over </span>
+                <span class="frac__bottom">x + 2</span>
+              </p>
+            </div>
+            <div class="fig1__readings">
+              <p>Top: x² − 4 is the change in height from the point at x = 2.</p>
+              <p>Bottom: x + 2 is the horizontal distance from −2, a different starting point.</p>
+            </div>
+          </div>
+          <div class="fig1__graph scroll-x" style="--min: 416px" tabindex="0" role="region" aria-label="Figure 1 graph, scrolls sideways on small screens">
+            <div class="graph">
+              <svg class="graph__svg" viewBox="0 0 544 406" role="img" aria-label="Graph of f(x) = x² with the fixed point (2, 4) and the moving input at x = 3, point (3, 9). The solid teal bar from 2 measures x − 2 = 1. The dashed red bar from −2 measures x + 2 = 5.">
+                <use href="#mg-base"/>
+                <path d="M460.7 46V308" stroke="#6b7480" stroke-dasharray="3 4"/>
+                <path d="M392.2 268H460.7" stroke="#0f766e" stroke-width="6"/>
+                <path d="M118.2 308H460.7" stroke="#d9472f" stroke-width="4" stroke-dasharray="9 6"/>
+                <circle cx="460.7" cy="46" r="7" fill="#faf9f6" stroke="#101418" stroke-width="2.5"/>
+                <text class="mg-fn" x="62" y="34">f(x) = x²</text>
+                <text class="mg-pt" x="382" y="136" text-anchor="end">(2, 4)</text>
+                <text class="mg-pt" x="472.7" y="36">(3, 9)</text>
+                <text class="mg-tick" x="97.2" y="215">−2</text>
+                <text class="mg-tick" x="378.2" y="215">2</text>
+                <text class="mg-tick" x="239.2" y="243">0</text>
+                <text class="mg-bar mg-bar--solid" x="380" y="272" text-anchor="end">x − 2 = 1   solid · from 2</text>
+                <text class="mg-bar mg-bar--dashed" x="126" y="294">x + 2 = 5   dashed · from −2</text>
+                <text class="mg-strip" x="20" y="382">moving input x</text>
+                <circle cx="382" cy="378" r="8.75" fill="#fff" stroke="#101418" stroke-width="2.5"/>
+                <text class="mg-read" x="433" y="383">x = 3.0</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <figcaption class="caption">
+          <span class="caption__label">Figure 1</span>
+          <span class="caption__text">The featured error. Solid bar: distance from 2, the step the numerator measures. Dashed bar: distance from −2, the step the learner’s denominator measures. Illustrative reconstruction of the study interaction.</span>
+        </figcaption>
+      </figure>
+
+      <dl class="meta">
+        <div class="meta__item"><dt>Published</dt><dd>November 2026</dd></div>
+        <div class="meta__item"><dt>Project</dt><dd>MuFIN × LearnVia</dd></div>
+        <div class="meta__item"><dt>Status</dt><dd>Study manuscript, 2026</dd></div>
+        <div class="meta__item meta__item--topics"><dt>Topics</dt><dd><span>LLM generation</span> <span>Multimodal feedback</span> <span>Learning engineering</span> <span>Evaluation</span></dd></div>
+        <div class="meta__item meta__item--topics"><dt>Related</dt><dd><span><a href="#demo">Walkthrough →</a></span> <span><a href="/work/mufin/">Pathway analysis →</a></span></dd></div>
+      </dl>
 
       <section class="summary" aria-labelledby="summary-label">
         <h2 class="small-label" id="summary-label">Summary</h2>
@@ -131,56 +177,6 @@
         </ul>
       </section>
     </div>
-
-    <!-- ===== Figure 1 ===== -->
-    <figure class="fig fig--wide" id="fig1">
-      <div class="mat fig1">
-        <div class="card fig1__problem">
-          <div class="fig1__block">
-            <p class="small-label">The task</p>
-            <p class="fig1__task">Estimate the slope of f(x) = x² at x = 2 with a difference quotient as x approaches 2.</p>
-          </div>
-          <div class="fig1__block fig1__block--choice">
-            <p class="small-label">The learner chose</p>
-            <p class="frac">
-              <span class="frac__top">x² − 4</span>
-              <span class="visually-hidden"> over </span>
-              <span class="frac__bottom">x + 2</span>
-            </p>
-          </div>
-          <div class="fig1__readings">
-            <p>Top: x² − 4 is the change in height from the point at x = 2.</p>
-            <p>Bottom: x + 2 is the horizontal distance from −2, a different starting point.</p>
-          </div>
-        </div>
-        <div class="fig1__graph scroll-x" style="--min: 416px" tabindex="0" role="region" aria-label="Figure 1 graph, scrolls sideways on small screens">
-          <div class="graph">
-            <svg class="graph__svg" viewBox="0 0 544 406" role="img" aria-label="Graph of f(x) = x² with the fixed point (2, 4) and the moving input at x = 3, point (3, 9). The solid teal bar from 2 measures x − 2 = 1. The dashed red bar from −2 measures x + 2 = 5.">
-              <use href="#mg-base"/>
-              <path d="M460.7 46V308" stroke="#6b7480" stroke-dasharray="3 4"/>
-              <path d="M392.2 268H460.7" stroke="#0f766e" stroke-width="6"/>
-              <path d="M118.2 308H460.7" stroke="#d9472f" stroke-width="4" stroke-dasharray="9 6"/>
-              <circle cx="460.7" cy="46" r="7" fill="#faf9f6" stroke="#101418" stroke-width="2.5"/>
-              <text class="mg-fn" x="62" y="34">f(x) = x²</text>
-              <text class="mg-pt" x="382" y="136" text-anchor="end">(2, 4)</text>
-              <text class="mg-pt" x="472.7" y="36">(3, 9)</text>
-              <text class="mg-tick" x="97.2" y="215">−2</text>
-              <text class="mg-tick" x="378.2" y="215">2</text>
-              <text class="mg-tick" x="239.2" y="243">0</text>
-              <text class="mg-bar mg-bar--solid" x="380" y="272" text-anchor="end">x − 2 = 1   solid · from 2</text>
-              <text class="mg-bar mg-bar--dashed" x="126" y="294">x + 2 = 5   dashed · from −2</text>
-              <text class="mg-strip" x="20" y="382">moving input x</text>
-              <circle cx="382" cy="378" r="8.75" fill="#fff" stroke="#101418" stroke-width="2.5"/>
-              <text class="mg-read" x="433" y="383">x = 3.0</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <figcaption class="caption">
-        <span class="caption__label">Figure 1</span>
-        <span class="caption__text">The featured error. Solid bar: distance from 2, the step the numerator measures. Dashed bar: distance from −2, the step the learner’s denominator measures. Illustrative reconstruction of the study interaction.</span>
-      </figcaption>
-    </figure>
 
     <!-- ===== Intro ===== -->
     <div class="prose">

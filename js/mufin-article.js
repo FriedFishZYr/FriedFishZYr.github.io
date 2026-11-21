@@ -1,24 +1,29 @@
 /* ==========================================================================
-   mufin-article.js — the section bar shared by the two MuFIN articles
+   mufin-article.js — the contents bar shared by the two MuFIN articles
    (work/mufin-generation/ and work/mufin/), loaded with `defer`.
    No libraries, no network requests.
 
-   Once the lead row has scrolled away, a slim bar fixed to the top shows
-   the current section; clicking it opens the contents. It is built from the
-   contents rail in the page, so it needs: an element with id="lead", a
+   The contents rail at the left of the lead row turns into a one-row bar
+   under the top bar. On wide screens the bar slides down from behind the
+   top bar once the rail has scrolled out of sight, and slides back up when
+   the rail returns. On screens too narrow for the rail it is always there.
+   The bar shows the current section; clicking it opens the contents.
+
+   It is built from the rail in the page, so it needs: a `.topbar`, a
    `.toc .toc__list`, and `.sec[id]` sections that each contain an h2.
 
-   Without JavaScript the bar never appears: the contents rail at the top is
-   the only contents list, which is fine.
+   Without JavaScript the bar never appears: wide screens keep the rail and
+   narrow screens show the same list behind a disclosure (`.toc-mini`).
    ========================================================================== */
 
 (function () {
   "use strict";
 
   function initSectionBar() {
-    var lead = document.getElementById("lead");
-    var railList = document.querySelector(".toc .toc__list");
-    if (!lead || !railList || !("IntersectionObserver" in window)) return;
+    var topbar = document.querySelector(".topbar");
+    var rail = document.querySelector(".toc");
+    var railList = rail && rail.querySelector(".toc__list");
+    if (!topbar || !railList || !("IntersectionObserver" in window)) return;
 
     var sections = Array.prototype.slice.call(
       document.querySelectorAll(".sec[id]")
@@ -34,8 +39,10 @@
     bar.innerHTML =
       '<div class="secbar__inner">' +
       '<button class="secbar__toggle" type="button" aria-expanded="false" aria-controls="secbar-menu">' +
+      '<span class="secbar__label">' +
       '<span class="secbar__num"></span>' +
       '<span class="secbar__title">Contents</span>' +
+      "</span>" +
       '<svg class="secbar__chev" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M1.5 3.5L5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
       "</button>" +
       '<nav class="secbar__menu" id="secbar-menu" aria-label="Contents" hidden></nav>' +
@@ -49,7 +56,9 @@
     menu.appendChild(list);
     var links = Array.prototype.slice.call(list.querySelectorAll("a"));
 
-    document.body.insertBefore(bar, document.body.firstChild.nextSibling);
+    // Right after the top bar, so it follows it in reading and tab order.
+    topbar.parentNode.insertBefore(bar, topbar.nextSibling);
+    document.documentElement.classList.add("has-secbar");
 
     var current = -1;
 
@@ -102,13 +111,19 @@
       if (e.relatedTarget && !bar.contains(e.relatedTarget)) closeMenu(false);
     });
 
-    // Show the bar only once the lead row is above the viewport.
-    new IntersectionObserver(function (entries) {
-      var e = entries[0];
-      var past = !e.isIntersecting && e.boundingClientRect.top < 0;
-      bar.classList.toggle("is-visible", past);
-      if (!past) closeMenu(false);
-    }).observe(lead);
+    // Show the bar when the rail is not on screen: scrolled up behind the
+    // top bar, or hidden altogether on narrow screens (its box is then
+    // empty, which counts as gone too).
+    var topH = topbar.offsetHeight;
+    new IntersectionObserver(
+      function (entries) {
+        var e = entries[entries.length - 1];
+        var gone = !e.isIntersecting && e.boundingClientRect.bottom <= topH + 1;
+        bar.classList.toggle("is-visible", gone);
+        if (!gone) closeMenu(false);
+      },
+      { rootMargin: "-" + topH + "px 0px 0px 0px" }
+    ).observe(rail);
 
     // Current section: the last heading above the line 45% of the way down
     // the viewport. Before 01 the bar just says "Contents".

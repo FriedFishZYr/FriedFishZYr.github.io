@@ -15,12 +15,12 @@
   --rule: #dedbd3;
   --pill-border: #dcd8cf;
   --pill-hover: #efede7;
-  --teal: #0f766e;
   --dark: #101418;
   --dark-2: #1c2027;
   --dark-rule: #2f343b;
   --dark-muted: #aeb5c0;
-  --focus-ring: #0f766e;
+  /* The interface is ink and grey; colour comes from the covers. */
+  --focus-ring: #101418;
 
   --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
   /* Wordmark: wide geometric capitals (Archivo, expanded width). */
@@ -73,7 +73,7 @@ body {
 .hdr.is-scrolled {
   background: var(--dark);
   color: #fff;
-  --focus-ring: #7fd1c7;
+  --focus-ring: #fff;
 }
 
 .hdr.is-scrolled .hdr__bar {
@@ -251,7 +251,7 @@ body {
   background: #fff;
   box-shadow: 0 16px 40px rgba(16, 20, 24, 0.12);
   color: var(--ink);
-  --focus-ring: #0f766e;
+  --focus-ring: #101418;
 }
 
 .hdr__nav .dd__panel ul {
@@ -294,7 +294,7 @@ body {
 
 .dd__all a {
   font-weight: 500;
-  color: var(--teal);
+  color: var(--ink);
 }
 
 /* Mobile menu button (shown by JS on narrow screens) */
@@ -346,19 +346,24 @@ body {
   padding-bottom: 104px;
 }
 
+/* Every column shares three rows (head, description, links) through
+   subgrid, so the link lists start on one line however long each
+   description runs. */
 .projects__track {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 22px 24px;
 }
 
 .proj {
   --c-ink: var(--ink);
   --c-muted: var(--muted);
   --c-desc: var(--secondary);
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  align-content: start;
+  row-gap: 22px;
   padding-top: 28px;
   border-top: 1px solid var(--rule);
   color: var(--c-ink);
@@ -414,7 +419,7 @@ body {
 
 .proj__links {
   display: grid;
-  margin-top: auto;
+  align-self: start;
 }
 
 .proj__links a {
@@ -429,7 +434,8 @@ body {
 }
 
 .proj__links a:hover {
-  color: var(--teal);
+  text-decoration: underline;
+  text-underline-position: from-font;
 }
 
 /* ---------- Pager (carousels) ---------- */
@@ -509,7 +515,7 @@ body {
   padding: 96px 0 56px;
   background: var(--dark);
   color: #fff;
-  --focus-ring: #7fd1c7;
+  --focus-ring: #fff;
 }
 
 .featured__track {
@@ -525,26 +531,17 @@ body {
   gap: 64px;
 }
 
+/* Cover art: 16:9, edge to edge (assets/covers/). */
 .feat__media {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 16 / 10;
-  padding: 28px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: 16px;
-  background: var(--bg);
 }
 
 .feat__media img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-}
-
-.feat__media--mat {
-  padding: 0;
-  background: #eceae3;
+  object-fit: cover;
 }
 
 .feat__meta {
@@ -826,7 +823,7 @@ body {
 .about__open {
   margin-top: 16px;
   font-weight: 500;
-  color: var(--teal);
+  color: var(--ink);
 }
 
 /* ---------- Footer ---------- */
@@ -835,7 +832,7 @@ body {
   padding: 72px 0 32px;
   background: var(--dark);
   color: #fff;
-  --focus-ring: #7fd1c7;
+  --focus-ring: #fff;
 }
 
 .ftr__grid {
@@ -928,7 +925,7 @@ body {
   display: inline-block;
   margin-top: 28px;
   font-weight: 500;
-  color: var(--teal);
+  color: var(--ink);
   text-decoration: underline;
   text-underline-position: from-font;
 }
@@ -998,15 +995,18 @@ body {
   }
 
   .js .projects__track {
-    display: flex;
-    gap: 24px;
+    grid-template-columns: none;
+    grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column;
+    grid-auto-columns: min(360px, 86%);
+    gap: 22px 24px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
 
   .js .proj {
-    flex: 0 0 min(360px, 86%);
+    grid-row: 1 / span 3;
     scroll-snap-align: start;
   }
 
@@ -1098,7 +1098,7 @@ body {
     border-bottom: 1px solid var(--rule);
     background: var(--bg);
     color: var(--ink);
-    --focus-ring: #0f766e;
+    --focus-ring: #101418;
   }
 
   .js .hdr.is-open .hdr__nav ul {
@@ -1192,14 +1192,6 @@ body {
 
   .about__body {
     font-size: 18px;
-  }
-
-  .feat__media {
-    padding: 16px;
-  }
-
-  .feat__media--mat {
-    padding: 0;
   }
 
   .ftr__grid {

@@ -9,8 +9,9 @@
    summary), the reading column, figures and captions, sources, the footer
    and the section bar (js/mufin-article.js).
 
-   Accent: --accent and --accent-text default to teal. A page can set its
-   own (mufin.css uses red) without touching anything else.
+   The interface is ink and grey: --accent is ink and --accent-text (its
+   hover) is grey. Colour is kept for the figures, where it means
+   something (--teal and --red below), and for the cover art.
    Figma: YinranZhu_Portfolios › Portfolio › frame 144:652.
    ========================================================================== */
 
@@ -22,8 +23,8 @@
   --rule: #e3e6ea;
   --teal: #0f766e;
   --teal-text: #0b5e58;
-  --accent: var(--teal);
-  --accent-text: var(--teal-text);
+  --accent: var(--ink);
+  --accent-text: var(--secondary);
   --teal-tint: #e3f1ee;
   --teal-tint-2: #eef6f4;
   --red: #d9472f;
@@ -38,7 +39,7 @@
   --connector: #8c8a84;
   --footer-bg: #101418;
   --footer-muted: #aeb5c0;
-  --focus-ring: #0f766e;
+  --focus-ring: #101418;
 
   --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -46,11 +47,12 @@
 
   --gutter: 24px;
   /* Height of the fixed section bar, so anchor jumps land below it. */
-  --bar-h: 44px;
+  --top-h: 65px;
+  --bar-h: 48px;
 }
 
 html {
-  scroll-padding-top: calc(var(--bar-h) + 16px);
+  scroll-padding-top: calc(var(--top-h) + var(--bar-h) + 16px);
 }
 
 body {
@@ -60,7 +62,7 @@ body {
 }
 
 .wrap {
-  --wrap-max: 1120px;
+  --wrap-max: 1392px;
   --gutter: 24px;
 }
 
@@ -77,7 +79,7 @@ strong {
   line-height: normal;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--muted);
 }
 
 .h1 {
@@ -129,7 +131,12 @@ strong {
 
 /* ---------- Top bar ---------- */
 
+/* Pinned to the top of the window. The contents bar (further down this
+   file) slides out from underneath it. --top-h is its height. */
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
   background: #fff;
   border-bottom: 1px solid var(--rule);
 }
@@ -164,9 +171,12 @@ strong {
   color: var(--ink);
 }
 
-.topbar__links a:hover,
+.topbar__links a:hover {
+  color: var(--ink);
+}
+
 .topbar__name:hover {
-  color: var(--accent);
+  color: var(--secondary);
 }
 
 /* ---------- Article grid ----------
@@ -281,66 +291,52 @@ strong {
   content: counter(item) ".";
 }
 
-/* ---------- Lead row ---------- */
+/* ---------- Lead row ----------
+   The title sits alone, centred. Under it, three columns whose tops line
+   up: the contents rail, Figure 1, and the metadata rail. The rails sit at
+   the edges of the row and run on beside the summary, so a long rail
+   never leaves a gap under the figure. */
 
 .lead {
+  --rail: 200px;
   grid-column: full;
   display: grid;
-  grid-template-columns: 180px minmax(0, 720px) 180px;
+  grid-template-columns: var(--rail) minmax(0, 880px) var(--rail);
   grid-template-areas:
-    "toc head meta"
+    "head head head"
+    "toc fig meta"
     "toc summary meta";
-  grid-template-rows: auto 1fr;
-  /* 100px at 1440; narrows between 1100 and 1328 so nothing overflows. */
-  column-gap: clamp(32px, (100% - 1080px) / 2, 100px);
-  row-gap: 36px;
-  width: min(1280px, 100% - 2 * var(--gutter));
+  grid-template-rows: auto auto 1fr;
+  justify-content: space-between;
+  align-items: start;
+  column-gap: 28px;
+  width: min(1392px, 100% - 2 * var(--gutter));
   margin-inline: auto;
 }
 
 .lead__head {
   grid-area: head;
   display: grid;
-  row-gap: 20px;
-  justify-items: start;
+  row-gap: 18px;
+  justify-items: center;
+  margin-bottom: 56px;
+  text-align: center;
 }
 
-.lead__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 20px;
-  padding-top: 4px;
+.lead__head .h1 {
+  max-width: 880px;
 }
 
-.pill {
-  display: inline-block;
-  padding: 9px 16px;
-  border: 1px solid var(--group-stroke);
-  border-radius: 999px;
-  background: var(--box);
-  font-weight: 500;
-  font-size: 14px;
-  line-height: normal;
-  color: var(--ink);
+/* Figure 1. No top padding, so its mat lines up with the rails. */
+.fig.lead__fig {
+  grid-area: fig;
+  padding-top: 0;
+  container-type: inline-size;
 }
 
-.pill:hover {
-  border-color: var(--box-stroke);
-  background: var(--mat);
-}
-
-/* Contents rail */
+/* Contents rail: a rule above every row, no heading. */
 .toc {
   grid-area: toc;
-}
-
-.toc__label {
-  margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: normal;
-  color: var(--ink);
 }
 
 .toc__list a {
@@ -351,6 +347,10 @@ strong {
   font-size: 13px;
   line-height: 18px;
   color: var(--ink);
+}
+
+.toc .toc__list a {
+  padding-block: 12px;
 }
 
 .toc__num {
@@ -372,47 +372,54 @@ strong {
   display: none;
 }
 
-/* Metadata rail */
+/* Metadata rail: label, then value, a rule above every row. */
 .meta {
   grid-area: meta;
 }
 
 .meta__item {
   display: grid;
-  row-gap: 4px;
+  row-gap: 3px;
   padding-block: 12px;
   border-top: 1px solid var(--rule);
 }
 
-.meta__item:first-child {
-  padding-top: 0;
-  border-top: 0;
-}
-
 .meta dt {
-  font-size: 12px;
-  line-height: normal;
-  color: var(--muted);
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ink);
 }
 
 .meta dd {
   margin: 0;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--secondary);
 }
 
 .meta__item--topics dd span {
   display: block;
 }
 
-/* Summary */
+.meta dd a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
+}
+
+.meta dd a:hover {
+  color: var(--accent-text);
+}
+
+/* Summary: under Figure 1, at the width of the reading column. */
 .summary {
   grid-area: summary;
-  align-self: start;
+  justify-self: center;
+  width: min(720px, 100%);
   display: grid;
   row-gap: 14px;
+  margin-top: 24px;
   padding-top: 22px;
   padding-bottom: 24px;
   border-block: 1px solid var(--rule);
@@ -584,16 +591,18 @@ strong {
 }
 
 .footer :focus-visible {
-  --focus-ring: #7fd1c7;
+  --focus-ring: #fff;
 }
 
-/* ---------- Section bar (added by js/mufin-article.js) ----------
-   Appears once the lead row has scrolled away. Not drawn in Figma; built
-   from the page's own tokens to match the contents rail. */
+/* ---------- Contents bar (added by js/mufin-article.js) ----------
+   The contents rail, folded into one row under the top bar. On wide
+   screens it slides down from behind the top bar once the rail has
+   scrolled out of sight, and slides back when the rail returns. On
+   screens too narrow for the rail it is there from the start. */
 
 .secbar {
   position: fixed;
-  inset: 0 0 auto;
+  inset: var(--top-h) 0 auto;
   z-index: 50;
   height: var(--bar-h);
   border-bottom: 1px solid var(--rule);
@@ -609,29 +618,30 @@ strong {
 
 @media (prefers-reduced-motion: no-preference) {
   .secbar {
-    transition: transform 0.2s ease, visibility 0s linear 0.2s;
+    transition: transform 0.3s ease-out, visibility 0s linear 0.3s;
   }
   .secbar.is-visible {
-    transition: transform 0.2s ease, visibility 0s;
+    transition: transform 0.3s ease-out, visibility 0s;
   }
 }
 
 .secbar__inner {
   position: relative;
-  display: flex;
-  align-items: center;
   height: 100%;
-  width: min(1280px, 100% - 2 * var(--gutter));
+  width: min(1392px, 100% - 2 * var(--gutter));
   margin-inline: auto;
 }
 
+/* The whole row is the button: number and section at the left, chevron
+   at the right. */
 .secbar__toggle {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 10px;
-  max-width: 100%;
-  height: 32px;
-  padding: 0 10px 0 0;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
   border: 0;
   background: none;
   color: var(--ink);
@@ -640,6 +650,13 @@ strong {
   line-height: 18px;
   text-align: left;
   cursor: pointer;
+}
+
+.secbar__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
 }
 
 .secbar__num {
@@ -671,7 +688,8 @@ strong {
 }
 
 .secbar__toggle:hover .secbar__title {
-  color: var(--accent);
+  text-decoration: underline;
+  text-underline-position: from-font;
 }
 
 .secbar__menu {
@@ -694,8 +712,7 @@ strong {
 }
 
 .toc__list a[aria-current="location"] .toc__title {
-  font-weight: 500;
-  color: var(--accent);
+  font-weight: 600;
 }
 
 .toc__list a[aria-current="location"] .toc__num {
@@ -704,30 +721,58 @@ strong {
 
 /* ---------- Responsive ---------- */
 
-/* Rails no longer fit: one column. Metadata becomes a compact row under
-   the header, and the contents list moves into a disclosure. */
-@media (max-width: 1100px) {
+/* Narrower rails before they stop fitting. Figure 1 gives up width first
+   (each page stacks its own Figure 1 when the middle column gets tight). */
+@media (max-width: 1360px) {
   .lead {
-    grid-template-columns: minmax(0, 720px);
+    --rail: 184px;
+  }
+}
+
+/* No room for rails: one column. The contents live in the contents bar,
+   which is now always there, and the metadata becomes rows under
+   Figure 1 with the label on the left and the value on the right. */
+@media (max-width: 1039px) {
+  .lead {
+    grid-template-columns: minmax(0, 880px);
     grid-template-areas:
       "head"
-      "meta"
       "toc"
+      "fig"
+      "meta"
       "summary";
     grid-template-rows: none;
     justify-content: center;
     row-gap: 24px;
   }
 
+  .lead__head {
+    margin-bottom: 16px;
+  }
+
+  .summary {
+    margin-top: 0;
+  }
+
+  /* The contents bar covers the top of the page from the start. */
+  .has-secbar .article {
+    padding-top: calc(56px + var(--bar-h));
+  }
+
   .toc {
     display: none;
   }
 
+  /* Without JavaScript there is no contents bar: show the disclosure. */
   .toc-mini {
     grid-area: toc;
     display: block;
     border-top: 1px solid var(--rule);
     border-bottom: 1px solid var(--rule);
+  }
+
+  .has-secbar .toc-mini {
+    display: none;
   }
 
   .toc-mini summary {
@@ -764,30 +809,15 @@ strong {
     padding-bottom: 8px;
   }
 
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px 32px;
+  .meta__item {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 24px;
   }
 
-  .meta__item,
-  .meta__item:first-child {
-    padding: 0;
-    border: 0;
-  }
-
-  .meta__item--topics dd span {
-    display: inline;
-  }
-
-  .meta__item--topics dd span:not(:last-child)::after {
-    content: " · ";
-    color: var(--muted);
-  }
-
-  .summary {
-    border-top: 0;
-    padding-top: 0;
+  .meta dt,
+  .meta dd {
+    font-size: 14px;
+    line-height: 1.5;
   }
 }
 
@@ -821,6 +851,10 @@ strong {
   .article {
     padding-top: 48px;
     padding-bottom: 80px;
+  }
+
+  .has-secbar .article {
+    padding-top: calc(40px + var(--bar-h));
   }
 
   .h1 {

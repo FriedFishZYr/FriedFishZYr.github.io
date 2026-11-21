@@ -4,7 +4,7 @@ Personal portfolio served by GitHub Pages at <https://friedfishzyr.github.io>.
 
 Plain HTML and CSS. No framework and no build step. Edit a file, refresh the browser.
 
-Three pages use JavaScript, in dependency-free files loaded with `defer`: `js/home.js` (Home), `js/mufin-article.js` (the section bar on both MuFIN articles) and `js/mufin-generation.js` (the walkthrough demo on the MuFIN Generation article). None makes network requests, and every page still reads completely with JavaScript off. The KeyPalette and MeArm pages have no scripts.
+Three pages use JavaScript, in dependency-free files loaded with `defer`: `js/home.js` (Home), `js/mufin-article.js` (the contents bar on both MuFIN articles) and `js/mufin-generation.js` (the walkthrough demo on the MuFIN Generation article). None makes network requests, and every page still reads completely with JavaScript off. The KeyPalette and MeArm pages have no scripts.
 
 The design source is the Figma file **YinranZhu_Portfolios**, page **Portfolio**:
 
@@ -38,14 +38,15 @@ work/mufin-generation/index.html  MuFIN Generation article (how the feedback was
 css/base.css               Shared: reset, .wrap layout column, focus styles, reduced motion
 css/home.css               Home and 404 (Geist + Geist Mono, research-index layout)
 css/mufin-article.css      Shared by the two MuFIN articles: top bar, lead row, reading column, figure mats, footer (Geist / Geist Mono / Source Serif 4)
-css/mufin.css              MuFIN Pathway Analysis only: red accent, wide chart tier, case-study modules
+css/mufin.css              MuFIN Pathway Analysis only: wide chart tier, case-study modules
 css/keypalette.css         KeyPalette only (Archivo, keycap theme)
 css/mearm.css              MeArm only (Barlow / Barlow Condensed / Fragment Mono, laser-cut kit theme)
 css/mufin-generation.css   MuFIN Generation only: its figures and the walkthrough demo
 js/home.js                 Home only: header name-to-monogram on scroll, dropdowns, mobile menu, carousels, filters
-js/mufin-article.js        Both MuFIN articles: the section bar that appears once you scroll past the title
+js/mufin-article.js        Both MuFIN articles: the contents bar that slides out from under the top bar once the contents rail scrolls away
 js/mufin-generation.js     MuFIN Generation only: the scripted walkthrough demo
-assets/home/               Home images (MuFIN Generation figure; older card thumbnails)
+assets/covers/             The four cover illustrations shown on Home (SVG, 16:9)
+assets/home/               Older Home images, no longer shown
 assets/mufin/              MuFIN charts, diagrams and artifact thumbnails (SVG)
 assets/keypalette/         KeyPalette screenshots (WebP) and keyboard art (SVG)
 assets/mearm/              MeArm screenshots (WebP) and cut-sheet motif (SVG)
@@ -54,9 +55,13 @@ favicon.svg, favicon-32.png, apple-touch-icon.png
 .nojekyll                  Tells GitHub Pages to serve the files as-is
 ```
 
-Each project has its own stylesheet and visual language on purpose. `base.css` is shared by every page. The two MuFIN articles also share `mufin-article.css`, so they read as a pair: same layout, teal accent on Generation, red on Pathway Analysis. To change something on both (top bar, title block, contents rail, captions, footer), edit `mufin-article.css`; each page's own file only holds what the other page does not have.
+Home and the two MuFIN articles keep the interface in ink and grey: no accent colour on links, labels, hovers or focus rings. Colour is reserved for the cover art and for figures where it means something (in the Generation figures, teal is the correct distance and red the mistaken one; in the Pathway charts, red marks the 32 mismatch cases). The KeyPalette and MeArm case studies keep their own themes.
+
+Each project has its own stylesheet and visual language on purpose. `base.css` is shared by every page. The two MuFIN articles also share `mufin-article.css`, so they read as a pair with the same layout. To change something on both (top bar, title block, contents rail, captions, footer), edit `mufin-article.css`; each page's own file only holds what the other page does not have.
 
 Home has its own header and footer (in `home.css`), shared only with the 404 page. The header shows the full name at the top of the page; once you scroll, it turns into a dark bar and the name collapses to the "Y/Z" mark. The name is set in Archivo (expanded width) with a drawn slash in place of the I; the slash steepens to 24° in the name and tips to 42° in the mark, parallel to the Y's arm and the Z's diagonal (see `.brand__slash` in `home.css`). The two MuFIN articles share a simpler top bar and footer in `mufin-article.css`.
+
+The three project marks on Home (MuFIN, KeyPalette, MeArm) are inline SVGs in `index.html`, drawn only with circles on a 48×48 grid: chains of small beads for lines, larger circles for joints and points, overlapping circles for solid shapes. They are filled with `currentColor`, so they grey out with the rest of the column on hover. A new project's mark should follow the same recipe. The link lists under the three columns start on one line because the columns share their rows (`grid-template-rows: subgrid` on `.proj` in `home.css`).
 
 ## Edit text
 
@@ -65,6 +70,7 @@ All copy is in the HTML files. Open the page, find the sentence and change it. A
 - **Uppercase headings are typed in sentence case.** On the KeyPalette page, headings like "DESIGN A KEYCAP COLORWAY…" are written as `Design a keycap colorway…` and uppercased by CSS (`text-transform`). Type them normally.
 - **Special characters.** Write `&amp;` for &, and `&lt;` / `&gt;` for < and >. Curly quotes (“ ” ’), arrows (→) and dashes (—, –) can be typed directly.
 - **Double spaces around "·"** in labels like `Case study  ·  KeyPalette` are intentional. Those elements have `class="pre"`, which keeps the spacing.
+- **Contents list on the MuFIN articles.** The rail beside Figure 1 uses short labels ("Method", "Results"), not the full section headings. Each label is written twice near the top of the page: once in `<nav class="toc">` and once in `<details class="toc-mini">` (the version phones show). Change both. The contents bar under the top bar copies the first list.
 - **Page title and link preview.** Each page's `<head>` has a `<title>`, a `<meta name="description">` and `og:*` tags. Update them if you change a headline.
 
 ## Update the résumé
@@ -85,6 +91,12 @@ Vector art (keyboard, cut sheet, MuFIN charts and diagrams) is SVG. Export it fr
 
 On phones, the wide MuFIN charts scroll sideways inside their own box (`class="scroll-x"`) instead of shrinking until the text is unreadable. The `--min` value on that box sets how wide the chart stays.
 
+## Change a cover
+
+Each piece has one cover illustration, shown twice on Home (the featured band and the work canvas). The drawings live in the Figma file **YinranZhu_Portfolios**, page **Arts**, as four 1600×900 frames. They share one recipe: a flat pale background and one or two simple shapes cut from 24px graph paper, in three or four colours.
+
+To change one, edit its frame in Figma, export the frame as SVG, and save it over the file of the same name in `assets/covers/` (`mufin-generation.svg`, `mufin-pathway.svg`, `keypalette.svg`, `mearm.svg`). Keep the frame at 1600×900 so it fills its slot. If the drawing changes meaning, update the two `alt` texts for it in `index.html`.
+
 ## Add a new case study
 
 1. Copy an existing case study folder, e.g. `work/keypalette/` → `work/new-project/`.
@@ -94,7 +106,7 @@ On phones, the wide MuFIN charts scroll sideways inside their own box (`class="s
    - update `<title>`, the meta description, the `og:*` tags and the `canonical` URL,
    - keep exactly one `<h1>`,
    - set `href="/"` on the "All work" link.
-4. Put images in `assets/new-project/` and a 1200×630 preview image in `assets/og/new-project.png`.
+4. Put images in `assets/new-project/`, a 1200×630 preview image in `assets/og/new-project.png`, and a 1600×900 cover in `assets/covers/new-project.svg` (see "Change a cover").
 5. Add it to the Home page (`index.html`) in five places: the Work menu in the header, its project column (or a link in an existing one, and that column's piece count), a slide in the featured band, a card on the work canvas (with `data-project` matching a filter button; the `piece--1` to `piece--4` classes set each card's size and offset in `home.css`), and the Work column in the footer. Also update the "4 pieces" count.
 
 ## Accessibility and performance checklist
