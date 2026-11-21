@@ -46,7 +46,6 @@ js/home.js                 Home only: header name-to-monogram on scroll, dropdow
 js/mufin-article.js        Both MuFIN articles: the contents bar that slides out from under the top bar once the contents rail scrolls away
 js/mufin-generation.js     MuFIN Generation only: the scripted walkthrough demo
 assets/covers/             The four cover illustrations shown on Home (SVG, 16:9)
-assets/home/               Older Home images, no longer shown
 assets/mufin/              MuFIN charts, diagrams and artifact thumbnails (SVG)
 assets/keypalette/         KeyPalette screenshots (WebP) and keyboard art (SVG)
 assets/mearm/              MeArm screenshots (WebP) and cut-sheet motif (SVG)
