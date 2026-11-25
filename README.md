@@ -4,7 +4,7 @@ Personal portfolio served by GitHub Pages at <https://friedfishzyr.github.io>.
 
 Plain HTML and CSS. No framework and no build step. Edit a file, refresh the browser.
 
-JavaScript is three dependency-free files loaded with `defer`: `js/home.js` (Home), `js/article.js` (the contents bar on the four pieces under `work/`) and `js/mufin-generation.js` (the walkthrough demo on the MuFIN Generation article). None makes network requests, and every page still reads completely with JavaScript off.
+JavaScript is three dependency-free files loaded with `defer`: `js/home.js` (Home), `js/article.js` (the contents bar on the four pieces under `work/`) and `js/mufin-generation.js` (the walkthrough demo on the MuFIN Generation article). The only requests any of them makes are `home.js` re-reading the four cover files from this site (see "Change a cover"), and every page still reads completely with JavaScript off.
 
 The design source is the Figma file **YinranZhu_Portfolios**, page **Portfolio**:
 
@@ -36,16 +36,16 @@ work/mearm/index.html      MeArm case study
 work/mufin-generation/index.html  MuFIN Generation article (how the feedback was generated)
 404.html                   "Page not found" (GitHub Pages serves it automatically)
 css/base.css               Shared: reset, .wrap layout column, focus styles, reduced motion
-css/home.css               Home and 404 (Geist + Geist Mono, research-index layout)
+css/home.css               Home and 404 (Geist + Geist Mono, white page in ink and grey)
 css/article.css            Shared by all four pieces: top bar, lead row, reading column, figure mats, captions, footer, contents bar (Geist / Geist Mono / Source Serif 4)
 css/case-study.css         Shared by the three case studies (MuFIN Pathway, KeyPalette, MeArm): stat row, topic grids, steps, rows, callouts, screenshot cards, wide figure tier
 css/mufin.css              MuFIN Pathway Analysis only: its own figures and modules
 css/mearm.css              MeArm only: the sketch figure and the three diagnostic states
 css/mufin-generation.css   MuFIN Generation only: its figures and the walkthrough demo
-js/home.js                 Home only: header name-to-monogram on scroll, dropdowns, mobile menu, carousels, filters
+js/home.js                 Home only: header name-to-monogram on scroll, dropdowns, mobile menu, the study / design / build filter, cover motion
 js/article.js              All four pieces: the contents bar that slides out from under the top bar once the contents rail scrolls away
 js/mufin-generation.js     MuFIN Generation only: the scripted walkthrough demo
-assets/covers/             The four cover illustrations shown on Home (SVG, 16:9)
+assets/covers/             The four cover illustrations shown in Home's work grid (SVG, 16:9)
 assets/mufin/              MuFIN charts, diagrams and artifact thumbnails (SVG)
 assets/keypalette/         KeyPalette screenshots (WebP) and keyboard art (SVG)
 assets/mearm/              MeArm screenshots (WebP)
@@ -54,7 +54,7 @@ favicon.svg, favicon-32.png, apple-touch-icon.png
 .nojekyll                  Tells GitHub Pages to serve the files as-is
 ```
 
-Every page keeps the interface in ink and grey: no accent colour on links, labels, hovers or focus rings. Colour is reserved for the cover art, for screenshots, and for figures where it means something (in the Generation figures, teal is the correct distance and red the mistaken one; in the Pathway charts, red marks the 32 mismatch cases; in the MeArm diagnostics, amber is a caution and red a stop).
+Every page is white and keeps the interface in ink and grey: no accent colour on links, labels, hovers or focus rings. Colour is reserved for the cover art, for screenshots, and for figures where it means something (in the Generation figures, teal is the correct distance and red the mistaken one; in the Pathway charts, red marks the 32 mismatch cases; in the MeArm diagnostics, amber is a caution and red a stop).
 
 The four pieces under `work/` share one layout. Stylesheets stack in this order, and each page links only the ones it needs:
 
@@ -63,9 +63,13 @@ The four pieces under `work/` share one layout. Stylesheets stack in this order,
 3. `case-study.css` (the three case studies): the modules a case study is built from.
 4. The page's own file, only for what no other page has. KeyPalette needs none.
 
-Home has its own header and footer (in `home.css`), shared only with the 404 page. The header shows the full name at the top of the page; once you scroll, it turns into a dark bar and the name collapses to the "Y/Z" mark. The name is set in Archivo (expanded width) with a drawn slash in place of the I; the slash steepens to 24° in the name and tips to 42° in the mark, parallel to the Y's arm and the Z's diagonal (see `.brand__slash` in `home.css`). The four pieces share a simpler top bar and footer in `article.css`.
+Home has its own header and footer (in `home.css`), shared only with the 404 page. The name sits on the left and plain text links on the right; once you scroll, the header turns into a dark bar and the name collapses to the "Y/Z" mark. The name is set in Archivo (expanded width) with a drawn slash in place of the I; the slash steepens to 24° in the name and tips to 42° in the mark, parallel to the Y's arm and the Z's diagonal (see `.brand__slash` in `home.css`). The four pieces share a simpler top bar and footer in `article.css`.
 
-The three project marks on Home (MuFIN, KeyPalette, MeArm) are inline SVGs in `index.html`, drawn only with circles on a 48×48 grid: chains of small beads for lines, larger circles for joints and points, overlapping circles for solid shapes. They are filled with `currentColor`, so they grey out with the rest of the column on hover. A new project's mark should follow the same recipe. The link lists under the three columns start on one line because the columns share their rows (`grid-template-rows: subgrid` on `.proj` in `home.css`).
+Three things on Home are its own, and new work should follow them:
+
+- **The statement is the filter.** In "I study how people use products, then design and build better ones", the words *study*, *design* and *build* are marked with `data-skill`. `home.js` turns each into a button: pointing at one fades the pieces that don't show it, pressing it keeps only the ones that do, and pressing it again shows everything. The row above the grid (All / Study / Design / Build) drives the same filter. Each card says what it shows in `data-skills`, for example `data-skills="design build"`.
+- **The slash separates.** Items in a line (a card's category and date, the filter row, the line under the statement) are separated by a drawn 42° slash, `<span class="sl" aria-hidden="true"></span>`, not a typed "/" or "·". The 404 page uses the wordmark's slash for the zero in "404".
+- **The covers move.** Pointing at a card plays its cover: the coral point slides down the curve into the dashed ring, the pathway's main band fades to leave the red strand, the keycaps swap colours, the robot arm swings across its sweep. The rules are under "Cover motion" in `home.css` and are switched off for people who ask for reduced motion.
 
 ## Edit text
 
@@ -97,9 +101,20 @@ On phones, wide charts and drawings scroll sideways inside their own box (`class
 
 ## Change a cover
 
-Each piece has one cover illustration, shown twice on Home (the featured band and the work grid). The drawings live in the Figma file **YinranZhu_Portfolios**, page **Arts**, as four 1600×900 frames. They share one recipe: a flat pale background and one or two simple shapes cut from 24px graph paper, in three or four colours.
+Each piece has one cover illustration, shown in the work grid on Home. The drawings live in the Figma file **YinranZhu_Portfolios**, page **Arts**, as four 1600×900 frames. They share one recipe: a flat pale background and one or two simple shapes cut from 24px graph paper, in three or four colours.
 
-To change one, edit its frame in Figma, export the frame as SVG, and save it over the file of the same name in `assets/covers/` (`mufin-generation.svg`, `mufin-pathway.svg`, `keypalette.svg`, `mearm.svg`). Keep the frame at 1600×900 so it fills its slot. If the drawing changes meaning, update the two `alt` texts for it in `index.html`.
+To change one, edit its frame in Figma, export the frame as SVG with **Include "id" attribute** turned on, and save it over the file of the same name in `assets/covers/` (`mufin-generation.svg`, `mufin-pathway.svg`, `keypalette.svg`, `mearm.svg`). Keep the frame at 1600×900 so it fills its slot. If the drawing changes meaning, update its `alt` text in `index.html`.
+
+The hover motion finds the moving parts by their Figma layer names, which the export writes as ids. Keep these names, or that cover stops moving (it still shows, just still):
+
+| Cover | Layers the motion uses |
+|---|---|
+| `mufin-generation.svg` | `right-point` (the solid coral point) |
+| `mufin-pathway.svg` | `most-episodes` (the dark band) |
+| `keypalette.svg` | `blue-key`, `cream-key`, `coral-key`, each holding `…-key-body` and `…-key-dish` |
+| `mearm.svg` | `arm` |
+
+If you move or reshape one of these parts, the numbers in the "Cover motion" rules in `home.css` need to follow: the curve the point rides, the arm's pivot and angles, and the keycap colours are written there.
 
 ## Add a new case study
 
@@ -111,7 +126,7 @@ To change one, edit its frame in Figma, export the frame as SVG, and save it ove
    - write the contents list twice (see "Edit text"), with short labels,
    - number the sections `s01`, `s02`, … so the contents links and the contents bar find them.
 4. Put images in `assets/new-project/`, a 1200×630 preview image in `assets/og/new-project.png`, and a 1600×900 cover in `assets/covers/new-project.svg` (see "Change a cover").
-5. Add it to the Home page (`index.html`) in five places: the Work menu in the header, its project column (or a link in an existing one, and that column's piece count), a slide in the featured band, a card in the work grid (with `data-project` matching a filter button), and the Work column in the footer. Also update the "4 pieces" count.
+5. Add it to the Home page (`index.html`) in three places: the Work menu in the header, a card in the work grid (most recent first, with `data-skills` listing which of `study`, `design` and `build` it shows), and the Work column in the footer. Also update the "4 pieces" count. A new cover is a still image unless you give its `<img>` a `data-cover` name and write motion rules for it in `home.css`.
 
 ## Accessibility and performance checklist
 

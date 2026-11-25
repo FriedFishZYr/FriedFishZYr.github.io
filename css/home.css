@@ -1,20 +1,23 @@
 /* ==========================================================================
    home.css — Home (index.html) and 404.
-   Layout follows the structure of a research index page: pill navigation
-   around a centred name, a large statement, a row of project columns, a
-   dark featured band, then the full list of work. Geist + Geist Mono, warm
-   off-white surfaces, same tokens as the MuFIN Generation article.
+   A white page in ink and grey: the name on the left and plain links on
+   the right, a large left-aligned statement whose three marked words
+   filter the work, then one grid of pieces. Colour comes only from the
+   covers. Geist + Geist Mono, same ink and greys as the four pieces.
    ========================================================================== */
 
 :root {
-  --bg: #faf9f6;
+  --bg: #ffffff;
   --ink: #101418;
   --body: #2a2f36;
   --secondary: #4a525c;
   --muted: #6b7480;
-  --rule: #dedbd3;
-  --pill-border: #dcd8cf;
-  --pill-hover: #efede7;
+  /* Stepped-back text: the rest of the statement while one word is picked,
+     and the slash separators. */
+  --quiet: #8a9099;
+  --rule: #e3e6ea;
+  --control-border: #d5d9de;
+  --hover: #f3f4f6;
   --dark: #101418;
   --dark-2: #1c2027;
   --dark-rule: #2f343b;
@@ -61,9 +64,10 @@ body {
 
 .hdr__bar {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 24px;
   width: min(1280px, 100% - 48px);
   height: 88px;
   margin-inline: auto;
@@ -82,9 +86,7 @@ body {
 
 /* Brand: the full name, which collapses to "YZ" once scrolled. */
 .brand {
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: center;
+  flex: none;
   color: inherit;
   font-family: var(--brand);
   font-stretch: 115%;
@@ -158,55 +160,46 @@ body {
   margin: 0 -0.04em 0 -0.14em;
 }
 
-/* Links: Work / About on the left, Contact / Resume on the right. */
+/* Links: plain text on the right. */
 .hdr__links {
-  display: contents;
+  display: flex;
 }
 
 .hdr__nav ul {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 30px;
 }
 
-.hdr__nav--main {
-  grid-column: 1;
-  grid-row: 1;
-  justify-self: start;
-}
-
-.hdr__nav--aside {
-  grid-column: 3;
-  grid-row: 1;
-  justify-self: end;
-}
-
-.pill {
+/* Also used on the <button> that js/home.js swaps in for a dropdown link. */
+.nav__link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 34px;
-  padding: 0 15px;
-  border: 1px solid var(--pill-border);
-  border-radius: 999px;
-  background: transparent;
+  padding: 8px 0;
+  border: 0;
+  background: none;
   color: inherit;
   font-family: var(--sans);
   font-weight: 400;
-  font-size: 14px;
+  font-size: 14.5px;
   letter-spacing: 0.01em;
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 6px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
-.pill:hover,
-.pill[aria-expanded="true"] {
-  background: var(--pill-hover);
+.nav__link:hover,
+.nav__link[aria-expanded="true"] {
+  text-decoration-color: currentColor;
 }
 
-.pill__chev {
+.nav__chev {
   width: 9px;
   height: 9px;
   fill: none;
@@ -217,20 +210,16 @@ body {
   transition: transform 0.2s ease;
 }
 
-.pill[aria-expanded="true"] .pill__chev {
+.nav__link[aria-expanded="true"] .nav__chev {
   transform: rotate(180deg);
 }
 
-.hdr.is-scrolled .pill {
-  border-color: #3a4048;
-  background: transparent;
+.hdr.is-scrolled .nav__link {
   color: #e3e6ea;
 }
 
-.hdr.is-scrolled .pill:hover,
-.hdr.is-scrolled .pill[aria-expanded="true"] {
-  border-color: #59606a;
-  background: rgba(255, 255, 255, 0.04);
+.hdr.is-scrolled .nav__link:hover,
+.hdr.is-scrolled .nav__link[aria-expanded="true"] {
   color: #fff;
 }
 
@@ -242,7 +231,7 @@ body {
 .dd__panel {
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
+  right: -16px;
   z-index: 10;
   width: 360px;
   padding: 8px;
@@ -258,9 +247,7 @@ body {
   display: block;
 }
 
-.dd__panel--end {
-  left: auto;
-  right: 0;
+.dd__panel--narrow {
   width: 300px;
 }
 
@@ -273,7 +260,7 @@ body {
 }
 
 .dd__panel a:hover {
-  background: var(--bg);
+  background: var(--hover);
 }
 
 .dd__k {
@@ -304,7 +291,7 @@ body {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border: 1px solid var(--pill-border);
+  border: 1px solid var(--control-border);
   border-radius: 10px;
   background: transparent;
   color: inherit;
@@ -324,344 +311,167 @@ body {
   border-color: #3a4048;
 }
 
+/* ---------- Slash ----------
+   The slash from the Y/Z mark, drawn rather than typed: a bar at cap
+   height leaning 42°, the angle it takes in the mark. It separates items
+   in a line (meta lines, the filter row, the line under the statement).
+   Sized in em, so it follows the text around it. */
+
+.sl {
+  --sl-h: 0.7em;
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: calc(var(--sl-h) * 0.9 + 0.1em);
+  height: var(--sl-h);
+  margin: 0 0.6em;
+  color: var(--quiet);
+}
+
+.sl::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: max(1.5px, 0.1em);
+  height: 100%;
+  background: currentColor;
+  transform-origin: left bottom;
+  transform: skewX(-42deg);
+}
+
 /* ---------- Statement ---------- */
 
-/* Centred and kept small, so the project row and the top of the featured
-   band both fit on the first screen: the cut-off band says "scroll". */
+/* Left-aligned and large, with room for the top of the work grid on the
+   first screen, so the three marked words visibly act on it. */
+.hero {
+  padding-top: 64px;
+  padding-bottom: 72px;
+}
+
 .statement {
-  padding-top: 36px;
-  padding-bottom: 48px;
-  text-align: center;
-}
-
-.statement__title {
-  max-width: 1080px;
-  margin-inline: auto;
+  max-width: 1120px;
   font-weight: 600;
-  font-size: clamp(30px, 3.1vw, 46px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-size: clamp(34px, 4.7vw, 66px);
+  line-height: 1.07;
+  letter-spacing: -0.03em;
   text-wrap: balance;
-}
-
-/* ---------- Project columns ---------- */
-
-.projects {
-  padding-bottom: 56px;
-}
-
-/* Every column shares three rows (head, description, links) through
-   subgrid, so the link lists start on one line however long each
-   description runs. */
-.projects__track {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px 24px;
-}
-
-.proj {
-  --c-ink: var(--ink);
-  --c-muted: var(--muted);
-  --c-desc: var(--secondary);
-  display: grid;
-  grid-row: span 3;
-  grid-template-rows: subgrid;
-  align-content: start;
-  row-gap: 16px;
-  padding-top: 24px;
-  border-top: 1px solid var(--rule);
-  color: var(--c-ink);
   transition: color 0.2s ease;
 }
 
-/* Hovering one column greys out the others. */
-@media (hover: hover) {
-  .projects__track:hover .proj:not(:hover),
-  .projects__track:focus-within .proj:not(:focus-within) {
-    --c-ink: #9aa0a8;
-    --c-muted: #a9aeb5;
-    --c-desc: #a3a8af;
-  }
-}
-
-.proj__head {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.proj__icon {
-  flex: none;
-  width: 40px;
-  height: 40px;
-  color: var(--c-ink);
-  transition: color 0.2s ease;
-}
-
-.proj__name {
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--c-ink);
-  transition: color 0.2s ease;
-}
-
-.proj__count {
-  margin-top: 3px;
-  font-size: 13px;
-  color: var(--c-muted);
-  transition: color 0.2s ease;
-}
-
-.proj__desc {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--c-desc);
-  transition: color 0.2s ease;
-}
-
-.proj__links {
-  display: grid;
-  align-self: start;
-}
-
-.proj__links a {
-  display: block;
-  padding: 9px 0;
-  border-top: 1px solid var(--rule);
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.4;
-  color: var(--c-ink);
-  transition: color 0.2s ease;
-}
-
-.proj__links a:hover {
+/* The three marked words. With JavaScript each is a button (.verb) that
+   filters the work; the underline is what says so. */
+.js .statement [data-skill] {
   text-decoration: underline;
-  text-underline-position: from-font;
+  text-decoration-color: #b9bec6;
+  text-decoration-thickness: 0.05em;
+  text-underline-offset: 0.14em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
-/* ---------- Pager (carousels) ---------- */
-
-.pager {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  margin-top: 44px;
-}
-
-.pager[hidden] {
-  display: none;
-}
-
-.pager__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--pill-border);
-  border-radius: 10px;
-  background: transparent;
-  color: var(--ink);
+.verb {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
   cursor: pointer;
 }
 
-.pager__btn svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.js .statement .verb:hover {
+  text-decoration-color: var(--ink);
 }
 
-.pager__btn:hover {
-  background: var(--pill-hover);
+/* While a word is pointed at or picked, the rest of the sentence steps
+   back to grey and that word stays ink. */
+.statement.is-quiet {
+  color: var(--quiet);
 }
 
-.pager__btn:disabled {
-  opacity: 0.35;
-  cursor: default;
+.js .statement .verb.is-lit,
+.js .statement .verb[aria-pressed="true"] {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
 }
 
-.pager__btn:disabled:hover {
-  background: transparent;
-}
-
-.pager__count {
-  min-width: 70px;
-  font-family: var(--mono);
-  font-size: 14px;
-  text-align: center;
-  color: var(--muted);
-}
-
-.pager--dark .pager__btn {
-  border-color: #3a4048;
-  color: #fff;
-}
-
-.pager--dark .pager__btn:hover {
-  background: var(--dark-2);
-}
-
-.pager--dark .pager__count {
-  color: var(--dark-muted);
-}
-
-/* ---------- Featured band ---------- */
-
-.featured {
-  padding: 72px 0 56px;
-  background: var(--dark);
-  color: #fff;
-  --focus-ring: #fff;
-}
-
-.featured__track {
-  display: grid;
-  row-gap: 72px;
-}
-
-.feat {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  align-items: center;
-  gap: 64px;
-}
-
-/* Cover art: 16:9, edge to edge (assets/covers/). */
-.feat__media {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 16px;
-}
-
-.feat__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.feat__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 14px;
+.hero__by {
+  margin-top: 28px;
   font-size: 15px;
-  color: var(--dark-muted);
+  line-height: 1.7;
+  color: var(--secondary);
 }
 
-.feat__tag {
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: var(--dark-2);
-  font-size: 13px;
-  color: #e3e6ea;
+.hero__by span:not(.sl) {
+  white-space: nowrap;
 }
 
-.feat__title {
-  margin: 18px 0 16px;
-  font-weight: 600;
-  font-size: clamp(26px, 2.8vw, 40px);
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-  text-wrap: balance;
-}
-
-/* The whole slide is one link target. */
-.feat__title a::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-}
-
-.feat__title a:focus-visible {
-  outline: none;
-}
-
-.feat__title a:focus-visible::after {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 6px;
-}
-
-.feat:hover .feat__title a {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
-}
-
-.feat__desc {
-  font-size: 17px;
-  line-height: 1.65;
-  color: #c4c9d0;
-}
-
-.feat__cta {
-  margin-top: 24px;
-  font-weight: 500;
-  font-size: 15px;
-}
-
-/* ---------- All work ---------- */
+/* ---------- Work ---------- */
 
 .work {
-  padding-top: 120px;
   padding-bottom: 64px;
-  scroll-margin-top: 80px;
-}
-
-.work__count {
-  padding-bottom: 22px;
-  border-bottom: 1px solid var(--rule);
-  font-family: var(--mono);
-  font-size: 15px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.work__count-label {
-  margin-left: 8px;
-  color: var(--muted);
+  scroll-margin-top: 100px;
 }
 
 .work__bar {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 12px 24px;
-  padding: 24px 0 8px;
+  gap: 8px 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
 }
 
-.work__bar[hidden] {
+.work__count {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.work__count-label {
+  margin-left: 6px;
+  color: var(--muted);
+}
+
+/* Filter row: the same three words as the statement, plus All. */
+.filters {
+  display: flex;
+  align-items: baseline;
+  font-size: 14px;
+}
+
+.filters[hidden] {
   display: none;
 }
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.pill--filter[aria-pressed="true"] {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: #fff;
-}
-
-.work__sort {
-  font-family: var(--mono);
-  font-size: 13px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.filter {
+  padding: 6px 0;
+  border: 0;
+  background: none;
   color: var(--muted);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.2;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 5px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.filter:hover {
+  color: var(--ink);
+}
+
+.filter[aria-pressed="true"] {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
 }
 
 /* Work grid: two equal columns. Every piece is the same size: a 16:9
@@ -671,7 +481,12 @@ body {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 40px;
   row-gap: 72px;
-  padding-top: 48px;
+}
+
+/* (.work .canvas, because the list reset in base.css outranks .canvas
+   alone and would zero this padding.) */
+.work .canvas {
+  padding-top: 32px;
 }
 
 .piece {
@@ -679,6 +494,12 @@ body {
   display: flex;
   flex-direction: column;
   align-self: start;
+  transition: opacity 0.2s ease;
+}
+
+/* Pointing at a word in the statement fades the pieces that don't show it. */
+.piece.is-dim {
+  opacity: 0.28;
 }
 
 .piece[hidden] {
@@ -689,7 +510,7 @@ body {
    long category is cut with an ellipsis before the date wraps. */
 .piece__meta {
   display: flex;
-  gap: 14px;
+  align-items: baseline;
   margin-bottom: 10px;
   font-size: 13px;
   line-height: 1.4;
@@ -708,6 +529,7 @@ body {
 }
 
 .piece__img {
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border: 1px solid var(--rule);
   border-radius: 6px;
@@ -715,11 +537,14 @@ body {
   transition: border-color 0.2s ease;
 }
 
-.piece__img img {
+/* The cover is an <img>, or the same drawing inline once js/home.js has
+   swapped it in (.cover). */
+.piece__img img,
+.piece__img .cover {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
-
 
 .piece__title {
   margin-top: 16px;
@@ -754,7 +579,7 @@ body {
 }
 
 .piece:hover .piece__img {
-  border-color: var(--box-stroke, #b9b6ae);
+  border-color: #b9bec6;
 }
 
 .piece__desc {
@@ -881,30 +706,122 @@ body {
   color: var(--dark-muted);
 }
 
+/* ---------- Cover motion ----------
+   Each cover is a still diagram of what its piece is about; pointing at
+   the card (or tabbing to its title) plays it. js/home.js draws the cover
+   inline and exposes its Figma layer names as data-part. A layer that is
+   missing or renamed simply doesn't move. Off for reduced motion. */
+
+/* How far along the curve the coral point sits, as the curve's own
+   parameter: 0.8191 is its drawn position, 0.1809 the dashed ring. */
+@property --t {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.8191;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Feedback generation: the point slides down the curve and settles in
+     the dashed ring, back at the mistake. The curve is
+     x = 330 + 940t, y = 150 + 2400t(1 - t) in the cover's 1600×900 frame. */
+  .cover--mufin-generation [data-part="right-point"] {
+    --t: 0.8191;
+    transform: translate(
+      calc((var(--t) - 0.8191) * 940px),
+      calc((var(--t) - var(--t) * var(--t) - 0.14817) * 2400px)
+    );
+    transition: --t 1.1s cubic-bezier(0.5, 0, 0.2, 1);
+  }
+
+  .piece:hover .cover--mufin-generation [data-part="right-point"],
+  .piece:focus-within .cover--mufin-generation [data-part="right-point"] {
+    --t: 0.1809;
+  }
+
+  /* Pathway analysis: the main band steps back so the red strand, the
+     cases that break the pattern, is what you see. */
+  .cover--mufin-pathway [data-part="most-episodes"] {
+    transition: opacity 0.5s ease;
+  }
+
+  .piece:hover .cover--mufin-pathway [data-part="most-episodes"],
+  .piece:focus-within .cover--mufin-pathway [data-part="most-episodes"] {
+    opacity: 0.3;
+  }
+
+  /* KeyPalette: the three keycaps are repainted one after another, each
+     taking its neighbour's colour (--f body, --g grid, --d dish). */
+  .cover--keypalette [data-part="blue-key"]  { --f: #2f55ae; --g: #22407f; --d: #1b3468; --wait: 0s; }
+  .cover--keypalette [data-part="cream-key"] { --f: #f6f0e3; --g: #d8cfbb; --d: #bdb29a; --wait: 0.12s; }
+  .cover--keypalette [data-part="coral-key"] { --f: #e5633f; --g: #b94a2b; --d: #9c3a20; --wait: 0.24s; }
+
+  .piece:hover .cover--keypalette [data-part="blue-key"],
+  .piece:focus-within .cover--keypalette [data-part="blue-key"]  { --f: #e5633f; --g: #b94a2b; --d: #9c3a20; }
+  .piece:hover .cover--keypalette [data-part="cream-key"],
+  .piece:focus-within .cover--keypalette [data-part="cream-key"] { --f: #2f55ae; --g: #22407f; --d: #1b3468; }
+  .piece:hover .cover--keypalette [data-part="coral-key"],
+  .piece:focus-within .cover--keypalette [data-part="coral-key"] { --f: #f6f0e3; --g: #d8cfbb; --d: #bdb29a; }
+
+  .cover--keypalette [data-part$="-key-body"] > path,
+  .cover--keypalette [data-part$="-key-dish"] {
+    transition: fill 0.4s ease var(--wait), stroke 0.4s ease var(--wait);
+  }
+
+  .cover--keypalette [data-part$="-key-body"] > path:nth-of-type(1) { fill: var(--f); }
+  .cover--keypalette [data-part$="-key-body"] > path:nth-of-type(2) { stroke: var(--g); }
+  .cover--keypalette [data-part$="-key-dish"] { stroke: var(--d); }
+
+  /* MeArm: the arm swings from one edge of its sweep to the other, turning
+     about the joint at (500, 720). */
+  .cover--mearm [data-part="arm"] {
+    transform-origin: 500px 720px;
+    transform: rotate(-78deg);
+    transition: transform 1s cubic-bezier(0.5, 0, 0.2, 1);
+  }
+
+  .piece:hover .cover--mearm [data-part="arm"],
+  .piece:focus-within .cover--mearm [data-part="arm"] {
+    transform: rotate(-18deg);
+  }
+}
+
 /* ---------- 404 ---------- */
 
 .notfound {
-  padding-top: 88px;
+  padding-top: 72px;
   padding-bottom: 160px;
 }
 
-.notfound__code {
-  font-family: var(--mono);
-  font-size: 15px;
-  letter-spacing: 0.08em;
-  color: var(--muted);
+/* "404" in the wordmark's letters, with the drawn slash standing in for
+   the zero, as it stands in for the I in the name. */
+.notfound__mark {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--brand);
+  font-stretch: 115%;
+  font-weight: 600;
+  font-size: clamp(80px, 13vw, 160px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.notfound__mark .brand__slash {
+  --a: 42deg;
+  --t: 0.9;
+  --bw: 0.18em;
+  margin: 0 0.05em 0 0.03em;
 }
 
 .notfound__title {
-  margin-top: 20px;
+  margin-top: 36px;
   font-weight: 600;
-  font-size: clamp(36px, 4.5vw, 64px);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  font-size: clamp(30px, 3.4vw, 46px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 }
 
 .notfound__text {
-  margin-top: 20px;
+  margin-top: 16px;
   font-size: 20px;
   line-height: 1.6;
   color: var(--secondary);
@@ -919,41 +836,12 @@ body {
   text-underline-position: from-font;
 }
 
-/* ---------- Carousel mode (JavaScript on) ----------
-   Without JavaScript the featured pieces stack and the project columns
-   sit in a grid (or stack on small screens). */
-
-.js .featured__track {
-  display: flex;
-  gap: 64px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-
-.js .featured__track::-webkit-scrollbar,
-.js .projects__track::-webkit-scrollbar {
-  display: none;
-}
-
-.js .feat {
-  flex: 0 0 100%;
-  scroll-snap-align: start;
-}
-
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1100px) {
-
-
-
   .about {
     grid-template-columns: 180px minmax(0, 1fr);
     gap: 32px;
-  }
-
-  .feat {
-    gap: 40px;
   }
 }
 
@@ -963,51 +851,15 @@ body {
     row-gap: 56px;
   }
 
-  .projects__track {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 40px;
-  }
-
-  .js .projects__track {
-    grid-template-columns: none;
-    grid-template-rows: repeat(3, auto);
-    grid-auto-flow: column;
-    grid-auto-columns: min(360px, 86%);
-    gap: 16px 24px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .js .proj {
-    grid-row: 1 / span 3;
-    scroll-snap-align: start;
-  }
-
-  .feat {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
-  }
-
-  .featured {
-    padding: 64px 0 40px;
+  .hero {
+    padding-top: 48px;
+    padding-bottom: 56px;
   }
 }
 
-/* Header: pills fold into a menu button. */
+/* Header: the links fold into a menu button. */
 @media (max-width: 820px) {
-  .hdr__bar {
-    grid-template-columns: 1fr auto;
-    height: 72px;
-  }
-
-  .hdr.is-scrolled .hdr__bar {
-    height: 64px;
-  }
-
   .brand {
-    grid-column: 1;
-    justify-self: start;
     font-size: 20px;
   }
 
@@ -1015,33 +867,30 @@ body {
     font-size: 22px;
   }
 
-  /* No JavaScript: the pills wrap under the name. */
-  .hdr__links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 10px;
-    grid-column: 1 / -1;
-    grid-row: 2;
-    padding-bottom: 14px;
-  }
-
+  /* No JavaScript: the links wrap under the name. */
   .hdr__bar {
+    flex-wrap: wrap;
+    row-gap: 0;
     height: auto;
     min-height: 72px;
   }
 
-  .hdr__nav ul {
-    flex-wrap: wrap;
+  .hdr.is-scrolled .hdr__bar {
+    height: auto;
   }
 
-  .hdr__nav--main,
-  .hdr__nav--aside {
-    grid-column: auto;
-    grid-row: auto;
-    justify-self: stretch;
+  .hdr__links {
+    flex-basis: 100%;
+    padding-bottom: 12px;
+  }
+
+  .hdr__nav ul {
+    flex-wrap: wrap;
+    gap: 2px 24px;
   }
 
   .js .hdr__bar {
+    flex-wrap: nowrap;
     height: 72px;
   }
 
@@ -1051,8 +900,6 @@ body {
 
   .js .hdr__toggle {
     display: inline-flex;
-    grid-column: 2;
-    grid-row: 1;
   }
 
   .js .hdr__links {
@@ -1064,26 +911,32 @@ body {
     top: 100%;
     left: -24px;
     right: -24px;
-    display: grid;
-    gap: 14px;
+    display: block;
     max-height: calc(100vh - 72px);
     overflow-y: auto;
-    padding: 16px 24px 24px;
+    padding: 8px 24px 20px;
     border-bottom: 1px solid var(--rule);
     background: var(--bg);
     color: var(--ink);
     --focus-ring: #101418;
   }
 
-  .js .hdr.is-open .hdr__nav ul {
+  .js .hdr.is-open .hdr__nav > ul {
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: stretch;
-    gap: 6px;
+    gap: 0;
   }
 
-  .js .hdr.is-open .pill {
-    border-color: var(--pill-border);
-    background: transparent;
+  .js .hdr.is-open .hdr__nav > ul > li + li {
+    border-top: 1px solid var(--rule);
+  }
+
+  .js .hdr.is-open .nav__link {
+    display: flex;
+    padding: 16px 4px;
+    color: var(--ink);
+    font-size: 16px;
   }
 
   /* In the menu, dropdown lists are shown inline instead of on demand. */
@@ -1095,7 +948,7 @@ body {
     position: static;
     display: block;
     width: auto;
-    padding: 0;
+    padding: 6px 0;
     border: 0;
     box-shadow: none;
     background: transparent;
@@ -1104,24 +957,9 @@ body {
   .js .hdr.is-open .dd__panel a {
     padding: 10px 4px;
   }
-
-  .statement {
-    padding-top: 32px;
-    padding-bottom: 44px;
-  }
 }
 
 @media (max-width: 640px) {
-  .canvas {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 48px;
-    padding-top: 32px;
-  }
-
-  .piece__title {
-    font-size: 20px;
-  }
-
   .wrap {
     --gutter: 20px;
   }
@@ -1136,18 +974,28 @@ body {
     padding-inline: 20px;
   }
 
-  .projects {
-    padding-bottom: 48px;
+  .hero {
+    padding-top: 36px;
+    padding-bottom: 44px;
   }
 
-  .work {
-    padding-top: 80px;
+  .hero__by {
+    margin-top: 22px;
+    font-size: 14px;
   }
 
+  .canvas {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 48px;
+  }
 
+  .work .canvas {
+    padding-top: 24px;
+  }
 
-
-
+  .piece__title {
+    font-size: 20px;
+  }
 
   .about {
     grid-template-columns: minmax(0, 1fr);

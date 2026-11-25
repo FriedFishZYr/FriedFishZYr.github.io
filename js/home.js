@@ -1,19 +1,21 @@
 /* ==========================================================================
-   home.js — Home page only, loaded with `defer`. No libraries, no network
-   requests. Without JavaScript the page still works: the full name stays
-   in the header, pills are plain links, featured pieces stack, and every
-   piece of work is listed.
+   home.js — Home page only, loaded with `defer`. No libraries. Without
+   JavaScript the page still works: the full name stays in the header, the
+   links are plain links, the statement is a plain sentence, and every
+   piece of work is listed with a still cover.
 
    1. Header: dark bar + name collapses to "Y/Z" once the page scrolls.
    2. Dropdowns (Work, Contact) and the mobile menu.
-   3. Carousels (project columns on small screens, featured band).
-   4. Filters for the list of work.
+   3. Statement words and the filter row: study / design / build.
+   4. Covers: drawn inline so their parts can move on hover (css/home.css).
    ========================================================================== */
 
 (function () {
   "use strict";
 
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  function all(selector, root) {
+    return Array.prototype.slice.call((root || document).querySelectorAll(selector));
+  }
 
   /* ---------- 1. Header ---------- */
 
@@ -27,7 +29,7 @@
     function measure() {
       var wasScrolled = hdr.classList.contains("is-scrolled");
       hdr.classList.remove("is-scrolled");
-      Array.prototype.forEach.call(hdr.querySelectorAll(".brand__c"), function (el) {
+      all(".brand__c", hdr).forEach(function (el) {
         el.style.setProperty("--w", "none");
         el.style.setProperty("--w", el.getBoundingClientRect().width + 1 + "px");
       });
@@ -53,7 +55,7 @@
 
     // Each dropdown is a plain link in the HTML (so it works without
     // JavaScript); here it becomes a button that opens its panel.
-    Array.prototype.forEach.call(hdr.querySelectorAll("[data-dd]"), function (link) {
+    all("[data-dd]", hdr).forEach(function (link) {
       var panel = document.getElementById(link.getAttribute("data-dd"));
       if (!panel) return;
       var btn = document.createElement("button");
@@ -134,99 +136,97 @@
     });
   }
 
-  /* ---------- 3. Carousels ---------- */
+  /* ---------- 3. Statement words and filter row ----------
+     Each piece lists what it shows in data-skills ("study", "design",
+     "build"). The three marked words in the statement and the row above
+     the grid are two sets of buttons for the same filter. Pointing at a
+     word previews it (the other pieces fade); pressing it keeps only the
+     matching pieces; pressing it again shows everything. */
 
-  function initCarousel(root) {
-    var track = root.querySelector("[data-track]");
-    var pager = root.querySelector("[data-pager]");
-    if (!track || !pager) return;
-    var slides = Array.prototype.slice.call(track.querySelectorAll("[data-slide]"));
-    var prev = pager.querySelector("[data-prev]");
-    var next = pager.querySelector("[data-next]");
-    var countEl = pager.querySelector("[data-count]");
-    var totalEl = pager.querySelector("[data-total]");
-    var index = 0;
-
-    function pad(n) {
-      return n < 10 ? "0" + n : String(n);
-    }
-    totalEl.textContent = pad(slides.length);
-
-    // Index of the slide nearest the left edge of the track.
-    function current() {
-      var left = track.getBoundingClientRect().left;
-      var best = 0;
-      var bestDist = Infinity;
-      slides.forEach(function (s, i) {
-        var d = Math.abs(s.getBoundingClientRect().left - left);
-        if (d < bestDist) {
-          bestDist = d;
-          best = i;
-        }
-      });
-      return best;
-    }
-
-    function atEnd() {
-      return track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
-    }
-
-    function sync() {
-      var overflow = track.scrollWidth > track.clientWidth + 2;
-      pager.hidden = !overflow;
-      if (!overflow) return;
-      index = atEnd() ? slides.length - 1 : current();
-      countEl.textContent = pad(index + 1);
-      prev.disabled = track.scrollLeft <= 2;
-      next.disabled = atEnd();
-    }
-
-    function go(i) {
-      i = Math.max(0, Math.min(slides.length - 1, i));
-      var left = slides[i].offsetLeft - slides[0].offsetLeft;
-      track.scrollTo({ left: left, behavior: reduce.matches ? "auto" : "smooth" });
-    }
-
-    prev.addEventListener("click", function () {
-      go(current() - 1);
-    });
-    next.addEventListener("click", function () {
-      go(current() + 1);
-    });
-
-    var raf = 0;
-    track.addEventListener("scroll", function () {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(sync);
-    });
-    window.addEventListener("resize", sync);
-    sync();
-  }
-
-  /* ---------- 4. Filters ---------- */
-
-  function initFilters() {
+  function initSkills() {
+    var pieces = all(".piece[data-skills]");
+    var statement = document.querySelector("[data-statement]");
     var bar = document.querySelector("[data-filters]");
-    if (!bar) return;
-    var rows = Array.prototype.slice.call(document.querySelectorAll(".piece[data-project]"));
-    var buttons = Array.prototype.slice.call(bar.querySelectorAll("[data-filter]"));
     var countEl = document.querySelector("[data-work-count]");
     var labelEl = document.querySelector("[data-work-label]");
-    bar.hidden = false;
+    if (!pieces.length) return;
 
-    function apply(filter) {
-      var n = 0;
-      rows.forEach(function (r) {
-        var show = filter === "all" || r.getAttribute("data-project") === filter;
-        r.hidden = !show;
-        if (show) n++;
+    var current = "all";
+    var hovered = null;
+
+    // The marked words become real buttons.
+    var words = statement
+      ? all("[data-skill]", statement).map(function (span) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "verb";
+          btn.textContent = span.textContent;
+          btn.setAttribute("data-skill", span.getAttribute("data-skill"));
+          btn.setAttribute("aria-pressed", "false");
+          btn.setAttribute("aria-controls", "work-grid");
+          span.parentNode.replaceChild(btn, span);
+          return btn;
+        })
+      : [];
+    var buttons = bar ? all("[data-filter]", bar) : [];
+    if (bar) bar.hidden = false;
+
+    function shows(piece, skill) {
+      return skill === "all" || piece.getAttribute("data-skills").split(/\s+/).indexOf(skill) !== -1;
+    }
+
+    function paint() {
+      pieces.forEach(function (p) {
+        p.classList.toggle("is-dim", !!hovered && !shows(p, hovered));
+      });
+      words.forEach(function (w) {
+        var skill = w.getAttribute("data-skill");
+        w.setAttribute("aria-pressed", String(skill === current));
+        w.classList.toggle("is-lit", skill === hovered);
       });
       buttons.forEach(function (b) {
-        b.setAttribute("aria-pressed", String(b.getAttribute("data-filter") === filter));
+        b.setAttribute("aria-pressed", String(b.getAttribute("data-filter") === current));
       });
-      countEl.textContent = n;
-      labelEl.textContent = n === 1 ? "piece" : "pieces";
+      if (statement) statement.classList.toggle("is-quiet", current !== "all" || !!hovered);
     }
+
+    function apply(skill) {
+      current = skill;
+      var n = 0;
+      pieces.forEach(function (p) {
+        var show = shows(p, skill);
+        p.hidden = !show;
+        if (show) n++;
+      });
+      if (countEl) countEl.textContent = n;
+      if (labelEl) labelEl.textContent = n === 1 ? "piece" : "pieces";
+      paint();
+    }
+
+    function preview(skill) {
+      hovered = skill;
+      paint();
+    }
+
+    words.forEach(function (w) {
+      var skill = w.getAttribute("data-skill");
+      w.addEventListener("click", function () {
+        hovered = null;
+        apply(current === skill ? "all" : skill);
+      });
+      w.addEventListener("mouseenter", function () {
+        preview(skill);
+      });
+      w.addEventListener("mouseleave", function () {
+        preview(null);
+      });
+      w.addEventListener("focus", function () {
+        if (w.matches(":focus-visible")) preview(skill);
+      });
+      w.addEventListener("blur", function () {
+        preview(null);
+      });
+    });
 
     buttons.forEach(function (b) {
       b.addEventListener("click", function () {
@@ -235,11 +235,58 @@
     });
   }
 
+  /* ---------- 4. Covers ----------
+     The covers are SVG files (assets/covers/). To move their parts on
+     hover, each <img data-cover="name"> is swapped for the same drawing
+     inline. Layer names from Figma arrive as ids; they are copied to
+     data-part (which the CSS uses) and the ids are prefixed with the cover
+     name, so two covers on one page never share an id. If a file fails to
+     load or a layer is renamed, the cover simply stays still. */
+
+  function initCovers() {
+    if (!window.fetch || !window.DOMParser) return;
+
+    all("img[data-cover]").forEach(function (img) {
+      var name = img.getAttribute("data-cover");
+
+      fetch(img.getAttribute("src"))
+        .then(function (res) {
+          if (!res.ok) throw new Error(res.status);
+          return res.text();
+        })
+        .then(function (text) {
+          var svg = new DOMParser().parseFromString(text, "image/svg+xml").documentElement;
+          if (!svg || svg.nodeName.toLowerCase() !== "svg") return;
+
+          all("script", svg).forEach(function (el) {
+            el.parentNode.removeChild(el);
+          });
+          all("[id]", svg).forEach(function (el) {
+            el.setAttribute("data-part", el.id);
+            el.id = name + "-" + el.id;
+          });
+          all("[clip-path]", svg).forEach(function (el) {
+            el.setAttribute("clip-path", el.getAttribute("clip-path").replace(/url\(#([^)]+)\)/, "url(#" + name + "-$1)"));
+          });
+
+          svg.removeAttribute("width");
+          svg.removeAttribute("height");
+          svg.setAttribute("class", "cover cover--" + name);
+          svg.setAttribute("role", "img");
+          svg.setAttribute("aria-label", img.getAttribute("alt") || "");
+          img.parentNode.replaceChild(document.importNode(svg, true), img);
+        })
+        .catch(function () {
+          /* Keep the still image. */
+        });
+    });
+  }
+
   function init() {
     initHeader();
     initMenus();
-    Array.prototype.forEach.call(document.querySelectorAll("[data-carousel]"), initCarousel);
-    initFilters();
+    initSkills();
+    initCovers();
   }
 
   if (document.readyState === "loading") {
